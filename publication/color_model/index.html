@@ -157,7 +157,7 @@
 
 
   <div class="container pub-title">
-    <h1 itemprop="name">Fully synthetic training for image restoration tasks
+    <h1 itemprop="name">Learning Raw Image Denoising Using a Parametric Color Image Model
 </h1>
     <span class="pub-authors" itemprop="author">
       
@@ -174,17 +174,7 @@
 
     <h3>Abstract</h3>
     <p class="pub-abstract" itemprop="text">
-      In this work, we show that neural networks aimed at solving various image restoration tasks can be successfully
-      trained on fully synthetic data. In order to do so, we rely on a generative model of images, the scaling dead
-      leaves model, which is obtained by superimposing disks whose size distribution is scale-invariant. Pairs of
-      clean and corrupted synthetic images can then be obtained by a careful simulation of the degradation process.
-      We show on various restoration tasks that such a synthetic training yields results that are only slightly inferior
-      to those obtained when the training is performed on large natural image databases. This implies that, for
-      restoration tasks, the geometric contents of natural images can be nailed down to only a simple generative
-      model and a few parameters. This prior can then be used to train neural networks for specific modality,
-      without having to rely on demanding campaigns of natural images acquisition. We demonstrate the feasibility
-      of this approach on difficult restoration tasks, including the denoising of smartphone RAW images and the full
-      development of low-light images.
+      Deep learning methods for image restoration have produced impressive results over recent years. Nevertheless, they generalize poorly and need large learning image datasets to be collected for each new acquisition modality. In order to avoid the building of such datasets, it has been recently proposed to develop synthetic image datasets for training image restoration methods, using scale invariant dead leaves models. While the geometry of such models can be successfully encoded with only a few parameters, the color content cannot be straightforwardly encoded. In this paper, we leverage the concept of color lines prior to build a light parametric color model relying on a chromaticity/luminance factorization. Further, we show that the corresponding synthetic dataset can be used to train neural networks for the denoising of RAW images from different camera-phones, without using any image from these devices. This shows the potential of our approach to increase the generalization capacity of learning-based denoising approaches in real case scenarios.
     </p>
     
     

@@ -157,7 +157,7 @@
 
 
   <div class="container pub-title">
-    <h1 itemprop="name">Fully synthetic training for image restoration tasks
+    <h1 itemprop="name">Hybrid Training of Denoising Networks to Improve the Texture Acutance of Digital Cameras
 </h1>
     <span class="pub-authors" itemprop="author">
       
@@ -174,17 +174,7 @@
 
     <h3>Abstract</h3>
     <p class="pub-abstract" itemprop="text">
-      In this work, we show that neural networks aimed at solving various image restoration tasks can be successfully
-      trained on fully synthetic data. In order to do so, we rely on a generative model of images, the scaling dead
-      leaves model, which is obtained by superimposing disks whose size distribution is scale-invariant. Pairs of
-      clean and corrupted synthetic images can then be obtained by a careful simulation of the degradation process.
-      We show on various restoration tasks that such a synthetic training yields results that are only slightly inferior
-      to those obtained when the training is performed on large natural image databases. This implies that, for
-      restoration tasks, the geometric contents of natural images can be nailed down to only a simple generative
-      model and a few parameters. This prior can then be used to train neural networks for specific modality,
-      without having to rely on demanding campaigns of natural images acquisition. We demonstrate the feasibility
-      of this approach on difficult restoration tasks, including the denoising of smartphone RAW images and the full
-      development of low-light images.
+      In order to evaluate the capacity of a camera to render textures properly, the standard practice, used by classical scoring protocols, is to compute the frequential response to a dead leaves image target, from which is built a texture acutance metric. In this work, we propose a mixed training procedure for image restoration neural networks, relying on both natural and synthetic images, that yields a strong improvement of this acutance metric without impairing fidelity terms. The feasibility of the approach is demonstrated both on the denoising of RGB images and the full development of RAW images, opening the path to a systematic improvement of the texture acutance of real imaging devices.
     </p>
     
     
@@ -195,7 +185,7 @@
           <div class="col-xs-12 col-sm-3 pub-row-heading">Type</div>
           <div class="col-xs-12 col-sm-9">
             
-            <a href="/publication/#4">
+            <a href="/publication/#3">
               Accepted
             </a>
             
@@ -239,7 +229,7 @@
         <div class="row">
           <div class="col-xs-12 col-sm-3 pub-row-heading" style="line-height:34px;">Links</div>
           <div class="col-xs-12 col-sm-9">
-	    <a href="https://telecom-paris.hal.science/hal-03940525v1">HAL link</a>
+	    <a href="https://link.springer.com/chapter/10.1007/978-3-031-31975-4_24">Springer link</a>
           </div>
         </div>
       </div>
