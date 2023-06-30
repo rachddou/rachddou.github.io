@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Projects on vdb</title>
+    <link>/project/</link>
+    <description>Recent content in Projects on vdb</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2017 De Bortoli</copyright>
+    <lastBuildDate>Wed, 27 Apr 2016 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/project/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Differential Calculus</title>
+      <link>/project/differential-calculus/</link>
+      <pubDate>Wed, 27 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>/project/differential-calculus/</guid>
+      <description> Outline Professor: Frédéric Pascal Timetable: wednesday 1:45PM to 4:45PM
+In this course we present the basics of differential calculus.
+test References  Petit guide de calcul différentiel : à l&amp;rsquo;usage de la licence et de l&amp;rsquo;agrégation (Rouvière) Topologie, calcul différentiel et variable complexe (Saint Raymond) Calcul différentiel et équations différentielles (Benzoni-Gavage) Analyse (Gourdon) Introduction aux variétés différentielles (Lafontaine) Convex Optimization (Boyd) Introductory Lectures on Convex Programming (Nesterov) I&amp;rsquo;m a bandit (Bubeck)  Exercises  Topologie et espaces métriques (I) Topologie et espaces métriques (II) Topologie et espaces métriques (III) Théorèmes de point fixe Différentielles classiques Différentielles d&amp;rsquo;ordre supérieur Inversion locale et fonctions implicites (I) Inversion locale et fonctions implicites (II) Sous-variétés (I) Sous-variétés (II) Optimisation  </description>
+    </item>
+    
+    <item>
+      <title>Hilbert Analysis</title>
+      <link>/project/hilbert_analysis/</link>
+      <pubDate>Wed, 27 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>/project/hilbert_analysis/</guid>
+      <description>Outline In this course we present some fundamental properties of Hilbert spaces. Some applications to PDE in Sobolev spaces are presented as well as examples of Hilbertian bases ($L^2(\mathbb{R})$, $L^2(\mathbb{T})$, orthogonal polynomials&amp;hellip;). Only sequential convergence properties of the weak topology are addressed here. We conclude this small course by giving elements for the diagonalization of auto-adjoint compact operators on separable Hilbert spaces.
+This course is adapted from the one of my predecessor: Maxime Breden (thank you!</description>
+    </item>
+    
+    <item>
+      <title>Optimization</title>
+      <link>/project/optimization/</link>
+      <pubDate>Wed, 27 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>/project/optimization/</guid>
+      <description>Outline Professor: Alain Trouvé Teaching Assistants: Xavier Fontaine, Alain Durmus Timetable: tuesday 9a.m to 1p.m
+In this course we present an introductory course to the field of optimization. Classic algorithms such as Gradient Descent, Optimal Gradient Descent and Newton Methods will be presented. Optimization under constraints (equality and inequality constraints) will be discussed. Theoretical results about optimization of non-smooth functionals will be presented using sub-gradients and the Fenchel transformation. These notions will be illustrated with exercises and pratical work with applications in image processing.</description>
+    </item>
+    
+  </channel>
+</rss>
