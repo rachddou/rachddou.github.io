@@ -1,0 +1,19 @@
+# Ignore all .tex files and related auxiliary files
+*.tex
+*.aux
+*.log
+*.out
+*.toc
+*.bbl
+*.blg
+*.synctex.gz
+*.fdb_latexmk
+*.fls
+*.dvi
+*.pdf
+*.ps
+*.lof
+*.lot
+*.nav
+*.snm
+*.vrb
