@@ -2,7 +2,7 @@
 layout: about
 title: about
 permalink: /
-subtitle: <a href='#'>Affiliations</a>. Maître de Conférences, ESIEE Paris
+subtitle:  Maître de Conférences, ESIEE Paris
 
 profile:
   align: left
