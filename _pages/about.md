@@ -7,11 +7,11 @@ subtitle: <a href='#'>Affiliations</a>. Address. Contacts. Motto. Etc.
 profile:
   align: right
   image: prof_pic.jpg
-  image_circular: false # crops the image to make it circular
+  image_circular: true # crops the image to make it circular
   more_info: >
-    <p>555 your office number</p>
-    <p>123 your address street</p>
-    <p>Your City, State 12345</p>
+
+    <p> <a href="https://www.esiee.fr/en/">ESIEE Paris</a>, 2 Bd Blaise Pascal</p>
+    <p>93160 Noisy-le-Grand, France</p>
 
 selected_papers: true # includes a list of papers marked as "selected={true}"
 social: true # includes social icons at the bottom of the page
@@ -26,9 +26,8 @@ latest_posts:
   scrollable: true # adds a vertical scroll bar if there are more than 3 new posts items
   limit: 3 # leave blank to include all the blog posts
 ---
+**Maître de Conférences**
 
-Write your biography here. Tell the world about yourself. Link to your favorite [subreddit](http://reddit.com). You can put a picture in, too. The code is already in, just name your picture `prof_pic.jpg` and put it in the `img/` folder.
+I am an Assistant Professor (Maitre de Conférences) teaching at [ESIEE Paris](https://www.esiee.fr/en/) and affiliated with the [LIGM](https://siteigm.univ-mlv.fr/#:~:text=Le%20Laboratoire%20d'Informatique%20Gaspard%20Monge%20(LIGM)%20est,Paris%20et%20%C3%A0%20l'%C3%89cole%20des%20Ponts%20ParisTech.) laboratory, in the [A3SI](https://siteigm.univ-mlv.fr/equipe/a3si/) team. My main research interests are computer vision, image processing, and the statistical modelling of natural images. In particular, I work on solving imaging inverse problems with deep learning.
 
-Put your address / P.O. box / other info right below your picture. You can also disable any of these elements by editing `profile` property of the YAML header of your `_pages/about.md`. Edit `_bibliography/papers.bib` and Jekyll will render your [publications page](/al-folio/publications/) automatically.
-
-Link to your social media connections, too. This theme is set up to use [Font Awesome icons](https://fontawesome.com/) and [Academicons](https://jpswalsh.github.io/academicons/), like the ones below. Add your Facebook, Twitter, LinkedIn, Google Scholar, or just disable all of them.
+Before joining ESIEE, I was a postdoctoral researcher at EPFL working under the supervision of [Sabine Süsstrunk](https://people.epfl.ch/sabine.susstrunk) in the [IVRL](https://www.epfl.ch/labs/ivrl/) laboratory. I obtained my PhD in Signal and Data Processing from the Institut Polytechnique de Paris, with Pr.[Yann Gousseau](https://perso.telecom-paristech.fr/gousseau/) and Pr.[Saïd Ladjal](https://perso.telecom-paristech.fr/ladjal/).  During my PhD, I was affiliated with the IMAGES team of Télécom Paris LTCI lab.

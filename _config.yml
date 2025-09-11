@@ -7,7 +7,7 @@ first_name: Raphael
 middle_name: 
 last_name: Achddou
 contact_note: >
-  You can even add a little note about which of these is the best way to reach you.
+  The best way to reach out is via e-mail: raphael[dot]achddou[at]esiee[dot]fr
 description: > # the ">" symbol means to ignore newlines until "footer_text:"
   A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
 footer_text: >
@@ -192,6 +192,11 @@ exclude:
   - README.md
   - readme_preview/
   - vendor
+  - _pages/projects.md
+  - _pages/dropdown.md
+  - _pages/blog.md
+  - _pages/repositories.md
+  - _pages/people.md
 keep_files:
   - CNAME
   - .nojekyll
