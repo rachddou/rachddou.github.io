@@ -5,23 +5,39 @@
 
 
 
-@inproceedings{achddou2021synthetic,
-  title={Synthetic images as a regularity prior for image restoration neural networks},
-  author={Achddou, Rapha{\"e}l and Gousseau, Yann and Ladjal, Sa{\"\i}d},
-  booktitle={International Conference on Scale Space and Variational Methods in Computer Vision},
-  pages={333--345},
-  year={2021},
-  organization={Springer}
+@InProceedings{10.1007/978-3-030-75549-2_27,
+author="Achddou, Rapha{\"e}l
+and Gousseau, Yann
+and Ladjal, Sa{\"i}d",
+editor="Elmoataz, Abderrahim
+and Fadili, Jalal
+and Qu{\'e}au, Yvain
+and Rabin, Julien
+and Simon, Lo{\"i}c",
+title="Synthetic Images as a Regularity Prior for Image Restoration Neural Networks",
+booktitle="Scale Space and Variational Methods in Computer Vision",
+year="2021",
+publisher="Springer International Publishing",
+address="Cham",
+pages="333--345",
+abstract="Deep neural networks have recently surpassed other image restoration methods which rely on hand-crafted priors. However, such networks usually require large databases and need to be retrained for each new modality. In this paper, we show that we can reach near-optimal performances by training them on a synthetic dataset made of realizations of a dead leaves model, both for image denoising and super-resolution. The simplicity of this model makes it possible to create large databases with only a few parameters. We also show that training a network with a mix of natural and synthetic images does not affect results on natural images while improving the results on dead leaves images, which are classically used for evaluating the preservation of textures. We thoroughly describe the image model and its implementation, before giving experimental results.",
+isbn="978-3-030-75549-2"
 }
 
-@article{achddou2023fully,
-  title={Fully synthetic training for image restoration tasks},
-  author={Achddou, Rapha{\"e}l and Gousseau, Yann and Ladjal, Sa{\"\i}d},
-  journal={Computer Vision and Image Understanding},
-  volume={233},
-  pages={103723},
-  year={2023},
-  publisher={Elsevier}
+
+
+@article{ACHDDOU2023103723,
+title = {Fully synthetic training for image restoration tasks},
+journal = {Computer Vision and Image Understanding},
+volume = {233},
+pages = {103723},
+year = {2023},
+issn = {1077-3142},
+doi = {https://doi.org/10.1016/j.cviu.2023.103723},
+url = {https://www.sciencedirect.com/science/article/pii/S1077314223001030},
+author = {Raphaël Achddou and Yann Gousseau and Saïd Ladjal},
+keywords = {Image restoration, image denoising, Statistical modeling},
+abstract = {In this work, we show that neural networks aimed at solving various image restoration tasks can be successfully trained on fully synthetic data. In order to do so, we rely on a generative model of images, the scaling dead leaves model, which is obtained by superimposing disks whose size distribution is scale-invariant. Pairs of clean and corrupted synthetic images can then be obtained by a careful simulation of the degradation process. We show on various restoration tasks that such a synthetic training yields results that are only slightly inferior to those obtained when the training is performed on large natural image databases. This implies that, for restoration tasks, the geometric contents of natural images can be nailed down to only a simple generative model and a few parameters. This prior can then be used to train neural networks for specific modality, without having to rely on demanding campaigns of natural images acquisition. We demonstrate the feasibility of this approach on difficult restoration tasks, including the denoising of smartphone RAW images and the full development of low-light images.}
 }
 
 @INPROCEEDINGS{9415076,
@@ -32,17 +48,25 @@
   volume={},
   number={},
   pages={2815-2819},
+  abstract={Deep neural networks models are generally designed and trained for a specific type and quality of data. In this work, we address this problem in the context of nested learning. For many applications, both the input data, at training and testing, and the prediction can be conceived at multiple nested quality/resolutions. We show that by leveraging this multi-scale information, the problem of poor generalization and prediction overconfidence, as well as the exploitation of multiple training data quality, can be efficiently addressed. We evaluate the proposed ideas in six public datasets: MNIST, Fashion-MNIST, CIFAR10, CIFAR100, Plantvillage, and DBPEDIA. We observe that coarsely annotated data can help to solve fine predictions and reduce overconfidence significantly. We also show that hierarchical learning produces models intrinsically more robust to adversarial attacks and data perturbations.},
   keywords={Training;Perturbation methods;Neural networks;Training data;Predictive models;Signal processing;Data models},
-  doi={10.1109/ICASSP39728.2021.9415076}}
+  doi={10.1109/ICASSP39728.2021.9415076},
+  ISSN={2379-190X},
+  month={June},}
 
-@inproceedings{achddou2023learning,
-  title={Learning raw image denoising using a parametric color image model},
-  author={Achddou, Rapha{\"e}l and Gousseau, Yann and Ladjal, Sa{\"\i}d},
-  booktitle={2023 IEEE International Conference on Image Processing (ICIP)},
-  pages={2690--2694},
+@INPROCEEDINGS{10222629,
+  author={Achddou, Raphaël and Gousseau, Yann and Ladjal, SaÏd},
+  booktitle={2023 IEEE International Conference on Image Processing (ICIP)}, 
+  title={Learning Raw Image Denoising Using a Parametric Color Image Model}, 
   year={2023},
-  organization={IEEE}
-}
+  volume={},
+  number={},
+  pages={2690-2694},
+  abstract={Deep learning methods for image restoration have produced impressive results over recent years. Nevertheless, they generalize poorly and need large learning image datasets to be collected for each new acquisition modality. In order to avoid the building of such datasets, it has been recently proposed to develop synthetic image datasets for training image restoration methods, using scale invariant dead leaves models. While the geometry of such models can be successfully encoded with only a few parameters, the color content cannot be straightforwardly encoded. In this paper, we leverage the concept of color lines prior to build a light parametric color model relying on a chromaticity/luminance factorization. Further, we show that the corresponding synthetic dataset can be used to train neural networks for the denoising of RAW images from different camera-phones, without using any image from these devices. This shows the potential of our approach to increase the generalization capacity of learning-based denoising approaches in real case scenarios.},
+  keywords={Training;Geometry;Point cloud compression;Deep learning;Image color analysis;Noise reduction;Neural networks;image denoising;color modeling;synthetic learning},
+  doi={10.1109/ICIP49359.2023.10222629},
+  ISSN={},
+  month={Oct},}
 
 @ARTICLE{11124327,
   author={Lu, Liying and Achddou, Raphael and Susstrunk, Sabine},
@@ -52,9 +76,11 @@
   volume={},
   number={},
   pages={1-11},
+  abstract={Low-light photography produces images with low signal-to-noise ratios due to limited photons. In such conditions, common approximations like the Gaussian noise model fall short, and many denoising techniques fail to remove noise effectively. Although deep-learning methods perform well, they require large datasets of paired images that are impractical to acquire. As a remedy, synthesizing realistic low-light noise has gained significant attention. In this paper, we investigate the ability of diffusion models to capture the complex distribution of low-light noise. We show that a naive application of conventional diffusion models is inadequate for this task and propose three key adaptations that enable high-precision noise generation: a two-branch architecture to better model signal-dependent and signal-independent noise, the incorporation of positional information to capture fixed-pattern noise, and a tailored diffusion noise schedule. Consequently, our model enables the generation of large datasets for training low-light denoising networks, leading to state-of-the-art performance. Through comprehensive analysis, including statistical evaluation and noise decomposition, we provide deeper insights into the characteristics of the generated data.},
   keywords={Noise;Noise measurement;Diffusion models;Training;Noise reduction;Photonics;Cameras;Image denoising;Data models;Computational modeling;Computational Photography;Low-light Imaging;Image Denoising;Diffusion Models},
   doi={10.1109/TPAMI.2025.3598330},
-  selected={true}}
+  ISSN={1939-3539},
+  month={},}
 
 @misc{achddou2025vibrantleavesprincipledparametricimage,
       title={VibrantLeaves: A principled parametric image generator for training deep restoration models}, 
@@ -64,6 +90,7 @@
       archivePrefix={arXiv},
       primaryClass={cs.CV},
       url={https://arxiv.org/abs/2504.10201},
+      abstract={Even though Deep Neural Networks are extremely powerful for image restoration tasks, they have several limitations. They are poorly understood and suffer from strong biases inherited from the training sets. One way to address these shortcomings is to have a better control over the training sets, in particular by using synthetic sets. In this paper, we propose a synthetic image generator relying on a few simple principles. In particular, we focus on geometric modeling, textures, and a simple modeling of image acquisition. These properties, integrated in a classical Dead Leaves model, enable the creation of efficient training sets. Standard image denoising and super-resolution networks can be trained on such datasets, reaching performance almost on par with training on natural image datasets. As a first step towards explainability, we provide a careful analysis of the considered principles, identifying which image properties are necessary to obtain good performances. Besides, such training also yields better robustness to various geometric and radiometric perturbations of the test sets.},
       selected={true}
 }
 
@@ -87,9 +114,18 @@ abstract="In order to evaluate the capacity of a camera to render textures prope
 isbn="978-3-031-31975-4"
 }
 
-@phdthesis{achddou2023synthetic,
-  title={Synthetic learning for neural image restoration methods},
-  author={Achddou, Rapha{\"e}l},
-  year={2023},
-  school={Institut Polytechnique de Paris}
+@phdthesis{achddou:tel-04164873,
+  TITLE = {{Synthetic learning for neural image restoration methods}},
+  AUTHOR = {Achddou, Rapha{\"e}l},
+  URL = {https://theses.hal.science/tel-04164873},
+  NUMBER = {2023IPPAT006},
+  SCHOOL = {{Institut Polytechnique de Paris}},
+  YEAR = {2023},
+  MONTH = Mar,
+  KEYWORDS = {Image restoration ; Signal processing ; Textured images ; Deep learning},
+  TYPE = {Theses},
+  PDF = {https://theses.hal.science/tel-04164873v1/file/118130_ACHDDOU_2023_archivage.pdf},
+  HAL_ID = {tel-04164873},
+  HAL_VERSION = {v1},
+  ABSTRACT = {Photography has become an important part of our lives. In addition, expectations in terms of image quality are increasing while the size of imaging devices is decreasing. In this context, the improvement of image processing algorithms is essential.In this manuscript, we are particularly interested in image restoration tasks. The goal is to produce a clean image from one or more noisy observations of the same scene. For these problems, deep learning methods have grown dramatically in the last decade, outperforming the state of the art for the vast majority of traditional tests.While these methods produce impressive results, they have a number of drawbacks. First of all, they are difficult to interpret because of their "black box" operation. Moreover, they generalize rather poorly to acquisition or distortion modalities absent from the training database. Finally, they require large databases, which are sometimes difficult to acquire.We propose to attack these different problems by replacing the data acquisition by a simple image generation algorithm, based on the dead leaves model. Although this model is very simple, the generated images have statistical properties close to those of natural images and many invariance properties (scale, translation, rotation, contrast...). Training a restoration network with this kind of image allows us to identify the important properties of the images for the success of the restoration networks. Moreover, this method allows us to get rid of the data acquisition, which can be tedious.After presenting this model, we show that the proposed method allows to obtain restoration performances very close to traditional methods for relatively simple tasks. After some adaptations of the model, synthetic learning also allows us to tackle difficult concrete problems, such as RAW image denoising. We then propose a statistical study of the color distribution of natural images, allowing to elaborate a realistic parametric model of color sampling for our generation algorithm. Finally, we present a new perceptual loss function based on camera evaluation protocols, using the dead leaf images. The training performed with this function shows that we can jointly optimize the evaluation of the cameras, while keeping identical performances on natural images.}
 }
