@@ -6,10 +6,9 @@ description: #Materials for courses you taught. Replace this text with your desc
 nav: true
 nav_order: 6
 ---
-
 - 06/10/2025 [Séminaire Imaging In Paris](https://imaging-in-paris.github.io/)
 
-  *Synthetic training of deep image restoration networks : principles and applications*
+  *Synthetic training of deep image restoration networks : principles and applications /*
   [slides](https://rachddou.github.io/assets/pdf/slides_ihp.pdf)
 - 26/08/2025 [Colloque du GRETSI 2025](https://gretsi.fr/colloque2025/)
 
