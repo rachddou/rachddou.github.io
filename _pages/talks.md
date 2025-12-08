@@ -6,6 +6,9 @@ description: #Materials for courses you taught. Replace this text with your desc
 nav: true
 nav_order: 6
 ---
+- 09/12/2025 [Séminaire Images Télécom]
+  *Synthetic learning for image denoising: two sides of the same coin /*
+  [slides](https://rachddou.github.io/assets/pdf/slides_telecom.pdf)
 - 06/10/2025 [Séminaire Imaging In Paris](https://imaging-in-paris.github.io/)
 
   *Synthetic training of deep image restoration networks : principles and applications /*
