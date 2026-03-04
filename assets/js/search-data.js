@@ -24,7 +24,7 @@ ninja.data = [{
             window.location.href = "/talks/";
           },
         },{id: "nav-enseignement",
-          title: "enseignement",
+          title: "Enseignement",
           description: "Page dédiée aux différents enseignements",
           section: "Navigation",
           handler: () => {
@@ -57,6 +57,16 @@ ninja.data = [{
           description: "",
           section: "Books",handler: () => {
               window.location.href = "/books/the_godfather/";
+            },},{id: "courses-programmation-en-c-et-efficacité-energétique",
+          title: 'Programmation en C et Efficacité Energétique',
+          description: "Cours de programmation C et sensibilisation à l&#39;efficacité énergétique",
+          section: "Courses",handler: () => {
+              window.location.href = "/enseignement/ee_pc/";
+            },},{id: "courses-tp-e1-efficacité-énergétique-de-la-programmation",
+          title: 'TP E1 — Efficacité énergétique de la programmation',
+          description: "Mesurer et comparer la consommation énergétique de différentes implémentations algorithmiques.",
+          section: "Courses",handler: () => {
+              window.location.href = "/enseignement/practical_sessions/TP_E1/";
             },},{id: "news-i-successfully-defended-my-phd-at-télécom-paris-here-is-link-to-phd-dissertation-synthetic-learning-for-neural-image-restoration-methods",
           title: 'I successfully defended my PhD at Télécom Paris! Here is link to PhD...',
           description: "",
@@ -117,11 +127,6 @@ ninja.data = [{
           description: "another project with an image 🎉",
           section: "Projects",handler: () => {
               window.location.href = "/projects/9_project/";
-            },},{id: "projects-project-1",
-          title: 'project 1',
-          description: "with background image",
-          section: "Projects",handler: () => {
-              window.location.href = "/projects/TP_E1/";
             },},{
         id: 'social-email',
         title: 'email',
