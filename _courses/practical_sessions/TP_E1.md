@@ -75,6 +75,8 @@ Cette suite est donc définie par une récurrence double. Comme vu dans le cours
 
 {% details Rappels de l'implémentation d'une fonction récursive %}
 
+Une fonction récursive est une fonction qui s'appelle elle-même dans le corps de la fonction.
+
 ```python
 def maFonctionRecursive(n):
     if n == 0:
@@ -84,3 +86,45 @@ def maFonctionRecursive(n):
 ```
 
 {% enddetails %}
+
+#### Questions
+
+**Question 1**: Dans le fichier fibonnaci_eleve.py, remplissez les blocs de code correspondant à la version récursive et à la version itérative.
+
+**Question 2**: Tester cette fonction en changeant à la fois les valeurs de $n$ et de `mode`. Comment évolue le temps de calcul selon vous?
+
+**Question 3**: Afin de le vérifier, faites le calcul de la complexité sur papier. Quelle complexité obtient on?
+
+**Question 4**: Maintenant que votre implémentation fonctionne, illustrez le comportement que vous avez prédit en tracant le temps de calcul en fonction de $n$. Pour cela vous pouvez exécuter le fichier python `temps_fibonnaci_courbe.py`. Vous pouvez visualiser le graphique avec une échelle linéaire ou une échelle logarithmique. Que nous indique le graphique en échelle logarithmique?
+
+**Question 5 (A FAIRE SI IL RESTE DU TEMPS EN FIN DE TP)** Il est possible d'écrire la fonction de Fibonnaci en récursif tout en gardant une complexité linéaire. Ceci se fait par un procédé qu'on appelle mémoïsation, qui diminue le temps de calcul, au prix d'une occupation mémoire plus importante.
+
+### Exercice 2
+
+Étant donné une liste de $n$ entiers et une valeur cible $v$, on cherche à déterminer si $v$ est présente dans la liste, et si oui, à quel index. 
+
+On va comparer deux approches :
+
+- *la recherche linéaire :* on parcourt la liste de gauche à droite,
+- *la recherche dichotomique :* on divise l'intervalle de recherche par deux à chaque étape (nécessite une liste triée).
+
+{% details Rappel sur les listes triées %}
+Une liste est dite triée si ses éléments sont rangés dans l'ordre croissant :
+
+```python
+liste_triee = [2, 5, 8, 12, 16, 23, 38, 42]
+```
+
+Pour trier une liste en Python : `liste.sort()` ou `sorted(liste)`.
+{% enddetails %}
+
+#### Questions
+
+**Question 1 :** Dans le fichier recherche_eleve.py, remplissez les blocs de code correspondant à la recherche linéaire et à la recherche dichotomique.
+**Question 2 :** Testez ces fonctions sur des listes de tailles variées, en cherchant un élément présent et un élément absent. Qu'observez-vous sur le temps de calcul ?
+**Question 3 :** Calculez sur papier la complexité des deux algorithmes dans le pire des cas. Pour la recherche dichotomique, exprimez le nombre maximal d'étapes en fonction de $n$.
+**Question 4 :** Illustrez ce comportement en exécutant temps_recherche_courbe.py, qui trace le temps de calcul en fonction de $n$ pour les deux algorithmes. Que nous indique le graphique en échelle logarithmique ? Quelle est la différence entre une droite de pente 1 et une droite de pente inférieure à 1 sur ce graphique ?
+
+**Question 5 (À FAIRE S'IL RESTE DU TEMPS EN FIN DE TP) :** La recherche dichotomique suppose que la liste est triée. Quel est le coût du tri préalable ? Dans quel cas est-il rentable de trier la liste avant de faire des recherches ? Formulez une condition sur le nombre de recherches qq
+q et la taille nn
+n pour que l'approche "trier puis chercher" soit plus efficace que la recherche linéaire répétée.
