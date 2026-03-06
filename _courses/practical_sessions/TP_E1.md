@@ -16,7 +16,7 @@ Dans ce premier TP sur l'efficacité énergétique de la programmation, on s'int
 * la complexité algorithmique
 * les langages de programmation
 
-Afin de mesurer l'efficacité énergétique d'un programme, on mesurera en premier lieu leur temps d'exécution. Comme indiqué par l'étude de [Pereira et al 2017,](https://dl.acm.org/doi/pdf/10.1145/3136014.3136031) il y a une forte corrélation entre le temps d'éxécution d'un programme et sa consommation énergétique. On peut donc supposer en première approximation que :
+Afin de mesurer l'efficacité énergétique d'un programme, on mesurera en premier lieu leur temps d'exécution. Comme indiqué par l'étude de [Pereira et al 2017,](https://dl.acm.org/doi/pdf/10.1145/3136014.3136031) il y a une forte corrélation entre le temps d'exécution d'un programme et sa consommation énergétique. On peut donc supposer en première approximation que :
 
 $$
 E(\text{programme}) \propto T_{\text{exécution}}
@@ -29,11 +29,11 @@ $$
   ```
   mkdir Documents/EE_PC/TP_E1/
   ```
-* se déplacer dans le ce répértoire en faisant:
+* se déplacer dans ce répertoire en faisant :
   ```
   cd Documents/EE_PC/TP_E1/
   ```
-* Télécharger l'archive en éxecutant la commande :
+* Télécharger l'archive en exécutant la commande :
   ```
   wget lien.tar
   ```
@@ -44,11 +44,11 @@ $$
 
 Vous devriez avoir récupéré tous les fichiers utiles à ce TP.
 
-Afin d'écrire et éditer des programmes informatiques, on utilisera un éditeur de texte le plus simple possible comme Notepadqq, ou Emacs, qui peuvent être lancés depuis le terminal grace à la commande:
+Afin d'écrire et éditer des programmes informatiques, on utilisera un éditeur de texte le plus simple possible comme Notepadqq, ou Emacs, qui peuvent être lancés depuis le terminal grâce à la commande :
 
 `emacs [nom du fichier]&`  ou `notepadqq [nom du fichier]&`
 
-Ces programmes pourront être exécuté de différente manière en fonction du langage de programmation, ce qu'on découvrira tout au long du TP.
+Ces programmes pourront être exécutés de différentes manières en fonction du langage de programmation, ce qu'on découvrira tout au long du TP.
 
 ---
 
@@ -58,27 +58,33 @@ Ces programmes pourront être exécuté de différente manière en fonction du l
 
 Dans cette première partie, on codera les exercices en **python.**  Afin de créer un fichier python, lancez l'éditeur et enregistrer votre programme au format `.py`.
 
+Pour exécuter le programme python sur les machines de l'école, il est nécessaire d'activer un environnement qui possède les bonnes librairies. Pour cela effectuer la commande:
+```bash
+source /opt/miniconda/bin/activate
+conda activate ee_pc_E2
+```
+
 Pour exécuter le programme, rendez vous dans le terminal, et effectuer la commande:
 
-```
+```bash
 python3 nom_du_fichier.py
 ```
 
-Contrairement aux langages compilés, l'interpréteur de python lit et éxecute chaque ligne de code à la volée. Ce n'est pas optimal car le CPU effectue beaucoup de tâche de traductions.
+Contrairement aux langages compilés, l'interpréteur de Python lit et exécute chaque ligne de code à la volée. Ce n'est pas optimal car le CPU effectue beaucoup de tâches de traduction.
 
-### Exercice 1 - la suite de Fibonnaci
+### Exercice 1 - la suite de Fibonacci
 
-La suite de Fibonnaci est une suite célèbre qui a été étudiée à la fois en mathématiques pour son lien avec le nombre d'or, et en algorithmique pour ses différentes implémentations. L'objectif de cet exercice est de programmer ces implémentations en python et d'observer les comportements asymptotiques du temps de calcul (quand $n\rightarrow \infty$)
+La suite de Fibonacci est une suite célèbre qui a été étudiée à la fois en mathématiques pour son lien avec le nombre d'or, et en algorithmique pour ses différentes implémentations. L'objectif de cet exercice est de programmer ces implémentations en Python et d'observer les comportements asymptotiques du temps de calcul (quand $n\rightarrow \infty$)
 
-#### Définition de la suite de Fibonnaci
+#### Définition de la suite de Fibonacci
 
-La suite de Fibonnaci est définie comme suit:
+La suite de Fibonacci est définie comme suit:
 
 $$
 F_0 = 1, F_1 = 1, \forall n \geq 2, F_n = F_{n-1} + F_{n-2}
 $$
 
-Cette suite est donc définie par une récurrence double. Comme vu dans le cours pour un autre exemple, on peut utiliser programmer cette fonction suivant deux fonctionnement différents:
+Cette suite est donc définie par une récurrence double. Comme vu dans le cours pour un autre exemple, on peut programmer cette fonction suivant deux fonctionnements différents :
 
 * en *récursif:* en définissant une fonction qui s'appelle elle-même,
 * en *itératif:* en utilisant une boucle FOR ou WHILE.
@@ -99,15 +105,29 @@ def maFonctionRecursive(n):
 
 #### Questions
 
-**Question 1**: Dans le fichier fibonnaci_eleve.py, remplissez les blocs de code correspondant à la version récursive et à la version itérative.
+**Question 1** : Dans le fichier fibonacci_eleve.py, remplissez les blocs de code correspondant à la version récursive et à la version itérative.
 
-**Question 2**: Tester cette fonction en changeant à la fois les valeurs de $n$ et de `mode`. Comment évolue le temps de calcul selon vous?
+**Question 2** : Testez cette fonction en changeant à la fois les valeurs de $n$ et de `mode`. Comment évolue le temps de calcul selon vous ?
 
-**Question 3**: Afin de le vérifier, faites le calcul de la complexité sur papier. Quelle complexité obtient on?
+**Question 3** : Afin de le vérifier, faites le calcul de la complexité sur papier. Quelle complexité obtient-on ?
 
-**Question 4**: Maintenant que votre implémentation fonctionne, illustrez le comportement que vous avez prédit en tracant le temps de calcul en fonction de $n$. Pour cela vous pouvez exécuter le fichier python `temps_fibonnaci_courbe.py`. Vous pouvez visualiser le graphique avec une échelle linéaire ou une échelle logarithmique. Que nous indique le graphique en échelle logarithmique?
+**Question 4**: Maintenant que votre implémentation fonctionne, illustrez le comportement que vous avez prédit en traçant le temps de calcul en fonction de $n$. Pour cela vous pouvez exécuter le fichier python `temps_fibonacci_courbe.py`. Vous pouvez visualiser le graphique avec une échelle linéaire ou une échelle logarithmique. Que nous indique le graphique en échelle logarithmique ?
 
-**Question 5 (A FAIRE SI IL RESTE DU TEMPS EN FIN DE TP)** Il est possible d'écrire la fonction de Fibonnaci en récursif tout en gardant une complexité linéaire. Ceci se fait par un procédé qu'on appelle mémoïsation, qui diminue le temps de calcul, au prix d'une occupation mémoire plus importante.
+**Question 5 (À FAIRE S'IL RESTE DU TEMPS EN FIN DE TP)** Il est possible d'écrire la fonction de Fibonacci en récursif tout en gardant une complexité linéaire. Ceci se fait par un procédé qu'on appelle mémoïsation, qui diminue le temps de calcul, au prix d'une occupation mémoire plus importante.
+
+{% details Indice 1 : pourquoi la version récursive naive est-elle lente ? %}
+Dans la version récursive naive, de nombreux appels sont recalculés plusieurs fois. Par exemple, pour calculer $F_5$, on calcule $F_3$ deux fois, $F_2$ trois fois, etc. Dessinez l'arbre des appels récursifs pour $F_5$ et comptez combien de fois chaque $F_k$ est calculé. Que remarquez-vous ?
+{% enddetails %}
+
+{% details Indice 2 : principe de la mémoïsation %}
+L'idée de la mémoïsation est de **mémoriser** les résultats déjà calculés dans une structure de données (un dictionnaire par exemple), afin de ne jamais recalculer deux fois la même valeur. Avant d'effectuer un appel récursif, commencez par vérifier si le résultat est déjà connu ; si oui, retournez-le directement sans récursion.
+
+Combien d'appels distincts sont effectués pour calculer $F_n$ avec cette approche ?
+{% enddetails %}
+
+{% details Indice 3 : analyse de la complexité %}
+Avec la mémoïsation, chaque valeur $F_k$ pour $k \in \{0, \ldots, n\}$ est calculée **exactement une fois**. Le calcul de chaque $F_k$ prend un temps constant (une addition et une lookup dans le dictionnaire). Quelle est donc la complexité en temps ? Et en mémoire ?
+{% enddetails %}
 
 ### Exercice 2
 
@@ -137,25 +157,35 @@ Pour trier une liste en Python : `liste.sort()` ou `sorted(liste)`.
 **Question 3 :** Calculez sur papier la complexité des deux algorithmes dans le pire des cas. Pour la recherche dichotomique, exprimez le nombre maximal d'étapes en fonction de $n$.
 
 {% details Indice pour le calcul de la complexité de la recherche dichotomique:%}
+
 Soit $T(n)$ le nombre d'étape dans le pire des cas pour trouver notre élément. A chaque étape,
 on divise l'intervalle de recherche par 2, et on effectue une comparaison. On a donc la relation par récurrence suivante:
-$$T(n) = 1+ T(n/2)$$. En poussant la récurrence on a donc $$T(n) = k + T
-frac{n}{2^k}$$. L'algorithme s'arrête lorsque $frac{n}{2^k} = 1$ Poursuivez le raisonnement pour trouver une formulation explicite de $T(n)$.
+$T(n) = 1+ T(n/2) $
+En poussant la récurrence on a donc $T(n) = k +  T(\frac{n}{2^k})$. L'algorithme s'arrête lorsque $\frac{n}{2^k} = 1$.
+ Poursuivez le raisonnement pour trouver une formulation explicite de $T(n)$.
+
 {% enddetails %}
 
+**Question 4 :** Illustrez ce comportement en exécutant `temps_recherche_courbe.py`, qui trace le temps de calcul en fonction de $n$ pour les deux algorithmes. Le comportement asymptotique trouvé dans la question précédente est-il vérifié par cette expérience?
 
-**Question 4 :** Illustrez ce comportement en exécutant temps_recherche_courbe.py, qui trace le temps de calcul en fonction de $n$ pour les deux algorithmes. Que nous indique le graphique en échelle logarithmique ? Quelle est la différence entre une droite de pente 1 et une droite de pente inférieure à 1 sur ce graphique ?
+**Question 5 (À FAIRE S'IL RESTE DU TEMPS EN FIN DE TP) :** La recherche dichotomique suppose que la liste est triée. Quel est le coût du tri préalable ? Dans quel cas est-il rentable de trier la liste avant de faire des recherches ? Formulez une condition sur le nombre de recherches $q$ et la taille $n$ pour que l'approche "trier puis chercher" soit plus efficace que la recherche linéaire répétée.
 
-**Question 5 (À FAIRE S'IL RESTE DU TEMPS EN FIN DE TP) :** La recherche dichotomique suppose que la liste est triée. Quel est le coût du tri préalable ? Dans quel cas est-il rentable de trier la liste avant de faire des recherches ? Formulez une condition sur le nombre de recherches qq
-q et la taille $n$ pour que l'approche "trier puis chercher" soit plus efficace que la recherche linéaire répétée.
+{% details Indice : mise en place du raisonnement %}
+Notons $q$ le nombre de recherches à effectuer sur une liste de taille $n$. On cherche à comparer le coût total de deux stratégies :
+
+- **Stratégie A** — recherche linéaire répétée : chaque recherche coûte $O(n)$, donc le coût total pour $q$ recherches est $O(q \cdot n)$.
+- **Stratégie B** — trier puis chercher en dichotomique : le tri coûte $O(n \log n)$, et chaque recherche dichotomique coûte $O(\log n)$, donc le coût total est $O(n \log n + q \cdot \log n)$.
+
+La stratégie B devient rentable lorsque son coût total est inférieur à celui de la stratégie A. Écrivez cette inégalité, puis simplifiez-la pour isoler $q$ en fonction de $n$.
+{% enddetails %}
 
 ---
 
 ## Partie 2 — Comparaison des langages de programmation
 
-Les performances d'un programme dépendent non seulement de l'algorithme choisi, mais aussi du langage utilisé. Un langage **compilé** comme le C produit directement du code machine, tandis qu'un langage **interprété** comme Python passe par une interpréteur à chaque instruction. Java offre un compromis : le code source est d'abord compilé en **bytecode**, un langage intermédiaire indépendant de la machine, qui est ensuite exécuté par une machine virtuelle (la **JVM**, Java Virtual Machine).
+Les performances d'un programme dépendent non seulement de l'algorithme choisi, mais aussi du langage utilisé. Un langage **compilé** comme le C produit directement du code machine, tandis qu'un langage **interprété** comme Python passe par un interpréteur à chaque instruction. Java offre un compromis : le code source est d'abord compilé en **bytecode**, un langage intermédiaire indépendant de la machine, qui est ensuite exécuté par une machine virtuelle (la **JVM**, Java Virtual Machine).
 
-Dans cette partie, l'idée est de tester des programmes déjà écrit en Java, C et python, et de se familiariser avec la compilation.
+Dans cette partie, l'idée est de tester des programmes déjà écrits en Java, C et Python, et de se familiariser avec la compilation.
 
 ### Exercice 3 — Somme de 1 à n
 
@@ -166,7 +196,7 @@ On cherche à calculer la somme $S = \sum_{i=1}^{n} i$ avec une boucle explicite
 Pour chacun de ces langages le mode d'exécution est différent.
 Vous savez déjà comment exécuter un code en python, donc voici des informations sur le mode d'exécution pour C et JAVA.
 
-{% details Commandes de compilation et d'éxecution pour le langage C%}
+{% details **A LIRE : Commandes de compilation et d'exécution pour le langage C**%}
 Afin d'exécuter un programme écrit en C, il faut dans un premier temps le **compiler**, ce qui va traduire le code source C en langage machine, sous la forme d'un fichier binaire exécutable. La compilation est effectuée par le compilateur GNU C, que l'on appelle avec la commande `gcc`. Afin de créer un fichier exécutable, on écrit dans le terminal :
 
 ```bash
@@ -194,10 +224,12 @@ Par exemple, pour compiler avec optimisations maximales :
 ```bash
 gcc -O3 -o somme.exe somme.c
 ```
+
 Plus de détails sur la compilation seront donnés dans le TP C1.
 {% enddetails %}
 
-{% details Commandes de compilation et d'éxecution pour java%}
+{% details **A LIRE : Commandes de compilation et d'exécution pour Java**%}
+
 Afin d'exécuter un programme écrit en Java, il faut également passer par une étape de compilation. Contrairement au C, le compilateur Java ne produit pas directement du code machine : il génère du **bytecode**, un format intermédiaire interprété par la machine virtuelle Java (JVM). C'est ce mécanisme qui permet à Java d'être portable ("Write Once, Run Anywhere"). La compilation est effectuée avec la commande `javac`. Pour compiler le fichier `Somme.java`, on écrit dans le terminal :
 
 ```bash
@@ -214,7 +246,7 @@ Notez qu'on ne précise pas l'extension `.class`, et que le nom de la classe doi
 
 {% enddetails %}
 
-**Question 2** : Compilez les programmes avec les instructions données précedemment.
+**Question 2** : Compilez les programmes avec les instructions données précédemment.
 Exécutez les trois programmes en testant différentes valeurs de n.
 Exécutez les trois programmes avec $n = 10^9$. Relevez les temps d'exécution.
 
@@ -226,20 +258,20 @@ Exécutez les trois programmes avec $n = 10^9$. Relevez les temps d'exécution.
 
 **Question 3** : Calculez sur papier la complexité de cet algorithme. Est-elle identique dans les trois langages ? Si les complexités sont les mêmes, comment expliquez-vous les différences de temps mesurées ?
 
-**Question 4**: Les résultats que vous avez obtenu contredisent ceux avancés par l'étude de 2017. On voit en effet que pour ce programme Java produit des résultats plus rapides que C. Ceci est causé par une **optimisation défaillante** : par défaut, `gcc` compile sans optimisation (`-O0`), ce qui signifie que le code machine généré est naïf et non optimisé. La JVM Java, en revanche, applique automatiquement une compilation JIT qui optimise le code à l'exécution. Pour rétablir l'avantage du C, recompilez avec l'option `-O2` :
+**Question 4**: Les résultats que vous avez obtenus contredisent ceux avancés par l'étude de 2017. On voit en effet que pour ce programme Java produit des résultats plus rapides que C. Ceci est causé par une **optimisation défaillante** : par défaut, `gcc` compile sans optimisation (`-O0`), ce qui signifie que le code machine généré est naïf et non optimisé. La JVM Java, en revanche, applique automatiquement une compilation JIT qui optimise le code à l'exécution. Pour rétablir l'avantage du C, recompilez avec l'option `-O2` :
 
 ```bash
 gcc -O2 -o somme.exe somme.c
 ```
 
-Vous devriez constater que C redevient nettement plus rapide que Java. Ceci illustre l'importance du niveau d'optimisation lors de la compilation, et explique pourquoi les benchmarks de l'étude de Pereira et al. sont réalisés avec des optimisations activées.
+Vous devriez constater que C redevient plus rapide que Java. Ceci illustre l'importance du niveau d'optimisation lors de la compilation, et explique pourquoi les benchmarks de l'étude de Pereira et al. sont réalisés avec des optimisations activées.
 
-{% details Ce qu'active -O2 : focus sur l'allocation de registres %}
+{% details **Ce qu'active -O2 : focus sur l'allocation de registres** %}
 L'option `-O2` active un ensemble d'optimisations automatiques parmi lesquelles l'une des plus impactantes est l'**allocation de registres**.
 
 Un processeur dispose d'un petit nombre de registres (typiquement 16 sur x86-64), qui sont des emplacements mémoire intégrés directement dans le CPU. Accéder à un registre est **des dizaines à des centaines de fois plus rapide** qu'accéder à la RAM. Sans optimisation (`-O0`), `gcc` stocke naïvement toutes les variables en mémoire, ce qui génère de nombreux allers-retours inutiles entre la RAM et le CPU. Avec `-O2`, le compilateur analyse quelles variables sont utilisées fréquemment et les maintient dans des registres aussi longtemps que possible.
 
-Dans le cas d'un programme aussi simple que la somme de 1 à $n$, l'accumulateur et le compteur de boucle peuvent tenir entièrement dans des registres, éliminant quasiment tous les accès mémoire. C'est precisément ce que fait le JIT de Java automatiquement, d'où son avantage apparent sur un C compilé sans optimisation.
+Dans le cas d'un programme aussi simple que la somme de 1 à $n$, l'accumulateur et le compteur de boucle peuvent tenir entièrement dans des registres, éliminant quasiment tous les accès mémoire. C'est précisément ce que fait le JIT de Java automatiquement, d'où son avantage apparent sur un C compilé sans optimisation.
 
 Parmi les autres optimisations activées par `-O2`, on trouve :
 
@@ -250,7 +282,72 @@ Parmi les autres optimisations activées par `-O2`, on trouve :
 
 ---
 
-### Exercice 4 — Tri fusion (Merge Sort)
+### Exercice 4 — Pourquoi Python est-il si lent?
+
+Dans cet exercice, le but est d'illustrer différentes raisons pour lesquelles Python est aussi peu efficace par rapport à C. On commencera par regarder ce qu'il se cache derrière un simple entier en Python, et on évaluera enfin le Nombre d'opérations élémentaires effectuées par le CPU dans le cas d'un programme en python et dans le cas d'un programme en C.
+
+#### 4.1
+
+En C, un entier est un type **primitif**: il occupe un espace mémoire fixe, déterminé à la compilation. En Python, tout est objet : même un simple entier embarque des métadonnées (type, compteur de références, valeur), ce qui augmente considérablement son empreinte mémoire.
+
+**Question 1**
+
+Exécutez le programme Python suivant et relevez les tailles affichées.
+
+```python
+import sys
+
+print(sys.getsizeof(0))
+print(sys.getsizeof(1))
+print(sys.getsizeof(1000))
+print(sys.getsizeof(10**100))
+
+```
+
+Que remarquez-vous sur la taille des petits entiers ? Et sur la taille de `10**100` ? Qu'est-ce que cela indique sur la représentation des entiers en Python ?
+
+**Question 2**
+
+Compilez et exécutez le fichier C suivant.
+
+```C
+// fichier: taille_int.c
+#include <stdio.h>
+
+int main() {
+    printf("taille d'un char   : %zu octets\n", sizeof(char));
+    printf("taille d'un short  : %zu octets\n", sizeof(short));
+    printf("taille d'un int    : %zu octets\n", sizeof(int));
+    printf("taille d'un long   : %zu octets\n", sizeof(long));
+    printf("taille d'un double : %zu octets\n", sizeof(double));
+    return 0;
+}
+```
+
+Comparez les tailles obtenues avec celles de la Question 1. Que fait ce code?
+Quelle différence fondamentale observez-vous entre les entiers C et les entiers Python ?
+
+**Question 3**
+Maintenant essayons de stocker `10**20` dans un entier de type long. Compilez le code suivant:
+
+```C
+#include <stdio.h>
+
+int main() {
+    long x = 100000000000000000000L; // 10^20
+    printf("x = %ld\n", x);
+    return 0;
+}
+```
+
+Le compilateur vous indique un Warning concernant la taille de l'entier. Que se passe-t-il à l'exécution de ce programme ? Contrairement à Python, la taille mémoire allouée à notre variable x est déterminée par le type `long`. Si la valeur qu'on souhaite lui donner est supérieure à ce que ce type peut encoder, un phénomène **d'overflow**(dépassement) survient. Le nombre en sortie ne correspond donc pas à la valeur donnée mais:
+
+$$x \mod 2^{n_{\text{bits}}(\text{long})}$$
+
+Python est donc un langage plus permissif, au prix de performances inférieures, comme on a pu le voir sur les temps de calcul.
+#### 4.2
+
+<!-- ### Exercice 4 — Tri fusion (Merge Sort)
 
 Le tri fusion est un algorithme de tri récursif de complexité $O(n \log n)$. Son principe est le suivant :
 
@@ -287,4 +384,4 @@ résultat : [1, 2, 3, 4, 7, 8]
 
 **Question 4** : Calculez sur papier la complexité en temps et en mémoire du tri fusion. Pourquoi dit-on que le tri fusion n'est pas **en place** ? Quel est le coût mémoire supplémentaire par rapport à un tri en place comme le tri rapide ?
 
-**Question 5 (À FAIRE S'IL RESTE DU TEMPS EN FIN DE TP)** : Modifiez les trois programmes pour faire varier $n$ de $10^3$ à $10^6$ et tracez les temps d'exécution en fonction de $n$ sur un graphique log-log. Que doit-on observer sur la pente des courbes ? Les trois langages donnent-ils des pentes identiques ?
+**Question 5 (À FAIRE S'IL RESTE DU TEMPS EN FIN DE TP)** : Modifiez les trois programmes pour faire varier $n$ de $10^3$ à $10^6$ et tracez les temps d'exécution en fonction de $n$ sur un graphique log-log. Que doit-on observer sur la pente des courbes ? Les trois langages donnent-ils des pentes identiques ? -->
