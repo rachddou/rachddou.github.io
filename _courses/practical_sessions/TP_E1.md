@@ -161,7 +161,7 @@ Placez vous dans le répertoire `TP_E1/exercice2/`.
 
 **Question 3 :** Calculez sur papier la complexité des deux algorithmes dans le pire des cas. Pour la recherche dichotomique, exprimez le nombre maximal d'étapes en fonction de $n$.
 
-{% *details Indice pour le calcul de la complexité de la recherche dichotomique:*%}
+{% details Indice pour le calcul de la complexité de la recherche dichotomique: %}
 
 Soit $T(n)$ le nombre d'étape dans le pire des cas pour trouver notre élément. A chaque étape,
 on divise l'intervalle de recherche par 2, et on effectue une comparaison. On a donc la relation par récurrence suivante:
