@@ -112,15 +112,21 @@ def maFonctionRecursive(n):
 
 Placez vous dans le répertoire `TP_E1/exercice1/`.
 
-**Question 1** : Dans le fichier `fibonacci_eleve.py`, remplissez les blocs de code correspondant à la version récursive et à la version itérative.
+**Question 1.1** : Dans le fichier `fibonacci_eleve.py`, remplissez le code la fonction itérative.
 
-**Question 2** : Testez cette fonction en changeant à la fois les valeurs de $n$ et de `mode`. Comment évolue le temps de calcul selon vous ?
+**Question 1.2** : Dans le fichier `fibonacci_eleve.py`, remplissez le code la fonction récursive.
 
-**Question 3** : Afin de le vérifier, faites le calcul de la complexité sur papier. Quelle complexité obtient-on ?
+**Question 1.3** : Testez cette fonction en changeant à la fois les valeurs de $n$ et de `mode`. Comment évolue le temps de calcul selon vous ?
 
-**Question 4**: Maintenant que votre implémentation fonctionne, illustrez le comportement que vous avez prédit en traçant le temps de calcul en fonction de $n$. Pour cela vous pouvez exécuter le fichier python `temps_fibonacci_courbe.py`. Vous pouvez visualiser le graphique avec une échelle linéaire ou une échelle logarithmique. Que nous indique le graphique en échelle logarithmique ?
+**Question 1.4** : Afin de le vérifier, faites le calcul de la complexité sur papier, pour la version itérative.
 
-**Question 5 (À FAIRE S'IL RESTE DU TEMPS EN FIN DE TP)** Il est possible d'écrire la fonction de Fibonacci en récursif tout en gardant une complexité linéaire. Ceci se fait par un procédé qu'on appelle mémoïsation, qui diminue le temps de calcul, au prix d'une occupation mémoire plus importante. Si vous avez le temps, créez une nouvelle fonction mémoïsée dans `fibonacci_eleve.py` avec les indices suivants.
+
+**Question 1.5** : même chose pour la version récursive.
+
+
+**Question 1.6**: Maintenant que votre implémentation fonctionne, illustrez le comportement que vous avez prédit en traçant le temps de calcul en fonction de $n$. Pour cela vous pouvez exécuter le fichier python `temps_fibonacci_courbe.py`. Vous pouvez visualiser le graphique avec une échelle linéaire ou une échelle logarithmique. Que nous indique le graphique en échelle logarithmique ?
+
+**Question 1.7 (À FAIRE S'IL RESTE DU TEMPS EN FIN DE TP)** Il est possible d'écrire la fonction de Fibonacci en récursif tout en gardant une complexité linéaire. Ceci se fait par un procédé qu'on appelle mémoïsation, qui diminue le temps de calcul, au prix d'une occupation mémoire plus importante. Si vous avez le temps, créez une nouvelle fonction mémoïsée dans `fibonacci_eleve.py` avec les indices suivants.
 
 {% details Indice 1 : principe de la mémoïsation %}
 L'idée de la mémoïsation est de **mémoriser** les résultats déjà calculés dans une structure de données (un dictionnaire par exemple), afin de ne jamais recalculer deux fois la même valeur. Avant d'effectuer un appel récursif, commencez par vérifier si le résultat est déjà connu ; si oui, retournez-le directement sans récursion.
@@ -155,11 +161,16 @@ Pour trier une liste en Python : `liste.sort()` ou `sorted(liste)`.
 
 Placez vous dans le répertoire `TP_E1/exercice2/`.
 
-**Question 1 :** Dans le fichier `recherche_eleve.py,` remplissez les blocs de code correspondant à la recherche linéaire et à la recherche dichotomique.
+**Question 2.1 :** Dans le fichier `recherche_eleve.py,` remplissez le blocs de code correspondant à la recherche linéaire.
 
-**Question 2 :** Testez ces fonctions sur des listes de tailles variées, en cherchant un élément présent et un élément absent. Qu'observez-vous sur le temps de calcul ?
+**Question 2.2 :** Dans le fichier `recherche_eleve.py,` remplissez le blocs de code correspondant à la recherche dichotomique.
 
-**Question 3 :** Calculez sur papier la complexité des deux algorithmes dans le pire des cas. Pour la recherche dichotomique, exprimez le nombre maximal d'étapes en fonction de $n$.
+**Question 2.3 :** Testez ces fonctions sur des listes de tailles variées, en cherchant un élément présent et un élément absent. Qu'observez-vous sur le temps de calcul ?
+
+**Question 2.4 :** Calculez sur papier la complexité de la recherche linéaire dans le pire des cas. 
+
+**Question 2.5 :** 
+Même chose pour la recherche dichotomique, exprimez le nombre maximal d'étapes en fonction de $n$.
 
 {% details Indice pour le calcul de la complexité de la recherche dichotomique: %}
 
@@ -171,9 +182,9 @@ En poussant la récurrence on a donc $T(n) = k +  T(\frac{n}{2^k})$. L'algorithm
 
 {% enddetails %}
 
-**Question 4 :** Illustrez ce comportement en exécutant `temps_recherche_courbe.py`, qui trace le temps de calcul en fonction de $n$ pour les deux algorithmes. Le comportement asymptotique trouvé dans la question précédente est-il vérifié par cette expérience?
+**Question 2.6 :** Illustrez ce comportement en exécutant `temps_recherche_courbe.py`, qui trace le temps de calcul en fonction de $n$ pour les deux algorithmes. Le comportement asymptotique trouvé dans la question précédente est-il vérifié par cette expérience?
 
-**Question 5 (À FAIRE S'IL RESTE DU TEMPS EN FIN DE TP) :** La recherche dichotomique suppose que la liste est triée. Quel est le coût du tri préalable ? Dans quel cas est-il rentable de trier la liste avant de faire des recherches ? Formulez une condition sur le nombre de recherches $q$ et la taille $n$ pour que l'approche "trier puis chercher" soit plus efficace que la recherche linéaire répétée.
+**Question 2.7 (À FAIRE S'IL RESTE DU TEMPS EN FIN DE TP) :** La recherche dichotomique suppose que la liste est triée. Quel est le coût du tri préalable ? Dans quel cas est-il rentable de trier la liste avant de faire des recherches ? Formulez une condition sur le nombre de recherches $q$ et la taille $n$ pour que l'approche "trier puis chercher" soit plus efficace que la recherche linéaire répétée.
 
 {% details Indice : mise en place du raisonnement %}
 Notons $q$ le nombre de recherches à effectuer sur une liste de taille $n$. On cherche à comparer le coût total de deux stratégies :
@@ -198,7 +209,7 @@ On cherche à calculer la somme $S = \sum_{i=1}^{n} i$ avec une boucle explicite
 
 Placez vous dans le répertoire `TP_E1/exercice3/`.
 
-**Question 1** : Lisez les fichiers `exercice3/somme.c`, `exercice3/Somme.java` et `exercice3/somme.py`.
+**Question 3.1** : Lisez les fichiers `exercice3/somme.c`, `exercice3/Somme.java` et `exercice3/somme.py`.
 
 Pour chacun de ces langages le mode d'exécution est différent.
 Vous savez déjà comment exécuter un code en python, donc voici des informations sur le mode d'exécution pour C et JAVA.
@@ -226,10 +237,10 @@ et pour l'exécuter :
 | `-Wall`         | Affiche tous les avertissements courants                             |
 | `-g`            | Inclut les informations de débogage dans l'exécutable              |
 
-Par exemple, pour compiler avec optimisations maximales :
+Par exemple, pour compiler avec tous les warnings activés :
 
 ```bash
-gcc -O3 -o somme.exe somme.c
+gcc -Wall -o somme.exe somme.c
 ```
 
 Plus de détails sur la compilation seront donnés dans le TP C1.
@@ -253,7 +264,7 @@ Notez qu'on ne précise pas l'extension `.class`, et que le nom de la classe doi
 
 {% enddetails %}
 
-**Question 2** : Compilez les programmes avec les instructions données précédemment.
+**Question 3.2** : Compilez les programmes avec les instructions données précédemment.
 Exécutez les trois programmes en testant différentes valeurs de n.
 Exécutez les trois programmes avec $n = 10^9$. Relevez les temps d'exécution.
 
@@ -263,9 +274,9 @@ Exécutez les trois programmes avec $n = 10^9$. Relevez les temps d'exécution.
 | Java    |           |              |
 | Python  |           |              |
 
-**Question 3** : Calculez sur papier la complexité de cet algorithme. Est-elle identique dans les trois langages ? Si les complexités sont les mêmes, comment expliquez-vous les différences de temps mesurées ?
+**Question 3.3** : Calculez sur papier la complexité de cet algorithme. Est-elle identique dans les trois langages ? Si les complexités sont les mêmes, comment expliquez-vous les différences de temps mesurées ?
 
-**Question 4**: Les résultats que vous avez obtenus contredisent ceux avancés par l'étude de 2017. On voit en effet que pour ce programme Java produit des résultats plus rapides que C. Ceci est causé par une **optimisation défaillante** : par défaut, `gcc` compile sans optimisation (`-O0`), ce qui signifie que le code machine généré est naïf et non optimisé. La JVM Java, en revanche, applique automatiquement une compilation JIT qui optimise le code à l'exécution. Pour rétablir l'avantage du C, recompilez avec l'option `-O2` :
+**Question 3.4**: Les résultats que vous avez obtenus contredisent ceux avancés par l'étude de 2017. On voit en effet que pour ce programme Java produit des résultats plus rapides que C. Ceci est causé par une **optimisation défaillante** : par défaut, `gcc` compile sans optimisation (`-O0`), ce qui signifie que le code machine généré est naïf et non optimisé. La JVM Java, en revanche, applique automatiquement une compilation JIT(just-in) qui optimise le code à l'exécution. Pour rétablir l'avantage du C, recompilez avec l'option `-O2` :
 
 ```bash
 gcc -O2 -o somme.exe somme.c
@@ -295,11 +306,9 @@ Dans cet exercice, le but est d'illustrer une première raison pour laquelle Pyt
 
 En C, un entier est un type **primitif**: il occupe un espace mémoire fixe, déterminé à la compilation. En Python, tout est objet : même un simple entier embarque des métadonnées (type, compteur de références, valeur), ce qui augmente considérablement son empreinte mémoire.
 
-
 Placez vous dans le répertoire `TP_E1/exercice4/`
 
-
-**Question 1**
+**Question 4.1**
 
 Exécutez le programme Python suivant et relevez les tailles affichées.
 
@@ -315,7 +324,7 @@ print(sys.getsizeof(10**100))
 
 Que remarquez-vous sur la taille des petits entiers ? Et sur la taille de `10**100` ? Qu'est-ce que cela indique sur la représentation des entiers en Python ?
 
-**Question 2**
+**Question 4.2**
 
 Compilez et exécutez le fichier C suivant.
 
@@ -336,7 +345,7 @@ int main() {
 Comparez les tailles obtenues avec celles de la Question 1. Que fait ce code?
 Quelle différence fondamentale observez-vous entre les entiers C et les entiers Python ?
 
-**Question 3**
+**Question 4.3**
 Maintenant essayons de stocker `10**20` dans un entier de type long. Compilez le code suivant:
 
 ```C
@@ -357,7 +366,7 @@ $$
 
 Python est donc un langage plus permissif, au prix de performances inférieures, comme on a pu le voir sur les temps de calcul.
 
-**Question 4 :**
+**Question 4.4 :**
 Exécutez le programme suivant qui compare l'empreinte mémoire d'une liste de $10^6$
 entiers en Python et d'un tableau équivalent en C via NumPy.
 
@@ -386,8 +395,29 @@ print(f"Rapport       : {taille_totale / taille_numpy:.1f}x")
 
 Calculez maintenant le rapport théorique attendu à partir des tailles mesurées en Question 1 et Question 2. Correspond-il au rapport observé ?
 
-**Question 5 :**
-Cet écart est en partie du au fonctionnement du CPU qui charge les données par blocs de 64 octets, appelés **ligne de cache**. Combien d'entiers C (4 octets) et combien d'entiers Python (28 octets) tiennent dans une ligne de cache ? En déduire le nombre de chargements mémoire nécessaires pour parcourir une liste de $10^6$ entiers dans chaque cas, et expliquer en quoi cela contribue à l'écart de performance observé.
+{% details Indice : calcul du rapport théorique %}
+Une liste Python de $n$ éléments occupe deux types de mémoire : les **objets entiers** eux-mêmes (dont vous avez mesuré la taille en Q1), et un tableau de **pointeurs** vers ces objets (dont vous avez vu la taille en Q2 avec `long`). Additionnez ces deux contributions par élément, et divisez par la taille d'un `int32` NumPy.
+
+Un **pointeur** est une variable qui stocke l'**adresse mémoire** d'une autre valeur, plutôt que la valeur elle-même :
+
+```
+Liste Python : [ ptr0 | ptr1 | ptr2 | ... ]
+                  |       |       |
+                  ▼       ▼       ▼
+               [obj0]  [obj1]  [obj2]   ← objets éparpillés en mémoire
+
+Tableau NumPy : [ 0 | 1 | 2 | 3 | ... ] ← valeurs entières bout à bout
+```
+{% enddetails %}
+
+
+
+**Question 4.5 :**
+Le rapport observé en Question 4 correspond donc bien au rapport théorique issu des tailles mesurées en Questions 1 et 2 : la différence de mémoire occupée s'explique entièrement par la taille des objets Python (28 octets) par rapport aux entiers C (4 octets).
+
+Il existe cependant un surcoût supplémentaire lié au fonctionnement du CPU. Celui-ci charge les données en mémoire par blocs de 64 octets, appelés **lignes de cache**. Pour un tableau NumPy (ou un tableau C), les entiers sont stockés de manière **contiguë** : 16 entiers de 4 octets tiennent dans une ligne de cache. En revanche, une liste Python stocke un tableau de **pointeurs** (8 octets chacun), chaque pointeur renvoyant vers un objet Python situé à un emplacement arbitraire en mémoire. Parcourir la liste implique donc deux niveaux d'accès mémoire : d'abord le tableau de pointeurs, puis une déréférence pour chaque objet. Ces accès indirects provoquent des **défauts de cache** fréquents, venant s'ajouter au surcoût mémoire déjà observé.
+
+Combien d'entiers C (4 octets) et combien de pointeurs (8 octets) tiennent dans une ligne de cache ? En déduire le nombre minimal de chargements mémoire pour parcourir $10^6$ éléments dans chaque cas.
 
 <!-- ### Exercice 4 — Tri fusion (Merge Sort)
 
