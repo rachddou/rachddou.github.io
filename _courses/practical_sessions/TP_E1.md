@@ -77,6 +77,13 @@ python3 nom_du_fichier.py
 
 Contrairement aux langages compilés, l'interpréteur de Python lit et exécute chaque ligne de code à la volée. Ce n'est pas optimal car le CPU effectue beaucoup de tâches de traduction.
 
+###### PAS DE PANIQUE!
+Si vous ne savez pas coder en `python`, les corrigés sont fournis dans l'archive avec l'extension `_corrigé.py`. Dans ce cas, vous devrez exécutez ces programmes. Cela ne vous empêche pas d'écrire le pseudo-code de l'algorithme à la main.
+
+Pour ceux qui savent déjà coder en python, forcez vous à ne pas regarder le corrigé, c'est un bon exercice.
+  
+
+
 ### Exercice 1 - la suite de Fibonacci
 
 La suite de Fibonacci est une suite célèbre qui a été étudiée à la fois en mathématiques pour son lien avec le nombre d'or, et en algorithmique pour ses différentes implémentations. L'objectif de cet exercice est de programmer ces implémentations en Python et d'observer les comportements asymptotiques du temps de calcul (quand $n\rightarrow \infty$)
