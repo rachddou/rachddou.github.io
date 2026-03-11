@@ -24,9 +24,9 @@ $$
 
 ### Mise en place du TP
 
-La plupart des étapes suivantes peuvent être faites dans le Terminal ou à la souris. Maîtriser la ligne de commande dans le Terminal est une compétence fondamentale, mais pour ceux qui ne seraient pas à l'aise, d'autres options sont possibles.
+La plupart des étapes suivantes peuvent être faites dans le Terminal. Maîtriser la ligne de commande dans le Terminal est une compétence fondamentale.
 
-* Créer un dossier associé à ce TP `Documents/EE_PC/` soit a la souris où avec la commande `mkdir` dans le Terminal:
+* Créer un dossier associé à ce TP `Documents/EE_PC/` avec la commande `mkdir` dans le Terminal:
   ```
   mkdir Documents/EE_PC/
   ```
@@ -38,7 +38,7 @@ La plupart des étapes suivantes peuvent être faites dans le Terminal ou à la 
   ```
   wget https://rachddou.github.io/assets/files/TP_E1.tar.gz
   ```
-* Décompresser l'archive soit à la souris en faisant `clic droit, décompresser` ou en ligne de commande:
+* Décompresser l'archive soit à la souris en faisant en ligne de commande:
   ```
   tar -xzvf TP_E1.tar.gz
   ```
