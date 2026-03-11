@@ -3,11 +3,13 @@ layout: page
 title: TP E1 — Efficacité énergétique de la programmation
 description: Mesurer et comparer la consommation énergétique de différentes implémentations algorithmiques.
 ---
-# TP E1 : Efficacité énergétique de la programmation
+
 
 *Premier TP du cours Programmation en C et Efficacité Energétique (E2)*
 
 ## Préambule
+
+Comme pour toute la suite de cette unité, ce TP se déroule sous Linux, en utilisant la ligne de commandes que vous avez appris à utiliser lors de l'unité précédente, sur un PC de l'école ou sur votre PC personnel si vous avez installé Linux.
 
 ### Objectifs
 
@@ -38,7 +40,7 @@ La plupart des étapes suivantes peuvent être faites dans le Terminal. Maîtris
   ```
   wget https://rachddou.github.io/assets/files/TP_E1.tar.gz
   ```
-* Décompresser l'archive soit à la souris en faisant en ligne de commande:
+* Décompresser l'archive en faisant en ligne de commande:
   ```
   tar -xzvf TP_E1.tar.gz
   ```
@@ -53,9 +55,9 @@ Vous devriez avoir récupéré tous les fichiers utiles à ce TP. En particulier
 
 Afin d'écrire et éditer des programmes informatiques, on utilisera de préférence un éditeur de texte le plus simple possible qui ne propose pas de completion par LLM. Les editeurs que vous avez à disposition sont les suivants: notepadqq, gedit, emacs, qui peuvent être lancés depuis le terminal grâce à la commande :
 
-`notepadqq [nom du fichier]&` ou `gedit [nom du fichier]&` ou `emacs [nom du fichier]&`.
+`notepadqq nom_du_fichier &` ou `gedit nom_du_fichier &` ou `emacs nom_du_fichier &`.
 
-Vous pouvez également utiliser `nano` dans le Terminal.
+Vous pouvez également utiliser `nano nom_du_fichier` dans le Terminal.
 
 ---
 
