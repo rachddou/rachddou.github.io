@@ -24,8 +24,9 @@ $$
 
 ### Mise en place du TP
 
-* Ouvrir le Terminal.
-* Créer un dossier associé à ce TP, avec la commande `mkdir` :
+La plupart des étapes suivantes peuvent être faites dans le Terminal ou à la souris. Maîtriser la ligne de commande dans le Terminal est une compétence fondamentale, mais pour ceux qui ne seraient pas à l'aise, d'autres options sont possibles.
+
+* Créer un dossier associé à ce TP `Documents/EE_PC/` soit a la souris où avec la commande `mkdir` dans le Terminal:
   ```
   mkdir Documents/EE_PC/
   ```
@@ -33,11 +34,11 @@ $$
   ```
   cd Documents/EE_PC/
   ```
-* Télécharger l'archive en exécutant la commande :
+* Dans le dossier `Documents/EE_PC/` télécharger l'archive en cliquant sur ce [**lien**](https://rachddou.github.io/assets/files/TP_E1.tar.gz) ou en exécutant la commande :
   ```
   wget https://rachddou.github.io/assets/files/TP_E1.tar.gz
   ```
-* Décompresser l'archive
+* Décompresser l'archive soit à la souris en faisant `clic droit, décompresser` ou en ligne de commande:
   ```
   tar -xzvf TP_E1.tar.gz
   ```
@@ -48,11 +49,13 @@ $$
 
 Vous devriez avoir récupéré tous les fichiers utiles à ce TP.
 
-Afin d'écrire et éditer des programmes informatiques, on utilisera un éditeur de texte le plus simple possible comme Notepadqq, ou Emacs, qui peuvent être lancés depuis le terminal grâce à la commande :
+**Point sur les éditeurs**
 
-`emacs [nom du fichier]&`  ou `notepadqq [nom du fichier]&`
+Afin d'écrire et éditer des programmes informatiques, on utilisera de préférence un éditeur de texte le plus simple possible qui ne propose pas de completion par LLM. Les editeurs que vous avez à disposition sont les suivants: notepadqq, gedit, emacs, qui peuvent être lancés depuis le terminal grâce à la commande :
 
-Ces programmes pourront être exécutés de différentes manières en fonction du langage de programmation, ce qu'on découvrira tout au long du TP.
+`notepadqq [nom du fichier]&` ou `gedit [nom du fichier]&` ou `emacs [nom du fichier]&`.
+
+Vous pouvez aussi utiliser VSCode, à la condition que vous desactiviez la completion par IA de Copilot. Pour ce faire, une fois dans VSCode, tapez `Ctrl+P+Maj` pour ouvrir les options et entrez `Github Copilot: Disable Completions`, puis cliquez sur cette option. Quittez et relancez VSCode, la completion devrait être désactivée.
 
 ---
 
@@ -62,14 +65,17 @@ Ces programmes pourront être exécutés de différentes manières en fonction d
 
 Dans cette première partie, on codera les exercices en **python.**  Afin de créer un fichier python, lancez l'éditeur et enregistrer votre programme au format `.py`.
 
-Pour exécuter le programme python sur les machines de l'école, il est nécessaire d'activer un environnement qui possède les bonnes librairies. Pour cela effectuer la commande:
+##### Environnement
+- **sur les machines de l'école**, il est nécessaire d'activer un environnement qui possède les bonnes librairies. Pour cela effectuer la commande:
 
 ```bash
 source /opt/miniconda/bin/activate
 conda activate ee_pc_E2
 ```
+- **Sur vos machines personnelles**, une autre option est de télécharger les bonnes librairies avec la commande `pip install [librairie]`. Les librairies à télécharger sont : `numpy` et `matplotlib`. 
 
-Pour exécuter le programme, rendez vous dans le terminal, et effectuer la commande:
+##### Exécution
+Pour exécuter le programme, rendez vous dans le Terminal, et effectuer la commande:
 
 ```bash
 python3 nom_du_fichier.py
@@ -77,12 +83,11 @@ python3 nom_du_fichier.py
 
 Contrairement aux langages compilés, l'interpréteur de Python lit et exécute chaque ligne de code à la volée. Ce n'est pas optimal car le CPU effectue beaucoup de tâches de traduction.
 
-###### PAS DE PANIQUE!
+##### PAS DE PANIQUE!
+
 Si vous ne savez pas coder en `python`, les corrigés sont fournis dans l'archive avec l'extension `_corrigé.py`. Dans ce cas, vous devrez exécutez ces programmes. Cela ne vous empêche pas d'écrire le pseudo-code de l'algorithme à la main.
 
 Pour ceux qui savent déjà coder en python, forcez vous à ne pas regarder le corrigé, c'est un bon exercice.
-  
-
 
 ### Exercice 1 - la suite de Fibonacci
 
@@ -127,9 +132,7 @@ Placez vous dans le répertoire `TP_E1/exercice1/`.
 
 **Question 1.4** : Afin de le vérifier, faites le calcul de la complexité sur papier, pour la version itérative.
 
-
 **Question 1.5** : même chose pour la version récursive.
-
 
 **Question 1.6**: Maintenant que votre implémentation fonctionne, illustrez le comportement que vous avez prédit en traçant le temps de calcul en fonction de $n$. Pour cela vous pouvez exécuter le fichier python `temps_fibonacci_courbe.py`. Vous pouvez visualiser le graphique avec une échelle linéaire ou une échelle logarithmique. Que nous indique le graphique en échelle logarithmique ?
 
@@ -174,9 +177,9 @@ Placez vous dans le répertoire `TP_E1/exercice2/`.
 
 **Question 2.3 :** Testez ces fonctions sur des listes de tailles variées, en cherchant un élément présent et un élément absent. Qu'observez-vous sur le temps de calcul ?
 
-**Question 2.4 :** Calculez sur papier la complexité de la recherche linéaire dans le pire des cas. 
+**Question 2.4 :** Calculez sur papier la complexité de la recherche linéaire dans le pire des cas.
 
-**Question 2.5 :** 
+**Question 2.5 :**
 Même chose pour la recherche dichotomique, exprimez le nombre maximal d'étapes en fonction de $n$.
 
 {% details Indice pour le calcul de la complexité de la recherche dichotomique: %}
@@ -415,9 +418,8 @@ Liste Python : [ ptr0 | ptr1 | ptr2 | ... ]
 
 Tableau NumPy : [ 0 | 1 | 2 | 3 | ... ] ← valeurs entières bout à bout
 ```
+
 {% enddetails %}
-
-
 
 **Question 4.5 :**
 Le rapport observé en Question 4 correspond donc bien au rapport théorique issu des tailles mesurées en Questions 1 et 2 : la différence de mémoire occupée s'explique entièrement par la taille des objets Python (28 octets) par rapport aux entiers C (4 octets).
