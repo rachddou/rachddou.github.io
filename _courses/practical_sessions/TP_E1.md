@@ -47,7 +47,7 @@ La plupart des étapes suivantes peuvent être faites dans le Terminal ou à la 
   cd TP_E1/
   ```
 
-Vous devriez avoir récupéré tous les fichiers utiles à ce TP.
+Vous devriez avoir récupéré tous les fichiers utiles à ce TP. En particulier, un fichier word, nommé `réponses.docx` pourra vous permettre d'écrire vos réponses aux multiples questions qui ne concernent pas la programmation.
 
 **Point sur les éditeurs**
 
@@ -55,7 +55,7 @@ Afin d'écrire et éditer des programmes informatiques, on utilisera de préfér
 
 `notepadqq [nom du fichier]&` ou `gedit [nom du fichier]&` ou `emacs [nom du fichier]&`.
 
-Vous pouvez aussi utiliser VSCode, à la condition que vous desactiviez la completion par IA de Copilot. Pour ce faire, une fois dans VSCode, tapez `Ctrl+P+Maj` pour ouvrir les options et entrez `Github Copilot: Disable Completions`, puis cliquez sur cette option. Quittez et relancez VSCode, la completion devrait être désactivée.
+Vous pouvez également utiliser `nano` dans le Terminal.
 
 ---
 
@@ -66,15 +66,18 @@ Vous pouvez aussi utiliser VSCode, à la condition que vous desactiviez la compl
 Dans cette première partie, on codera les exercices en **python.**  Afin de créer un fichier python, lancez l'éditeur et enregistrer votre programme au format `.py`.
 
 ##### Environnement
+
 - **sur les machines de l'école**, il est nécessaire d'activer un environnement qui possède les bonnes librairies. Pour cela effectuer la commande:
 
 ```bash
 source /opt/miniconda/bin/activate
 conda activate ee_pc_E2
 ```
-- **Sur vos machines personnelles**, une autre option est de télécharger les bonnes librairies avec la commande `pip install [librairie]`. Les librairies à télécharger sont : `numpy` et `matplotlib`. 
+
+- **Sur vos machines personnelles**, une autre option est de télécharger les bonnes librairies avec la commande `pip install [librairie]`. Les librairies à télécharger sont : `numpy` et `matplotlib`.
 
 ##### Exécution
+
 Pour exécuter le programme, rendez vous dans le Terminal, et effectuer la commande:
 
 ```bash
