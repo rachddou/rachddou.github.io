@@ -65,7 +65,7 @@ Vous pouvez également utiliser `nano nom_du_fichier` dans le Terminal.
 
 ### Mise-en place pour python
 
-Dans cette première partie, on codera les exercices en **python.**  Afin de créer un fichier python, lancez l'éditeur et enregistrer votre programme au format `.py`.
+Dans cette première partie, on codera les exercices en **python.**  Dans la suite du TP, il faudra lancer l'éditeur et enregistrer votre programme au format `.py`.
 
 ##### Environnement
 
@@ -129,11 +129,18 @@ def maFonctionRecursive(n):
 
 Placez vous dans le répertoire `TP_E1/exercice1/`.
 
-**Question 1.1** : Dans le fichier `fibonacci_eleve.py`, remplissez le code la fonction itérative.
+**Question 1.1** : Dans le fichier `fibonnaci_élève.py`, remplissez le code la fonction itérative.
 
-**Question 1.2** : Dans le fichier `fibonacci_eleve.py`, remplissez le code la fonction récursive.
+**Question 1.2** : Dans le fichier `fibonnaci_élève.py`, remplissez le code la fonction récursive.
 
-**Question 1.3** : Testez cette fonction en changeant à la fois les valeurs de $n$ et de `mode`. Comment évolue le temps de calcul selon vous ?
+**Question 1.3** : Testez cette fonction en changeant à la fois les valeurs de $n$ et de `mode`. Vous pouvez changer ces valeurs aux lignes du code suivante:
+```python
+if __name__ == "__main__":
+    n = 20
+    mode = "iteratif"  # ou "recursif"
+```
+
+Comment évolue le temps de calcul selon vous ?
 
 **Question 1.4** : Afin de le vérifier, faites le calcul de la complexité sur papier, pour la version itérative.
 
