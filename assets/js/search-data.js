@@ -67,6 +67,11 @@ ninja.data = [{
           description: "Mesurer et comparer la consommation énergétique de différentes implémentations algorithmiques.",
           section: "Courses",handler: () => {
               window.location.href = "/enseignement/practical_sessions/TP_E1/";
+            },},{id: "courses-tp-e2-matrices-en-c-et-efficacité-mémoire",
+          title: 'TP E2 — Matrices en C et efficacité mémoire',
+          description: "Représenter, transposer et multiplier des matrices en C, en optimisant les accès mémoire étape par étape.",
+          section: "Courses",handler: () => {
+              window.location.href = "/enseignement/practical_sessions/TP_E2/";
             },},{id: "news-i-successfully-defended-my-phd-at-télécom-paris-here-is-link-to-phd-dissertation-synthetic-learning-for-neural-image-restoration-methods",
           title: 'I successfully defended my PhD at Télécom Paris! Here is link to PhD...',
           description: "",
