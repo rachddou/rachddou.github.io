@@ -114,7 +114,7 @@ L'objectif de cet exercice est de créer un fichier `1A_fonctions.c` contenant l
 
 **Écrire** la fonction `tempsSecondes` présentée dans le Préambule.
 
-**1.B.** **Écrire** la **procédure** `initAleatoire` qui prend un tableau `double pM[][NMAX]` et un entier `pN`, et remplit les `pN × pN` cases avec des valeurs réelles aléatoires entre 0 et 1. Pour se faciliter la vie, on définira `NMAX` comme une constante.
+**1.B.** **Écrire** la **procédure** `initAleatoire` qui prend un tableau `double pM[][]` et un entier `pN`, et remplit les `pN × pN` cases avec des valeurs réelles aléatoires entre 0 et 1. Pour se faciliter la vie, on définira `NMAX` comme une constante.
 
 {% details Rappel : nombre aléatoire entre 0 et 1 %}
 ```c
@@ -227,25 +227,25 @@ $$ -->
 Deux boucles `for` imbriquées sur `vI` et `vJ` suffisent. L'élément à la ligne `vI`, colonne `vJ` de `vA` devient l'élément à la ligne `vJ`, colonne `vI` de `vAt`.
 {% enddetails %} -->
 
-**2.B.** Écrire le `main` qui mesure le temps de `transposerNaive` pour `vN` $\in \{128, 256, 512, 1024\}$. Pour chaque valeur de `vN`, **répétez l'opération 10 fois et moyennez** les temps obtenus afin d'obtenir une mesure stable, indépendante des comportements aléatoires du CPU (interruptions système, variations de fréquence, etc.). Compilez d'abord **sans optimisation** puis **avec `-O3`**.
+**2.B.** Écrire le `main` qui mesure le temps de `transposerNaive` pour `vN` $\in \{128, 256, 512, 1024\}$. Pour chaque valeur de `vN`, **répétez l'opération 50 fois et moyennez** les temps obtenus afin d'obtenir une mesure stable, indépendante des comportements aléatoires du CPU (interruptions système, variations de fréquence, etc.). Compilez d'abord **sans optimisation** puis **avec `-O2`**.
 
 Remplissez le tableau :
 
-| N    | Temps `-O0` (s) | Temps `-O3` (s) | Rapport |
+| N    | Temps `-O0` (s) | Temps `-O2` (s) | Rapport |
 |------|-----------------|-----------------|---------|
 | 128  |                 |                 |         |
 | 256  |                 |                 |         |
 | 512  |                 |                 |         |
 | 1024 |                 |                 |         |
 
-**2.C.** Que remarquez-vous sur le rapport entre `-O0` et `-O3` pour la version naïve ? Comment expliquer que le compilateur n'améliore pas (ou peu) les performances ?
+**2.C.** Que remarquez-vous sur le rapport entre `-O0` et `-O2` pour la version naïve ? Comment expliquer que le compilateur n'améliore pas (ou peu) les performances ?
 
 {% details Explication %}
 La transposition naïve est limitée non pas par le **calcul** (une simple affectation), mais par les **accès mémoire**. Pour `vJ` variant dans la boucle interne :
 - `vAt[vI][vJ]` : écriture contiguë (ligne vI de vAt) ✓
 - `vA[vJ][vI]`  : lecture non contiguë (colonne vI de vA) ✗ → un *cache miss* par élément
 
-Pour $N = 1024$, la lecture de la colonne `vI` de `vA` génère 1024 *cache misses* séquentiels. Le compilateur peut appliquer `-O3`, mais il ne peut pas réorganiser les accès mémoire non contigus automatiquement → le goulot d'étranglement reste la RAM.
+Pour $N = 1024$, la lecture de la colonne `vI` de `vA` génère 1024 *cache misses* séquentiels. Le compilateur peut appliquer `-O2`, mais il ne peut pas réorganiser les accès mémoire non contigus automatiquement → le goulot d'étranglement reste la RAM.
 {% enddetails %}
 
 ### Exercice 3 — Transposition par blocs
@@ -282,12 +282,12 @@ pour vI de 0 à pN avec pas pBlocs :
 ``` -->
 {% enddetails %}
 
-**3.C.** Mesurez les performances de `transposerBlocs` pour `pN = 1024` et `pBlocs` $\in \{8, 16, 32, 64\}$, **avec `-O3`**. Pour chaque configuration, **répétez l'opération 10 fois et moyennez** les temps obtenus afin d'obtenir une mesure stable, indépendante des comportements aléatoires du CPU. Comparez avec `transposerNaive` compilée avec `-O3` :
+**3.C.** Mesurez les performances de `transposerBlocs` pour `pN = 1024` et `pBlocs` $\in \{8, 16, 32, 64\}$, **avec `-O2`**. Pour chaque configuration, **répétez l'opération 10 fois et moyennez** les temps obtenus afin d'obtenir une mesure stable, indépendante des comportements aléatoires du CPU. Comparez avec `transposerNaive` compilée avec `-O2` :
 
-| Implémentation            | Temps `-O3` (s) | Rapport vs naïf `-O3` |
+| Implémentation            | Temps `-O2` (s) | Rapport vs naïf `-O2` |
 |---------------------------|-----------------|----------------------|
 | `transposerNaive` `-O0`   |                 | (référence)           |
-| `transposerNaive` `-O3`   |                 |                       |
+| `transposerNaive` `-O2`   |                 |                       |
 | `transposerBlocs` blocs=8    |                 |                       |
 | `transposerBlocs` blocs=16   |                 |                       |
 | `transposerBlocs` blocs=32   |                 |                       |
@@ -307,7 +307,7 @@ $$
 C_{ij} = \sum_{k=0}^{N-1} A_{ik} \times B_{kj}
 $$
 
-Créez un fichier `4A_multiplication.c` incluant `"1A.h"` et déclarant les globaux :
+**Créez** un fichier `4A_multiplication.c` incluant `"1A.h"` et déclarant les globaux :
 
 ```c
 double vA[NMAX][NMAX];
@@ -323,7 +323,7 @@ double vC[NMAX][NMAX];
 Traduisez directement la formule : pour chaque $(i, j)$, sommez sur $k$ les produits $A[i][k] \times B[k][j]$. 
 {% enddetails %}
 
-**4.B.** Écrire le `main` qui mesure le temps de `multNaive` pour `vN` $\in \{128, 256, 512, 1024\}$. Pour chaque valeur de `vN`, **répétez l'opération 10 fois et moyennez** les temps obtenus afin d'obtenir une mesure stable, indépendante des comportements aléatoires du CPU (interruptions système, variations de fréquence, etc.). Compilez **sans optimisation**.
+**4.B.** Écrire le `main` qui mesure le temps de `multNaive` pour `vN` $\in \{128, 256, 512, 1024\}$. (Vous pouvez par exemple faire une boucle sur `vN`).  Pour chaque valeur de `vN`, **répétez l'opération 10 fois et moyennez** les temps obtenus afin d'obtenir une mesure stable, indépendante des comportements aléatoires du CPU (interruptions système, variations de fréquence, etc.). Compilez **sans optimisation**.
 
 <!-- ```bash
 mycc 4A_multiplication.c 1A_fonctions.o -o 4A.exe
@@ -338,113 +338,118 @@ mycc 4A_multiplication.c 1A_fonctions.o -o 4A.exe
 
 **4.C.** Si on double $N$, le temps d'exécution est multiplié par quel facteur ? Est-ce cohérent avec la complexité théorique en $O(N^3)$ ?
 
-### Exercice 5 — Version optimisée (ordre i, k, j)
-
-#### Analyse des accès mémoire dans la version naïve
-
+### Exercice 5 — Multiplication par blocs (ordre i, j, k)
+ 
+#### Pourquoi la version naïve est lente
+ 
 Pour `vI` et `vJ` fixés, la boucle sur `vK` accède à :
-
+ 
 ```
 - vA[vI][vK] : vK varie → lecture contiguë de la ligne vI de A    ✓
 - vB[vK][vJ] : vK varie → lecture de la colonne vJ de B            ✗
                deux éléments consécutifs sont espacés de NMAX*8 octets
-               → 1 cache miss par accès, quasiment tous les accès sont lents
+               → un cache miss par accès, quasiment tous les accès sont lents
 ```
-
-Pour $N = 512$, lire toute la colonne `vJ` de `B` génère 512 *cache misses*. La RAM est interrogée à chaque accès au lieu d'être chargée une fois en cache.
-
-**Solution :** en permutant les boucles sur `vJ` et `vK` (ordre $i > k > j$), la boucle interne balaie `vJ` pour `vI` et `vK` fixés :
-
-```
-- vA[vI][vK] : constante → stockable dans une variable locale (registre)  ✓
-- vB[vK][vJ] : vJ varie → lecture contiguë de la ligne vK de B            ✓
-- vC[vI][vJ] : vJ varie → écriture contiguë de la ligne vI de C           ✓
-```
-
-Tous les accès sont désormais contigus.
-
-**5.A.** Créez un fichier `5A_multIKJ.c`. **Écrire** la **procédure** `multIKJ( int pN )` implémentant la multiplication avec l'ordre de boucles $i > k > j$.
-
-{% details Indice %}
-La boucle externe est sur `vI`, la boucle intermédiaire sur `vK`, la boucle interne sur `vJ`. Comme `vA[vI][vK]` est **constant** pour toute la boucle interne, stockez-le dans une variable locale avant cette boucle. Notez que `vC[vI][vJ]` est accumulé à travers plusieurs valeurs de `vK` : `vC` doit donc être remis à zéro avant l'appel.
-{% enddetails %}
-
-**5.B.** Comparez `multNaive` et `multIKJ` pour `vN` $\in \{256, 512, 1024\}$. Pour chaque valeur de `vN`, **répétez l'opération 10 fois et moyennez** les temps obtenus afin d'obtenir une mesure stable, indépendante des comportements aléatoires du CPU. Compilez **sans optimisation** :
-
-| N    | `multNaive` (s) | `multIKJ` (s) | Gain (×) |
-|------|-----------------|---------------|---------|
-| 256  |                 |               |         |
-| 512  |                 |               |         |
-| 1024 |                 |               |         |
-
-**5.C.** Maintenant, compilez le **même fichier** avec `-O3 -march=native`. Remplissez le tableau récapitulatif pour `vN = 1024`. **Répétez chaque mesure 10 fois et moyennez** pour obtenir des résultats stables.
-
-<!-- ```bash
-gcc -O0              -std=c99 -lm 5A_multIKJ.c 1A_fonctions.o -o 5A_O0.exe
-gcc -O3 -march=native -std=c99 -lm 5A_multIKJ.c 1A_fonctions.o -o 5A_O3.exe
-``` -->
-
-| Implémentation      | `-O0` (s) | `-O3 -march=native` (s) | Gain compilation |
-|---------------------|-----------|-------------------------|------------------|
-| `multNaive`         |           |                         |                  |
-| `multIKJ`           |           |                         |                  |
-
-**5.D.** Avec `-O3`, le compilateur **vectorise** la boucle interne de `multIKJ` : il remplace les opérations scalaires par des instructions **SIMD** (*Single Instruction, Multiple Data*) qui traitent plusieurs `double` à la fois (4 avec AVX2, 8 avec AVX-512). Cela est possible car les accès à `vB[vK][vJ]` et `vC[vI][vJ]` sont **contigus**. Peut-il en faire autant pour `multNaive` ? Pourquoi ?
-
-
-
-### Exercice 6 — Tiling pour la multiplication
-
-Même avec l'ordre $i > k > j$, une matrice $1024 \times 1024$ occupe 8 Mo : les trois matrices dépassent le cache L1. La **multiplication par blocs** décompose le calcul en sous-multiplications de blocs $B \times B$ qui tiennent en L1 :
-
+ 
+Pour $N = 1024$, les trois matrices occupent $3 \times 8$ Mo = 24 Mo, bien au-delà du cache L1 (32 Ko) et du cache L2 (quelques Mo). Chaque accès à la colonne de $B$ déclenche donc un aller-retour jusqu'à la **RAM** (~200 cycles d'attente).
+ 
+#### Principe du tiling pour la multiplication
+ 
+La **multiplication par blocs** (*tiling*) consiste à décomposer le calcul en sous-multiplications de blocs $B \times B$ :
+ 
 $$
 C[i:i{+}B,\; j:j{+}B] \mathrel{+}= A[i:i{+}B,\; k:k{+}B] \;\times\; B[k:k{+}B,\; j:j{+}B]
 $$
-
-**6.A.** Calculez la taille de bloc $B$ maximale pour que trois blocs de `double` tiennent en cache L1 simultanément.
-
-<!-- {% details Indice %}
+ 
+Si les blocs actifs tiennent dans le cache L1, les *cache misses* coûtent au pire ~4 cycles (L1→L2) au lieu de ~200 cycles (L1→RAM). On ne supprime pas les *cache misses* non contigus sur la colonne de $B$, mais on réduit drastiquement leur coût.
+ 
+**5.A.** Calculez la taille de bloc $B$ maximale pour que trois blocs de `double` (A, B, C) tiennent simultanément en cache L1.
+ 
+{% details Indice %}
 $$3 \times B^2 \times 8 \leq L_1 \quad \Rightarrow \quad B \leq \sqrt{\frac{L_1}{24}}$$
 Pour $L_1 = 32$ Ko : $B \leq 37$, soit $B = 32$ (puissance de 2 proche).
-{% enddetails %} -->
-
-**6.B.** Créez un fichier `6A_multBlocs.c`. **Écrire** la **procédure** `multBlocs( int pN, int pBlocs )`. La structure comporte 6 boucles imbriquées : 3 boucles externes sur les blocs (pas `pBlocs`) et 3 boucles internes dans le bloc (pas 1). L'ordre des boucles externes doit rester $i > k > j$.
-
+{% enddetails %}
+ 
+**5.B.** Créez un fichier `5A_multBlocs.c`. **Écrire** la **procédure** `multBlocsIJK( int pN, int pBs )` qui implémente la multiplication par blocs **en conservant l'ordre $i > j > k$** à l'intérieur de chaque bloc. La structure comporte 6 boucles imbriquées : 3 boucles externes sur les blocs (pas `pBs`) et 3 boucles internes dans le bloc (pas 1).
+ 
 <!-- {% details Indice : structure des 6 boucles %}
 ```
-pour vI  de 0 à pN pas pBlocs :
-  pour vK  de 0 à pN pas pBlocs :
-    pour vJ  de 0 à pN pas pBlocs :
-      pour vII de vI  à vI+pBlocs :
-        pour vKK de vK  à vK+pBlocs :
-          vAiikk = vA[vII][vKK]      ← variable locale (registre)
-          pour vJJ de vJ à vJ+pBlocs :
-            vC[vII][vJJ] += vAiikk * vB[vKK][vJJ]
+pour vI  de 0 à pN pas pBs :
+  pour vJ  de 0 à pN pas pBs :
+    pour vK  de 0 à pN pas pBs :
+      pour vII de vI à vI+pBs :
+        pour vJJ de vJ à vJ+pBs :
+          vSomme = 0.0
+          pour vKK de vK à vK+pBs :
+            vSomme += vA[vII][vKK] * vB[vKK][vJJ]
+          vC[vII][vJJ] += vSomme
 ```
+L'accès `vB[vKK][vJJ]` avec `vKK` qui varie est toujours non contigu (colonne de B), mais `vKK` ne parcourt qu'un bloc de taille `pBs` : le bloc tient en L1 → *cache miss* L1 (~4 cycles) au lieu de RAM (~200 cycles).
+{% enddetails %} -->
+ 
+**5.C.** Comparez `multNaive` et `multBlocsIJK` pour `vN = 1024` et `pBs` $\in \{16, 32, 64\}$, **sans optimisation**.
+ 
+ 
+| Implémentation        | Temps `-O0` (s) | Gain vs naïf (×) |
+|-----------------------|-----------------|-----------------|
+| `multNaive`           |                 | ×1               |
+| `multBlocsIJK` bs=16  |                 |                  |
+| `multBlocsIJK` bs=32  |                 |                  |
+| `multBlocsIJK` bs=64  |                 |                  |
+ 
+**5.D.** Le tiling améliore les performances sans changer l'ordre des boucles. Quelle est la source du gain ? 
+
+
+### Exercice 6 — Version optimisée (ordre i, k, j)
+
+#### Analyse des accès mémoire dans la version naïve
+
+Nous venons de voir qu'on peut améliorer les performances en travaillant sur des blocs qui tiennent en cache. Mais existe-t-il une solution encore plus simple ?
+
+Observons ce qui se passe si on permute les boucles sur `vJ` et `vK` (ordre $i > k > j$) :
+ 
+```
+Pour vI et vK fixés, boucle interne sur vJ :
+- vA[vI][vK] : constante → variable locale vAik (registre)           ✓
+- vB[vK][vJ] : vJ varie  → lecture contiguë de la ligne vK de B     ✓
+- vC[vI][vJ] : vJ varie  → écriture contiguë de la ligne vI de C    ✓
+```
+Tous les accès deviennent **contigus** : plus aucun *cache miss* non contigu.
+
+
+**6.A.** Créez un fichier `6A_multIKJ.c`. **Écrire** la **procédure** `multIKJ( int pN )` implémentant la multiplication avec l'ordre de boucles $i > k > j$.
+
+<!-- {% details Indice %}
+La boucle externe est sur `vI`, la boucle intermédiaire sur `vK`, la boucle interne sur `vJ`. Comme `vA[vI][vK]` est **constant** pour toute la boucle interne, stockez-le dans une variable locale avant cette boucle. Notez que `vC[vI][vJ]` est accumulé à travers plusieurs valeurs de `vK` : `vC` doit donc être remis à zéro avant l'appel.
 {% enddetails %} -->
 
-**6.C.** Testez `pBlocs` $\in \{8, 16, 32, 64\}$ pour `pN = 1024`, compilé avec `-O3`. Pour chaque configuration, **répétez l'opération 10 fois et moyennez** les temps obtenus. Comparez avec `multIKJ` :
 
-| Implémentation              | Temps `-O3` (s) | Gain vs `multIKJ` (×) |
-|-----------------------------|-----------------|----------------------|
-| `multIKJ`                   |                 | 1×                   |
-| `multBlocs` blocs=8         |                 |                      |
-| `multBlocs` blocs=16        |                 |                      |
-| `multBlocs` blocs=32        |                 |                      |
-| `multBlocs` blocs=64        |                 |                      |
 
----
+**6.B.** Comparez `multNaive`, `multBlocsIJK` (meilleure taille de bloc) et `multIKJ` pour `vN = 1024`, d'abord **sans optimisation** puis **avec `-O2`** :
+ 
 
+| Implémentation          | `-O0` (s) | `-O2` (s) |
+|-------------------------|-----------|-------------------------|
+| `multNaive`             |           |                         |
+| `multBlocsIJK` bs=32    |           |                         |
+| `multIKJ`               |           |                         |                 |
+
+
+**6.C.** Avec `-O2`, `multIKJ` surpasse-t-elle `multBlocsIJK` ?
+
+
+<!-- --- -->
+<!-- 
 ## Bilan
 
 | Technique                          | Levier principal                  | Gain typique  |
 |------------------------------------|-----------------------------------|---------------|
 | Ordre de boucles ikj               | Localité spatiale (cache)         | ×3 – ×10     |
 | Tiling transposition               | Réutilisation cache L1            | ×8 – ×10     |
-| Flags `-O3`          | Vectorisation SIMD                | ×2 – ×8      |
+| Flags `-O2`          | Vectorisation SIMD                | ×2 – ×8      |
 | Tiling multiplication              | Réutilisation cache L1 + SIMD     | ×5 – ×15     |
 
-Le message clé : **un même algorithme peut varier de plusieurs ordres de grandeur en performance** selon la façon dont il accède à la mémoire. En efficacité énergétique, un programme 10× plus rapide consomme approximativement 10× moins d'énergie.
+Le message clé : **un même algorithme peut varier de plusieurs ordres de grandeur en performance** selon la façon dont il accède à la mémoire. En efficacité énergétique, un programme 10× plus rapide consomme approximativement 10× moins d'énergie. -->
 
 ---
 
