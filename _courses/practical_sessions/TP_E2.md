@@ -110,11 +110,11 @@ Nous verrons dans la Partie 2 en quoi cela est crucial pour les performances.
 
 L'objectif de cet exercice est de créer un fichier `1A_fonctions.c` contenant les procédures utilitaires, ainsi qu'un fichier d'en-tête `1A.h` contenant leurs prototypes. Ces fichiers seront **réutilisés** dans les exercices suivants via la **compilation séparée** (rappel TP C1, §11).
 
-**1.A.** Dans un nouveau fichier `1A_fonctions.c`, incluez `<stdio.h>`, `<stdlib.h>` et `<time.h>`, et définissez la constante `NMAX 1024`.
+**1.A.** Créer un nouveau fichier `1A_fonctions.c`, dans lequel vous définirez toutes les fonctions utilitaires.  
 
 **Écrire** la fonction `tempsSecondes` présentée dans le Préambule.
 
-**1.B.** **Écrire** la **procédure** `initiAleatoire` qui prend un tableau `double pM[][NMAX]` et un entier `pN`, et remplit les `pN × pN` cases avec des valeurs réelles aléatoires entre 0 et 1.
+**1.B.** **Écrire** la **procédure** `initAleatoire` qui prend un tableau `double pM[][NMAX]` et un entier `pN`, et remplit les `pN × pN` cases avec des valeurs réelles aléatoires entre 0 et 1. Pour se faciliter la vie, on définira `NMAX` comme une constante.
 
 {% details Rappel : nombre aléatoire entre 0 et 1 %}
 ```c
@@ -127,57 +127,59 @@ double vVal = (double)rand() / RAND_MAX;
 Le paramètre de `srand` est la **graine** (*seed*). Une graine fixe garantit la **reproductibilité** des résultats d'un TP à l'autre.
 {% enddetails %}
 
-**1.C.** **Écrire** la **procédure** `initiZeros` qui remet à zéro toutes les cases de `pM` (taille `pN × pN`).
+**1.C.** **Écrire** la **procédure** `initZeros` qui remet à zéro toutes les cases de `pM` (taille `pN × pN`).
 
 *Pourquoi en a-t-on besoin si les globaux sont déjà à zéro ?* Parce qu'on exécutera plusieurs mesures à la suite sur les mêmes tableaux globaux, et il faudra réinitialiser les résultats entre deux mesures.
 
-**1.D.** **Écrire** la **procédure** `affMatrice` qui prend `double pM[][NMAX]`, un entier `pN` et un nom `char * pNom`, et affiche la matrice sous la forme suivante (en utilisant `\t` pour aligner les colonnes) :
+**1.D.** **Écrire** la **procédure** `affMatrice` qui prend `double pM[NMAX][NMAX]`, un entier `pN` et un nom `char * pNom`, et affiche la matrice sous la forme suivante (en utilisant `\t` pour aligner les colonnes), y compris si certaines valeurs sont négatives :
 
 ```
 Matrice A (4x4) :
-  0.37	  0.95	  0.73	  0.60
-  0.16	  0.06	  0.87	  0.02
-  0.40	  0.53	  0.89	  0.11
-  0.70	  0.21	  0.97	  0.83
+  0.37	 -0.95	  0.73	  0.60
+ -0.16	  0.06	  0.87	 -0.02
+  0.40	  0.53	 -0.89	  0.11
+  0.70	 -0.21	  0.97	  0.83
 ```
 
-**Attention !** Pour `pN > 6`, n'afficher que les 4 premières lignes et colonnes, suivies de `"..."`.
+**Attention !** Pour `pN > 4`, n'afficher que les 4 premières lignes et colonnes, suivies de `"..."`. Si vous ne vous souvenez plus des formats d'affichages, rendez vous sur les pages des TPs C1 et C2.
 
-{% details Rappel : affichage d'un réel avec deux décimales et d'une chaîne %}
-Le format `%.2f` affiche un `double` avec 2 décimales. Le format `%s` affiche une chaîne de caractères `char *` (revu au TP C2, §IV). La tabulation s'insère avec le caractère spécial `\t`.
-{% enddetails %}
+<!-- {% details Rappel : affichage d'un réel avec deux décimales et d'une chaîne %}
+Le format `%.2f` affiche un `double` avec 2 décimales. Le format `%7.2f` fixe une largeur minimale (utile pour garder les colonnes alignées avec des valeurs négatives). Le format `%s` affiche une chaîne de caractères `char *` (revu au TP C2, §IV). La tabulation s'insère avec le caractère spécial `\t`.
+{% enddetails %} -->
 
 **1.E.** Créer le fichier d'en-tête `1A.h` contenant :
-- la directive `#define NMAX 1024`
+- la directive de définition de NMAX
 - les **prototypes** des quatre fonctions écrites ci-dessus (comme au TP C1, §11)
+La présentation des fichiers d'en-tête a été faite dans le TP C1.
 
-{% details Rappel : contenu d'un fichier .h %}
+<!-- {% details Rappel : contenu d'un fichier .h %}
 Un fichier d'en-tête contient uniquement les **déclarations** (prototypes), pas le corps des fonctions. Par exemple :
 ```c
 #define NMAX 1024
 double tempsSecondes();
-void   initiAleatoire( double pM[][NMAX], int pN );
+void   initAleatoire( double pM[][NMAX], int pN );
 ```
 Pour l'inclure depuis un autre fichier du même répertoire, on utilise (TP C1, §11.B) :
 ```c
 #include "1A.h"
 ```
-{% enddetails %}
+{% enddetails %} -->
 
 **1.F.** Écrire un `main` (dans `1A_fonctions.c`) qui teste les quatre procédures avec `vN = 4`, puis avec `vN = 10` pour vérifier l'affichage tronqué.
 
-Compilez et testez :
+Compilez et testez le fichier `1A_fonctions.c`.
 
-```bash
+<!-- ```bash
 mycc 1A_fonctions.c -o 1A.exe
 ./1A.exe
-```
+``` -->
 
 **Rappel compilation séparée (TP C1, §11) :** pour les exercices suivants, `1A_fonctions.c` sera compilé séparément et lié à chaque fichier exercice :
 
 ```bash
 mycc -c 1A_fonctions.c          # produit 1A_fonctions.o
-mycc 2A_transposition.c 1A_fonctions.o -o 2A.exe
+mycc -c 2A_transposition.c 
+mycc 2A_transposition.o 1A_fonctions.o -o 2A.exe
 ```
 
 ---
@@ -190,7 +192,7 @@ Avant d'implémenter la transposition, voici une description de l'organisation d
 
 | Niveau    | Taille typique | Latence typique | Description                                    |
 |-----------|----------------|-----------------|------------------------------------------------|
-| Registres | < 1 Ko         | ~0 cycle        | Intégrés dans le cœur du CPU, ultra-rapides    |
+| Registres | < 1 Ko         | ~1 cycle        | Intégrés dans le cœur du CPU, ultra-rapides    |
 | Cache L1  | 32 – 64 Ko     | ~4 cycles       | Cache de données du cœur, très rapide          |
 | Cache L2  | 256 Ko – 1 Mo  | ~12 cycles      | Cache unifié (données + instructions)           |
 | Cache L3  | 4 – 32 Mo      | ~40 cycles      | Partagé entre tous les cœurs                   |
@@ -215,22 +217,17 @@ double vA[NMAX][NMAX];
 double vAt[NMAX][NMAX];   /* contiendra la transposée de vA */
 ```
 
-**2.A.** **Écrire** la **procédure** `transposerNaive` qui calcule la transposée de `vA` dans `vAt` :
+**2.A.** **Écrire** la **procédure** `transposerNaive` qui calcule la transposée de `vA` dans `vAt`.
 
-$$
+<!-- $$
 \text{vAt}[i][j] = \text{vA}[j][i] \quad \text{pour tout } i, j
-$$
+$$ -->
 
-{% details Indice : structure de la procédure %}
+<!-- {% details Indice : structure de la procédure %}
 Deux boucles `for` imbriquées sur `vI` et `vJ` suffisent. L'élément à la ligne `vI`, colonne `vJ` de `vA` devient l'élément à la ligne `vJ`, colonne `vI` de `vAt`.
-{% enddetails %}
+{% enddetails %} -->
 
-**2.B.** Écrire le `main` qui mesure le temps de `transposerNaive` pour `vN` $\in \{128, 256, 512, 1024\}$. Pour chaque valeur de `vN`, **répétez l'opération 10 fois et moyennez** les temps obtenus afin d'obtenir une mesure stable, indépendante des comportements aléatoires du CPU (interruptions système, variations de fréquence, etc.). Compilez d'abord **sans optimisation** puis **avec `-O3`** :
-
-```bash
-mycc     2A_transposition.c 1A_fonctions.o -o 2A_O0.exe
-gcc -O3 -std=c99 -lm 2A_transposition.c 1A_fonctions.o -o 2A_O3.exe
-```
+**2.B.** Écrire le `main` qui mesure le temps de `transposerNaive` pour `vN` $\in \{128, 256, 512, 1024\}$. Pour chaque valeur de `vN`, **répétez l'opération 10 fois et moyennez** les temps obtenus afin d'obtenir une mesure stable, indépendante des comportements aléatoires du CPU (interruptions système, variations de fréquence, etc.). Compilez d'abord **sans optimisation** puis **avec `-O3`**.
 
 Remplissez le tableau :
 
@@ -267,7 +264,7 @@ Bloc (0:2, 2:4) → (2:4, 0:2) de vAt
 Pour un cache L1 de taille $L$, la condition est que deux blocs (source et destination) tiennent en L1 :
 
 $$
-2 \times B^2 \times 8 \leq L \quad \Rightarrow \quad B \leq \sqrt{\frac{L}{16}}
+2 \times B^2 \times 8 \leq L \quad \Rightarrow \quad B \leq \frac{\sqrt{L}}{4}
 $$
 
 **3.A.** Calculez la valeur de $B$ recommandée pour votre machine à partir de `lscpu | grep L1d`.
@@ -275,14 +272,14 @@ $$
 **3.B.** Créez un fichier `3A_tiling.c`. **Écrire** la **procédure** `transposerBlocs( int pN, int pBlocs )` où `pBlocs` est la taille de bloc, qui transpose `vA` dans `vAt` bloc par bloc. On supposera que `pN` est un multiple de `pBlocs`.
 
 {% details Indice : structure à 4 boucles %}
-Deux boucles **externes** (pas `pBs`) parcourent les blocs. Deux boucles **internes** (pas 1) effectuent la transposition à l'intérieur de chaque bloc :
-```
+Deux boucles **externes** ( de pas `pBlocs`) parcourent chaques blocs de tailles $\text{pBlocs} \times \text{pBlocs}$. Deux boucles **internes** (de pas 1) effectuent la transposition à l'intérieur de chaque bloc :
+<!-- ```
 pour vI de 0 à pN avec pas pBlocs :
     pour vJ de 0 à pN avec pas pBlocs :
         pour vII de vI à vI+pBlocs :
             pour vJJ de vJ à vJ+pBlocs :
                 vAt[vJJ][vII] = vA[vII][vJJ]
-```
+``` -->
 {% enddetails %}
 
 **3.C.** Mesurez les performances de `transposerBlocs` pour `pN = 1024` et `pBlocs` $\in \{8, 16, 32, 64\}$, **avec `-O3`**. Pour chaque configuration, **répétez l'opération 10 fois et moyennez** les temps obtenus afin d'obtenir une mesure stable, indépendante des comportements aléatoires du CPU. Comparez avec `transposerNaive` compilée avec `-O3` :
@@ -323,14 +320,14 @@ double vC[NMAX][NMAX];
 **4.A.** **Écrire** la **procédure** `multNaive( int pN )` qui calcule $C = A \times B$ avec les trois boucles dans l'ordre $i > j > k$. `vC` doit être initialisé à zéro avant l'appel.
 
 {% details Indice %}
-Traduisez directement la formule : pour chaque $(i, j)$, sommez sur $k$ les produits $A[i][k] \times B[k][j]$. Rappel : l'accumulation dans une variable locale `vSomme` avant d'écrire `vC[vI][vJ]` évite des allers-retours inutiles en mémoire (vu au TP E1).
+Traduisez directement la formule : pour chaque $(i, j)$, sommez sur $k$ les produits $A[i][k] \times B[k][j]$. 
 {% enddetails %}
 
-**4.B.** Écrire le `main` qui mesure le temps de `multNaive` pour `vN` $\in \{128, 256, 512, 1024\}$. Pour chaque valeur de `vN`, **répétez l'opération 10 fois et moyennez** les temps obtenus afin d'obtenir une mesure stable, indépendante des comportements aléatoires du CPU (interruptions système, variations de fréquence, etc.). Compilez **sans optimisation** :
+**4.B.** Écrire le `main` qui mesure le temps de `multNaive` pour `vN` $\in \{128, 256, 512, 1024\}$. Pour chaque valeur de `vN`, **répétez l'opération 10 fois et moyennez** les temps obtenus afin d'obtenir une mesure stable, indépendante des comportements aléatoires du CPU (interruptions système, variations de fréquence, etc.). Compilez **sans optimisation**.
 
-```bash
+<!-- ```bash
 mycc 4A_multiplication.c 1A_fonctions.o -o 4A.exe
-```
+``` -->
 
 | N    | Temps (s) |
 |------|-----------|
@@ -380,12 +377,12 @@ La boucle externe est sur `vI`, la boucle intermédiaire sur `vK`, la boucle int
 | 512  |                 |               |         |
 | 1024 |                 |               |         |
 
-**5.C.** Maintenant, compilez le **même fichier** avec `-O3 -march=native`. Remplissez le tableau récapitulatif pour `vN = 1024`. **Répétez chaque mesure 10 fois et moyennez** pour obtenir des résultats stables :
+**5.C.** Maintenant, compilez le **même fichier** avec `-O3 -march=native`. Remplissez le tableau récapitulatif pour `vN = 1024`. **Répétez chaque mesure 10 fois et moyennez** pour obtenir des résultats stables.
 
-```bash
+<!-- ```bash
 gcc -O0              -std=c99 -lm 5A_multIKJ.c 1A_fonctions.o -o 5A_O0.exe
 gcc -O3 -march=native -std=c99 -lm 5A_multIKJ.c 1A_fonctions.o -o 5A_O3.exe
-```
+``` -->
 
 | Implémentation      | `-O0` (s) | `-O3 -march=native` (s) | Gain compilation |
 |---------------------|-----------|-------------------------|------------------|
@@ -394,9 +391,7 @@ gcc -O3 -march=native -std=c99 -lm 5A_multIKJ.c 1A_fonctions.o -o 5A_O3.exe
 
 **5.D.** Avec `-O3`, le compilateur **vectorise** la boucle interne de `multIKJ` : il remplace les opérations scalaires par des instructions **SIMD** (*Single Instruction, Multiple Data*) qui traitent plusieurs `double` à la fois (4 avec AVX2, 8 avec AVX-512). Cela est possible car les accès à `vB[vK][vJ]` et `vC[vI][vJ]` sont **contigus**. Peut-il en faire autant pour `multNaive` ? Pourquoi ?
 
----
 
-## Partie 4 (BONUS) — Multiplication de matrices par blocs
 
 ### Exercice 6 — Tiling pour la multiplication
 
@@ -408,14 +403,14 @@ $$
 
 **6.A.** Calculez la taille de bloc $B$ maximale pour que trois blocs de `double` tiennent en cache L1 simultanément.
 
-{% details Indice %}
+<!-- {% details Indice %}
 $$3 \times B^2 \times 8 \leq L_1 \quad \Rightarrow \quad B \leq \sqrt{\frac{L_1}{24}}$$
 Pour $L_1 = 32$ Ko : $B \leq 37$, soit $B = 32$ (puissance de 2 proche).
-{% enddetails %}
+{% enddetails %} -->
 
 **6.B.** Créez un fichier `6A_multBlocs.c`. **Écrire** la **procédure** `multBlocs( int pN, int pBlocs )`. La structure comporte 6 boucles imbriquées : 3 boucles externes sur les blocs (pas `pBlocs`) et 3 boucles internes dans le bloc (pas 1). L'ordre des boucles externes doit rester $i > k > j$.
 
-{% details Indice : structure des 6 boucles %}
+<!-- {% details Indice : structure des 6 boucles %}
 ```
 pour vI  de 0 à pN pas pBlocs :
   pour vK  de 0 à pN pas pBlocs :
@@ -426,9 +421,9 @@ pour vI  de 0 à pN pas pBlocs :
           pour vJJ de vJ à vJ+pBlocs :
             vC[vII][vJJ] += vAiikk * vB[vKK][vJJ]
 ```
-{% enddetails %}
+{% enddetails %} -->
 
-**6.C.** Testez `pBlocs` $\in \{8, 16, 32, 64\}$ pour `pN = 1024`, compilé avec `-O3 -march=native`. Pour chaque configuration, **répétez l'opération 10 fois et moyennez** les temps obtenus. Comparez avec `multIKJ` :
+**6.C.** Testez `pBlocs` $\in \{8, 16, 32, 64\}$ pour `pN = 1024`, compilé avec `-O3`. Pour chaque configuration, **répétez l'opération 10 fois et moyennez** les temps obtenus. Comparez avec `multIKJ` :
 
 | Implémentation              | Temps `-O3` (s) | Gain vs `multIKJ` (×) |
 |-----------------------------|-----------------|----------------------|
@@ -446,7 +441,7 @@ pour vI  de 0 à pN pas pBlocs :
 |------------------------------------|-----------------------------------|---------------|
 | Ordre de boucles ikj               | Localité spatiale (cache)         | ×3 – ×10     |
 | Tiling transposition               | Réutilisation cache L1            | ×8 – ×10     |
-| Flags `-O3 -march=native`          | Vectorisation SIMD                | ×2 – ×8      |
+| Flags `-O3`          | Vectorisation SIMD                | ×2 – ×8      |
 | Tiling multiplication              | Réutilisation cache L1 + SIMD     | ×5 – ×15     |
 
 Le message clé : **un même algorithme peut varier de plusieurs ordres de grandeur en performance** selon la façon dont il accède à la mémoire. En efficacité énergétique, un programme 10× plus rapide consomme approximativement 10× moins d'énergie.
