@@ -34,6 +34,11 @@ mycc() { echo gcc: ; gcc "$@" -std=c99 -Wall -Wextra -lm ; echo Done. ;}
 
 **Conservez tous les programmes C écrits au fur et à mesure.**
 
+Afin de répondre aux questions, et de garder une trace écrite de vos expériences, vous pouvez télécharger le fichier suivant:
+```
+  wget https://rachddou.github.io/assets/files/TP_E2_formulaire.docx
+```
+
 ### Mesure du temps
 
 Pour mesurer les temps d'exécution, vous utiliserez la fonction suivante dans tous les exercices. Elle utilise `clock_gettime` de la bibliothèque `<time.h>` et retourne le temps courant en secondes avec une résolution nanoseconde :
