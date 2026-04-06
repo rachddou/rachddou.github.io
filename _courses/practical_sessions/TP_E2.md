@@ -21,10 +21,7 @@ Les matrices sont omniprésentes en calcul scientifique et en intelligence artif
 
 ### Mise en place du TP
 
-```bash
-mkdir Documents/EE_PC/TP_E2/
-cd Documents/EE_PC/TP_E2/
-```
+**Créer** un répertoire `TP_E2` pour y stocker tous les exercices de ce TP.
 
 Rappel de la commande de compilation `mycc` (TP C1, §2.B) :
 
@@ -38,6 +35,7 @@ Afin de répondre aux questions, et de garder une trace écrite de vos expérien
 ```
   wget https://rachddou.github.io/assets/files/TP_E2_formulaire.docx
 ```
+Vous devez être en mesure de vous y réferez à tout moment du TP, lorsqu'un intervenant vous le demande.
 
 ### Mesure du temps
 
@@ -119,7 +117,7 @@ L'objectif de cet exercice est de créer un fichier `1A_fonctions.c` contenant l
 
 **Écrire** la fonction `tempsSecondes` présentée dans le Préambule.
 
-**1.B.** **Écrire** la **procédure** `initAleatoire` qui prend un tableau `double pM[][]` et un entier `pN`, et remplit les `pN × pN` cases avec des valeurs réelles aléatoires entre 0 et 1. Pour se faciliter la vie, on définira `NMAX` comme une constante.
+**1.B.** **Écrire** la **procédure** `initAleatoire` qui prend un tableau `double pM[NMAX][NMAX]` et un entier `pN`, et remplit les `pN × pN` cases avec des valeurs réelles aléatoires entre -1 et 1. Pour se faciliter la vie, on définira `NMAX` comme une constante. 
 
 {% details Rappel : nombre aléatoire entre 0 et 1 %}
 ```c
@@ -129,14 +127,20 @@ srand(42);
 /* Puis, pour obtenir un réel entre 0 et 1 : */
 double vVal = (double)rand() / RAND_MAX;
 ```
-Le paramètre de `srand` est la **graine** (*seed*). Une graine fixe garantit la **reproductibilité** des résultats d'un TP à l'autre.
+Ici, les fonctions `srand` et `rand` sont des fonctions de la librairie standard du C. Nous en connaissons déjà quelques unes, comme des fonctions d'entée et sortie (**I**nput/**O**utput)`printf` et `scanf`, auxquelles on accèdent en incluant `<stdio.h>` (pour **st**an**d**ard **i**nput **o**utput) au début de chaque fichier C. Ici, pour accèder aux fonctions de générations de nombres aléatoire, on doit appeler un autre fichier d'en tête `<stdlib.h>` qui définit d'autres fonctions primordiales de la libraire standard.
+
+- `srand`(pour seed rand): le paramètre de `srand` est la **graine** (*seed*). Une graine fixe garantit la **reproductibilité** des résultats d'un TP à l'autre. Si vous recompilez le code, et le ré-exécuter, les nombres aléatoires générés sont identiques.
+- `rand`: fonction qui génère un entier pseudo-aléaotoire entre 0 et `RAND_MAX`.
+- `RAND_MAX`: une constante de la librairie standard, qui peut varier en fonction des systèmes.
 {% enddetails %}
+
+
 
 **1.C.** **Écrire** la **procédure** `initZeros` qui remet à zéro toutes les cases de `pM` (taille `pN × pN`).
 
 *Pourquoi en a-t-on besoin si les globaux sont déjà à zéro ?* Parce qu'on exécutera plusieurs mesures à la suite sur les mêmes tableaux globaux, et il faudra réinitialiser les résultats entre deux mesures.
 
-**1.D.** **Écrire** la **procédure** `affMatrice` qui prend `double pM[NMAX][NMAX]`, un entier `pN` et un nom `char * pNom`, et affiche la matrice sous la forme suivante (en utilisant `\t` pour aligner les colonnes), y compris si certaines valeurs sont négatives :
+**1.D.** **Écrire** la **procédure** `affMatrice` qui prend `double pM[NMAX][NMAX]`, un entier `pN` et un nom `char * pNom`, et affiche la matrice sous la forme suivante, y compris si certaines valeurs sont négatives :
 
 ```
 Matrice A (4x4) :
@@ -145,6 +149,11 @@ Matrice A (4x4) :
   0.40	  0.53	 -0.89	  0.11
   0.70	 -0.21	  0.97	  0.83
 ```
+*Indice* Pour que les valeurs négatives soient alignées avec les valeurs positives qui ont un caractère en moins, on peut utiliser le format suivant : `%6.2lf`:
+- .2 désigne le nombre de décimale à afficher.
+- 5 désigne ici la longueur minimale du champs affiché par le printf. Si le nombre avec 2 décimales fait 4 caractères, alors 1 caractère vide sera rajouté *à droite*.
+- afin d'aligner les éléments à gauche, on peut écrire `%-6.2lf`: dans ce cas les caractères vides sont rajoutés à gauche du champs courant.
+
 
 **Attention !** Pour `pN > 4`, n'afficher que les 4 premières lignes et colonnes, suivies de `"..."`. Si vous ne vous souvenez plus des formats d'affichages, rendez vous sur les pages des TPs C1 et C2.
 
@@ -211,6 +220,14 @@ Le processeur charge la mémoire par blocs de **64 octets** appelés **lignes de
 lscpu | grep cache
 ```
 
+#### Rapide point sur les différents niveaux d'optimisation de GCC
+
+- `-O0` — Aucune optimisation. Toutes les variables sont stockées en mémoire (pile), les registres ne sont pas réutilisés entre les instructions, et les accès redondants ne sont pas éliminés. Le code est traduit littéralement, ce qui facilite le débogage mais produit un maximum de trafic mémoire.
+- `-O2` — Active un ensemble de passes d'optimisation qui réduisent significativement les accès mémoire : les variables scalaires fréquentes sont gardées dans les registres du processeur, les lectures redondantes d'une même valeur sont fusionnées, et les écritures dont le résultat n'est jamais lu sont supprimées. 
+- `-O3` — Va plus loin en activant des transformations agressives : les boucles scalaires sont automatiquement vectorisées pour tirer parti des instructions SIMD (lecture de plusieurs valeurs en un seul accès), et d'autres optimisations fines sont réalisées. Ces optimisations peuvent toutefois être contre-productives si les structures de données ne sont pas bien agencées en mémoire.
+
+Dans la suite de ce TP, on comparera les optimisations `-O0` et `-O2` qui permettent de voir comment celle-ci permettent de tirer parti des optimisations réalisées dans nos programmes.
+
 ### Exercice 2 — Transposition naïve
 
 Créez un fichier `2A_transposition.c`. Ajoutez en variables globales :
@@ -223,14 +240,6 @@ double vAt[NMAX][NMAX];   /* contiendra la transposée de vA */
 ```
 
 **2.A.** **Écrire** la **procédure** `transposerNaive` qui calcule la transposée de `vA` dans `vAt`.
-
-<!-- $$
-\text{vAt}[i][j] = \text{vA}[j][i] \quad \text{pour tout } i, j
-$$ -->
-
-<!-- {% details Indice : structure de la procédure %}
-Deux boucles `for` imbriquées sur `vI` et `vJ` suffisent. L'élément à la ligne `vI`, colonne `vJ` de `vA` devient l'élément à la ligne `vJ`, colonne `vI` de `vAt`.
-{% enddetails %} -->
 
 **2.B.** Écrire le `main` qui mesure le temps de `transposerNaive` pour `vN` $\in \{128, 256, 512, 1024\}$. Pour chaque valeur de `vN`, **répétez l'opération 50 fois et moyennez** les temps obtenus afin d'obtenir une mesure stable, indépendante des comportements aléatoires du CPU (interruptions système, variations de fréquence, etc.). Compilez d'abord **sans optimisation** puis **avec `-O2`**.
 
@@ -372,7 +381,7 @@ Si les blocs actifs tiennent dans le cache L1, les *cache misses* coûtent au pi
  
 {% details Indice %}
 $$3 \times B^2 \times 8 \leq L_1 \quad \Rightarrow \quad B \leq \sqrt{\frac{L_1}{24}}$$
-Pour $L_1 = 32$ Ko : $B \leq 37$, soit $B = 32$ (puissance de 2 proche).
+Pour $L_1 = 32$ Ko : $B \leq 37$, soit $B = 32$ (puissance de 2 inférieure la plus proche).
 {% enddetails %}
  
 **5.B.** Créez un fichier `5A_multBlocs.c`. **Écrire** la **procédure** `multBlocsIJK( int pN, int pBs )` qui implémente la multiplication par blocs **en conservant l'ordre $i > j > k$** à l'intérieur de chaque bloc. La structure comporte 6 boucles imbriquées : 3 boucles externes sur les blocs (pas `pBs`) et 3 boucles internes dans le bloc (pas 1).
