@@ -127,10 +127,10 @@ srand(42);
 /* Puis, pour obtenir un réel entre 0 et 1 : */
 double vVal = (double)rand() / RAND_MAX;
 ```
-Ici, les fonctions `srand` et `rand` sont des fonctions de la librairie standard du C. Nous en connaissons déjà quelques unes, comme des fonctions d'entée et sortie (**I**nput/**O**utput)`printf` et `scanf`, auxquelles on accèdent en incluant `<stdio.h>` (pour **st**an**d**ard **i**nput **o**utput) au début de chaque fichier C. Ici, pour accèder aux fonctions de générations de nombres aléatoire, on doit appeler un autre fichier d'en tête `<stdlib.h>` qui définit d'autres fonctions primordiales de la libraire standard.
+Ici, les fonctions `srand` et `rand` sont des fonctions de la librairie standard du C. Nous en connaissons déjà quelques unes, comme des fonctions d'entrée et sortie (**I**nput/**O**utput)`printf` et `scanf`, auxquelles on accède en incluant `<stdio.h>` (pour **st**an**d**ard **i**nput **o**utput) au début de chaque fichier C. Ici, pour accèder aux fonctions de génération de nombres aléatoires, on doit appeler un autre fichier d'en tête `<stdlib.h>` qui définit d'autres fonctions primordiales de la libraire standard.
 
-- `srand`(pour seed rand): le paramètre de `srand` est la **graine** (*seed*). Une graine fixe garantit la **reproductibilité** des résultats d'un TP à l'autre. Si vous recompilez le code, et le ré-exécuter, les nombres aléatoires générés sont identiques.
-- `rand`: fonction qui génère un entier pseudo-aléaotoire entre 0 et `RAND_MAX`.
+- `srand`(pour seed rand): le paramètre de `srand` est la **graine** (*seed*). Une graine fixe garantit la **reproductibilité** des résultats d'un TP à l'autre. Si vous recompilez le code, et le ré-exécutez, les nombres aléatoires générés sont identiques.
+- `rand`: fonction qui génère un entier pseudo-aléatoire entre 0 et `RAND_MAX`.
 - `RAND_MAX`: une constante de la librairie standard, qui peut varier en fonction des systèmes.
 {% enddetails %}
 
@@ -150,9 +150,8 @@ Matrice A (4x4) :
   0.70	 -0.21	  0.97	  0.83
 ```
 *Indice* Pour que les valeurs négatives soient alignées avec les valeurs positives qui ont un caractère en moins, on peut utiliser le format suivant : `%6.2lf`:
-- .2 désigne le nombre de décimale à afficher.
-- 5 désigne ici la longueur minimale du champs affiché par le printf. Si le nombre avec 2 décimales fait 4 caractères, alors 1 caractère vide sera rajouté *à droite*.
-- afin d'aligner les éléments à gauche, on peut écrire `%-6.2lf`: dans ce cas les caractères vides sont rajoutés à gauche du champs courant.
+- .2 désigne le nombre de décimales à afficher.
+- 5 désigne ici la longueur minimale du champ affiché par le printf. Si le nombre avec 2 décimales fait 5 caractères, alors 1 caractère vide sera rajouté *à droite*.
 
 
 **Attention !** Pour `pN > 4`, n'afficher que les 4 premières lignes et colonnes, suivies de `"..."`. Si vous ne vous souvenez plus des formats d'affichages, rendez vous sur les pages des TPs C1 et C2.
@@ -188,7 +187,7 @@ mycc 1A_fonctions.c -o 1A.exe
 ./1A.exe
 ``` -->
 
-**Rappel compilation séparée (TP C1, §11) :** pour les exercices suivants, `1A_fonctions.c` sera compilé séparément et lié à chaque fichier exercice :
+**Rappel compilation séparée (TP C1, §11) :** pour les exercices suivants, `1A_fonctions.c` sera compilé séparément et lié à chaque fichier exercice:
 
 ```bash
 mycc -c 1A_fonctions.c          # produit 1A_fonctions.o
@@ -226,6 +225,8 @@ lscpu | grep cache
 - `-O2` — Active un ensemble de passes d'optimisation qui réduisent significativement les accès mémoire : les variables scalaires fréquentes sont gardées dans les registres du processeur, les lectures redondantes d'une même valeur sont fusionnées, et les écritures dont le résultat n'est jamais lu sont supprimées. 
 - `-O3` — Va plus loin en activant des transformations agressives : les boucles scalaires sont automatiquement vectorisées pour tirer parti des instructions SIMD (lecture de plusieurs valeurs en un seul accès), et d'autres optimisations fines sont réalisées. Ces optimisations peuvent toutefois être contre-productives si les structures de données ne sont pas bien agencées en mémoire.
 
+Chacunes de ces optimisations activent en réalité une multitude d'options de compilations dont vous trouverez le détail sur ce [**lien**](https://gcc.gnu.org/onlinedocs/gcc-11.5.0/gcc/Optimize-Options.html).
+
 Dans la suite de ce TP, nous comparerons les niveaux -O0 et -O2 afin d'observer concrètement l'impact de ces optimisations et d'évaluer rigoureusement les améliorations apportées à nos programmes. Nous n'utiliserons pas -O3 car ses transformations agressives, notamment la vectorisation automatique, risquent de masquer les optimisations que nous avons nous-mêmes implémentées.
 
 ### Exercice 2 — Transposition naïve
@@ -242,8 +243,9 @@ double vAt[NMAX][NMAX];   /* contiendra la transposée de vA */
 **2.A.** **Écrire** la **procédure** `transposerNaive` qui calcule la transposée de `vA` dans `vAt`.
 
 **2.B.** Écrire le `main` qui mesure le temps de `transposerNaive` pour `vN` $\in \{128, 256, 512, 1024\}$. Pour chaque valeur de `vN`, **répétez l'opération 50 fois et moyennez** les temps obtenus afin d'obtenir une mesure stable, indépendante des comportements aléatoires du CPU (interruptions système, variations de fréquence, etc.). Compilez d'abord **sans optimisation** puis **avec `-O2`**.
+**Un problème?** Si la compilation séparée donne une erreur, c'est que vous avez deux fonctions `main`. Afin de corriger ce conflit, commentez la fonction `main` dans le fichier `1A_fonctions.c` et relancez la compilation.
 
-Remplissez le tableau :
+Exécutez et remplissez le tableau :
 
 | N    | Temps `-O0` (s) | Temps `-O2` (s) | Rapport |
 |------|-----------------|-----------------|---------|
@@ -251,6 +253,7 @@ Remplissez le tableau :
 | 256  |                 |                 |         |
 | 512  |                 |                 |         |
 | 1024 |                 |                 |         |
+
 
 **2.C.** Que remarquez-vous sur le rapport entre `-O0` et `-O2` pour la version naïve ? Comment expliquer que le compilateur n'améliore pas (ou peu) les performances ?
 
@@ -286,7 +289,7 @@ $$
 **3.B.** Créez un fichier `3A_tiling.c`. **Écrire** la **procédure** `transposerBlocs( int pN, int pBlocs )` où `pBlocs` est la taille de bloc, qui transpose `vA` dans `vAt` bloc par bloc. On supposera que `pN` est un multiple de `pBlocs`.
 
 {% details Indice : structure à 4 boucles %}
-Deux boucles **externes** ( de pas `pBlocs`) parcourent chaques blocs de tailles $\text{pBlocs} \times \text{pBlocs}$. Deux boucles **internes** (de pas 1) effectuent la transposition à l'intérieur de chaque bloc :
+Deux boucles **externes** ( de pas `pBlocs`) parcourent chaque bloc de tailles $\text{pBlocs} \times \text{pBlocs}$. Deux boucles **internes** (de pas 1) effectuent la transposition à l'intérieur de chaque bloc :
 <!-- ```
 pour vI de 0 à pN avec pas pBlocs :
     pour vJ de 0 à pN avec pas pBlocs :
@@ -307,7 +310,9 @@ pour vI de 0 à pN avec pas pBlocs :
 | `transposerBlocs` blocs=32   |                 |                       |
 | `transposerBlocs` blocs=64   |                 |                       |
 
-**3.D.** Quel gain observez-vous avec la meilleure taille de bloc ? Correspond-il à votre calcul de la Question 3.A ?
+
+
+**3.D.** Quel gain observez-vous avec la meilleure taille de bloc ? Correspond-il à votre calcul de la Question 3.A ? 
 
 ---
 
@@ -349,6 +354,8 @@ mycc 4A_multiplication.c 1A_fonctions.o -o 4A.exe
 | 256  |           |
 | 512  |           |
 | 1024 |           |
+
+
 
 **4.C.** Si on double $N$, le temps d'exécution est multiplié par quel facteur ? Est-ce cohérent avec la complexité théorique en $O(N^3)$ ?
 
@@ -411,6 +418,8 @@ L'accès `vB[vKK][vJJ]` avec `vKK` qui varie est toujours non contigu (colonne d
 | `multBlocsIJK` bs=32  |                 |                  |
 | `multBlocsIJK` bs=64  |                 |                  |
  
+
+
 **5.D.** Le tiling améliore les performances sans changer l'ordre des boucles. Quelle est la source du gain ? 
 
 
@@ -447,6 +456,8 @@ La boucle externe est sur `vI`, la boucle intermédiaire sur `vK`, la boucle int
 | `multNaive`             |           |                         |
 | `multBlocsIJK` bs=32    |           |                         |
 | `multIKJ`               |           |                         |                 |
+
+
 
 
 **6.C.** Avec `-O2`, `multIKJ` surpasse-t-elle `multBlocsIJK` ?
