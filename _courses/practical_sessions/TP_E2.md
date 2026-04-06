@@ -226,7 +226,7 @@ lscpu | grep cache
 - `-O2` — Active un ensemble de passes d'optimisation qui réduisent significativement les accès mémoire : les variables scalaires fréquentes sont gardées dans les registres du processeur, les lectures redondantes d'une même valeur sont fusionnées, et les écritures dont le résultat n'est jamais lu sont supprimées. 
 - `-O3` — Va plus loin en activant des transformations agressives : les boucles scalaires sont automatiquement vectorisées pour tirer parti des instructions SIMD (lecture de plusieurs valeurs en un seul accès), et d'autres optimisations fines sont réalisées. Ces optimisations peuvent toutefois être contre-productives si les structures de données ne sont pas bien agencées en mémoire.
 
-Dans la suite de ce TP, on comparera les optimisations `-O0` et `-O2` qui permettent de voir comment celle-ci permettent de tirer parti des optimisations réalisées dans nos programmes.
+Dans la suite de ce TP, nous comparerons les niveaux -O0 et -O2 afin d'observer concrètement l'impact de ces optimisations et d'évaluer rigoureusement les améliorations apportées à nos programmes. Nous n'utiliserons pas -O3 car ses transformations agressives, notamment la vectorisation automatique, risquent de masquer les optimisations que nous avons nous-mêmes implémentées.
 
 ### Exercice 2 — Transposition naïve
 
