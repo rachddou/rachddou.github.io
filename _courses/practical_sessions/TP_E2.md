@@ -36,7 +36,8 @@ Afin de répondre aux questions, et de garder une trace écrite de vos expérien
   wget https://rachddou.github.io/assets/files/TP_E2_formulaire.docx
 ```
 Vous devez être en mesure de vous y réferez à tout moment du TP, lorsqu'un intervenant vous le demande.
-*N'oubliez pas de cliquer à chaque fois que vous voyez ce triangle |> pour obtenir des explications supplémentaires.*
+
+*N'oubliez pas de cliquer à chaque fois que vous voyez ce triangle ▸ pour obtenir des explications supplémentaires.*
 
 ### Mesure du temps
 
@@ -172,8 +173,8 @@ La présentation des fichiers d'en-tête a été faite dans le TP C1.
 Compilez et testez le fichier `1A_fonctions.c`.
 
 <!-- ```bash
-mycc 1A_fonctions.c -o 1A.exe
-./1A.exe
+mycc 1A_fonctions.c -o 1A.x
+./1A.x
 ``` -->
 
 **Rappel compilation séparée (TP C1, §11) :** pour les exercices suivants, `1A_fonctions.c` sera compilé séparément et lié à chaque fichier exercice:
@@ -181,7 +182,7 @@ mycc 1A_fonctions.c -o 1A.exe
 ```bash
 mycc -c 1A_fonctions.c          # produit 1A_fonctions.o
 mycc -c 2A_transposition.c 
-mycc 2A_transposition.o 1A_fonctions.o -o 2A.exe
+mycc 2A_transposition.o 1A_fonctions.o -o 2A.x
 ```
 
 ---
@@ -340,7 +341,7 @@ Traduisez directement la formule : pour chaque $(i, j)$, sommez sur $k$ les prod
 **4.B.** Écrire le `main` qui mesure le temps de `multNaive` pour `vN` $\in \{128, 256, 512, 1024\}$. (Vous pouvez par exemple faire une boucle sur `vN`).  Pour chaque valeur de `vN`, **répétez l'opération 10 fois et moyennez** les temps obtenus afin d'obtenir une mesure stable, indépendante des comportements aléatoires du CPU (interruptions système, variations de fréquence, etc.). Compilez **sans optimisation**.
 
 <!-- ```bash
-mycc 4A_multiplication.c 1A_fonctions.o -o 4A.exe
+mycc 4A_multiplication.c 1A_fonctions.o -o 4A.x
 ``` -->
 
 | N    | Temps (s) |
