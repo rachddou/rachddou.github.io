@@ -26,7 +26,7 @@ Les matrices sont omniprésentes en calcul scientifique et en intelligence artif
 Rappel de la commande de compilation `mycc` (TP C1, §2.B) :
 
 ```bash
-mycc() { echo gcc: ; gcc "$@" -Wall -Wextra -lm ; echo Done. ;}
+mycc() { echo gcc: ; gcc "$@" -std=c99 -Wall -Wextra -lm ; echo Done. ;}
 ```
 
 **Conservez tous les programmes C écrits au fur et à mesure.**
@@ -43,6 +43,7 @@ Vous devez être en mesure de vous y réferez à tout moment du TP, lorsqu'un in
 Pour mesurer les temps d'exécution, vous utiliserez la fonction suivante dans tous les exercices. Elle utilise `clock_gettime` de la bibliothèque `<time.h>` et retourne le temps courant en secondes avec une résolution nanoseconde :
 
 ```c
+#define _POSIX_C_SOURCE 200809L
 #include <time.h>
 
 double tempsSecondes() {
