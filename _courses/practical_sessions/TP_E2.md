@@ -26,16 +26,17 @@ Les matrices sont omniprésentes en calcul scientifique et en intelligence artif
 Rappel de la commande de compilation `mycc` (TP C1, §2.B) :
 
 ```bash
-mycc() { echo gcc: ; gcc "$@" -std=c99 -Wall -Wextra -lm ; echo Done. ;}
+mycc() { echo gcc: ; gcc "$@" -Wall -Wextra -lm ; echo Done. ;}
 ```
 
 **Conservez tous les programmes C écrits au fur et à mesure.**
 
-Afin de répondre aux questions, et de garder une trace écrite de vos expériences, vous pouvez télécharger le fichier suivant:
+Afin de répondre aux questions, et de garder une trace écrite de vos expériences, vous pouvez télécharger le fichier suivant et l'ouvrir dans LibreOffice:
 ```
   wget https://rachddou.github.io/assets/files/TP_E2_formulaire.docx
 ```
 Vous devez être en mesure de vous y réferez à tout moment du TP, lorsqu'un intervenant vous le demande.
+*N'oubliez pas de cliquer à chaque fois que vous voyez ce triangle |> pour obtenir des explications supplémentaires.*
 
 ### Mesure du temps
 
@@ -51,7 +52,7 @@ double tempsSecondes() {
 }
 ```
 
-Usage :
+Usage (dans un main) :
 
 ```c
 double vDebut = tempsSecondes();
@@ -78,7 +79,7 @@ L'accès à l'élément à la ligne `vI` et à la colonne `vJ` s'écrit naturell
 
 #### Pourquoi des variables globales ?
 
-Pour de grandes matrices (par exemple $1024 \times 1024$, soit $8$ Mo par matrice de `double`), on ne peut pas déclarer le tableau comme variable locale dans `main` : la **pile** (*stack*) est limitée à quelques Mo, et un tel tableau provoquerait un *segmentation fault* au démarrage.
+Pour de grandes matrices (par exemple pour ce TP $1024 \times 1024$, soit $8$ Mo par matrice de `double`), on ne peut pas déclarer le tableau comme variable locale dans `main` : la **pile** (*stack*) est limitée à quelques Mo, et un tel tableau provoquerait un *segmentation fault* au démarrage.
 
 On utilise à la place des **variables globales**, déclarées en dehors de toute fonction. Elles sont stockées dans le **segment de données** du programme, dont la taille n'est pas bornée par ce mécanisme.
 
@@ -111,13 +112,36 @@ Nous verrons dans la Partie 2 en quoi cela est crucial pour les performances.
 
 ### Exercice 1 — Fonctions utilitaires et compilation séparée
 
-L'objectif de cet exercice est de créer un fichier `1A_fonctions.c` contenant les procédures utilitaires, ainsi qu'un fichier d'en-tête `1A.h` contenant leurs prototypes. Ces fichiers seront **réutilisés** dans les exercices suivants via la **compilation séparée** (rappel TP C1, §11).
+L'objectif de cet exercice est de créer un fichier `1A_fonctions.c` contenant les procédures utilitaires, qui incluera un fichier d'en-tête `1A.h` contenant leurs prototypes, ainsi que la définition de `NMAX`. Ces fichiers seront **réutilisés** dans les exercices suivants via la **compilation séparée** (rappel TP C1, §11).
+
+
 
 **1.A.** Créer un nouveau fichier `1A_fonctions.c`, dans lequel vous définirez toutes les fonctions utilitaires.  
 
 **Écrire** la fonction `tempsSecondes` présentée dans le Préambule.
 
-**1.B.** **Écrire** la **procédure** `initAleatoire` qui prend un tableau `double pM[NMAX][NMAX]` et un entier `pN`, et remplit les `pN × pN` cases avec des valeurs réelles aléatoires entre -1 et 1. Pour se faciliter la vie, on définira `NMAX` comme une constante. 
+
+**1.B.** **Écrire** la **procédure** `initZeros` qui prend en paramètres un tableau `double pM[NMAX][NMAX]` et un entier `pN`, qui remet à zéro toutes les cases de `pM` (taille `pN × pN`). Pour se faciliter la vie, on définira `NMAX` comme une constante.
+
+*Pourquoi en a-t-on besoin si les globaux sont déjà à zéro ?* Parce qu'on exécutera plusieurs mesures à la suite sur les mêmes tableaux globaux, et il faudra réinitialiser les résultats entre deux mesures.
+
+**1.C.** **Écrire** la **procédure** `affMatrice` qui prend `double pM[NMAX][NMAX]`, un entier `pN` et un nom `char * pNom`, et affiche la matrice sous la forme suivante, y compris si certaines valeurs sont négatives :
+
+```
+Matrice A (4x4) :
+  0.37	 -0.95	  0.73	  0.60
+ -0.16	  0.06	  0.87	 -0.02
+  0.40	  0.53	 -0.89	  0.11
+  0.70	 -0.21	  0.97	  0.83
+```
+*Indice* Pour que les valeurs négatives soient alignées avec les valeurs positives qui ont un caractère en moins, on peut utiliser le format suivant : `%6.2lf`:
+- .2 désigne le nombre de décimales à afficher.
+- 6 désigne ici la longueur minimale du champ affiché par le printf. Si le nombre avec 2 décimales fait 5 caractères, alors 1 espace sera rajouté *à gauche*.
+
+
+**Attention !** Pour `pN > 4`, n'afficher que les 4 premières lignes et colonnes, suivies de `"..."`. Si vous ne vous souvenez plus des formats d'affichages, rendez vous sur les pages des TPs C1 et C2. 
+
+**1.D.** **Écrire** la **procédure** `initAleatoire` qui prend en paramètres un tableau `double pM[NMAX][NMAX]` et un entier `pN`, et remplit les `pN × pN` cases avec des valeurs réelles aléatoires entre -1 et 1.  
 
 {% details Rappel : nombre aléatoire entre 0 et 1 %}
 ```c
@@ -132,53 +156,17 @@ Ici, les fonctions `srand` et `rand` sont des fonctions de la librairie standard
 - `srand`(pour seed rand): le paramètre de `srand` est la **graine** (*seed*). Une graine fixe garantit la **reproductibilité** des résultats d'un TP à l'autre. Si vous recompilez le code, et le ré-exécutez, les nombres aléatoires générés sont identiques.
 - `rand`: fonction qui génère un entier pseudo-aléatoire entre 0 et `RAND_MAX`.
 - `RAND_MAX`: une constante de la librairie standard, qui peut varier en fonction des systèmes.
+- Si au lieu de valeurs entre 0 et 1, vous voulez des valeurs entre 0 et N, il suffit de multiplier par N dans la formule ci-dessus.Et si vous voulez un intervalle de valeurs centré sur 0, il suffit de soustraire N/2 dans cette même formule.
 {% enddetails %}
 
-
-
-**1.C.** **Écrire** la **procédure** `initZeros` qui remet à zéro toutes les cases de `pM` (taille `pN × pN`).
-
-*Pourquoi en a-t-on besoin si les globaux sont déjà à zéro ?* Parce qu'on exécutera plusieurs mesures à la suite sur les mêmes tableaux globaux, et il faudra réinitialiser les résultats entre deux mesures.
-
-**1.D.** **Écrire** la **procédure** `affMatrice` qui prend `double pM[NMAX][NMAX]`, un entier `pN` et un nom `char * pNom`, et affiche la matrice sous la forme suivante, y compris si certaines valeurs sont négatives :
-
-```
-Matrice A (4x4) :
-  0.37	 -0.95	  0.73	  0.60
- -0.16	  0.06	  0.87	 -0.02
-  0.40	  0.53	 -0.89	  0.11
-  0.70	 -0.21	  0.97	  0.83
-```
-*Indice* Pour que les valeurs négatives soient alignées avec les valeurs positives qui ont un caractère en moins, on peut utiliser le format suivant : `%6.2lf`:
-- .2 désigne le nombre de décimales à afficher.
-- 5 désigne ici la longueur minimale du champ affiché par le printf. Si le nombre avec 2 décimales fait 5 caractères, alors 1 caractère vide sera rajouté *à droite*.
-
-
-**Attention !** Pour `pN > 4`, n'afficher que les 4 premières lignes et colonnes, suivies de `"..."`. Si vous ne vous souvenez plus des formats d'affichages, rendez vous sur les pages des TPs C1 et C2.
-
-<!-- {% details Rappel : affichage d'un réel avec deux décimales et d'une chaîne %}
-Le format `%.2f` affiche un `double` avec 2 décimales. Le format `%7.2f` fixe une largeur minimale (utile pour garder les colonnes alignées avec des valeurs négatives). Le format `%s` affiche une chaîne de caractères `char *` (revu au TP C2, §IV). La tabulation s'insère avec le caractère spécial `\t`.
-{% enddetails %} -->
-
+&nbsp;
 **1.E.** Créer le fichier d'en-tête `1A.h` contenant :
-- la directive de définition de NMAX
+- la directive de définition de `NMAX`
 - les **prototypes** des quatre fonctions écrites ci-dessus (comme au TP C1, §11)
 La présentation des fichiers d'en-tête a été faite dans le TP C1.
 
-<!-- {% details Rappel : contenu d'un fichier .h %}
-Un fichier d'en-tête contient uniquement les **déclarations** (prototypes), pas le corps des fonctions. Par exemple :
-```c
-#define NMAX 1024
-double tempsSecondes();
-void   initAleatoire( double pM[][NMAX], int pN );
-```
-Pour l'inclure depuis un autre fichier du même répertoire, on utilise (TP C1, §11.B) :
-```c
-#include "1A.h"
-```
-{% enddetails %} -->
 
-**1.F.** Écrire un `main` (dans `1A_fonctions.c`) qui teste les quatre procédures avec `vN = 4`, puis avec `vN = 10` pour vérifier l'affichage tronqué.
+**1.F.** Écrire un `main` (dans `1A_fonctions.c`) qui teste les trois procédures avec `vN = 4`, puis avec `vN = 10` pour vérifier l'affichage tronqué.
 
 Compilez et testez le fichier `1A_fonctions.c`.
 
@@ -214,6 +202,11 @@ Avant d'implémenter la transposition, voici une description de l'organisation d
 Le processeur charge la mémoire par blocs de **64 octets** appelés **lignes de cache** (soit 8 `double`). Lorsqu'on accède à une case mémoire, les 7 voisines sont chargées automatiquement dans le cache L1. Si l'accès suivant se trouve dans la même ligne de cache (accès **contigu**), aucun nouvel accès RAM n'est nécessaire. En revanche, si l'accès suivant est dans une ligne différente (**défaut de cache**, *cache miss*), le processeur doit attendre ~200 cycles pour charger la nouvelle ligne depuis la RAM — un coût considérable.
 
 **Pour connaître les tailles de cache de votre machine :**
+
+```bash
+lscpu | grep instances
+```
+ou 
 
 ```bash
 lscpu | grep cache
@@ -298,6 +291,7 @@ pour vI de 0 à pN avec pas pBlocs :
                 vAt[vJJ][vII] = vA[vII][vJJ]
 ``` -->
 {% enddetails %}
+&nbsp;
 
 **3.C.** Mesurez les performances de `transposerBlocs` pour `pN = 1024` et `pBlocs` $\in \{8, 16, 32, 64\}$, **avec `-O2`**. Pour chaque configuration, **répétez l'opération 10 fois et moyennez** les temps obtenus afin d'obtenir une mesure stable, indépendante des comportements aléatoires du CPU. Comparez avec `transposerNaive` compilée avec `-O2` :
 
