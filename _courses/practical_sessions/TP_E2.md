@@ -123,7 +123,7 @@ L'objectif de cet exercice est de créer un fichier `1A_fonctions.c` contenant l
 **Écrire** la fonction `tempsSecondes` présentée dans le Préambule.
 
 
-**1.B.** **Écrire** la **procédure** `initZeros` qui prend en paramètres un tableau `double pM[NMAX][NMAX]` et un entier `pN`, qui remet à zéro toutes les cases de `pM` (taille `pN × pN`). Pour se faciliter la vie, on définira `NMAX` comme une constante.
+**1.B.** **Écrire** la **procédure** `initZeros` qui prend en paramètres un tableau `double pM[NMAX][NMAX]` et un entier `pN`, qui remet à zéro toutes les cases de `pM` (taille `pN × pN`). Pour se faciliter la vie, on définira `NMAX`comme une constante de valeur 1024.
 
 *Pourquoi en a-t-on besoin si les globaux sont déjà à zéro ?* Parce qu'on exécutera plusieurs mesures à la suite sur les mêmes tableaux globaux, et il faudra réinitialiser les résultats entre deux mesures.
 
@@ -160,6 +160,7 @@ Ici, les fonctions `srand` et `rand` sont des fonctions de la librairie standard
 - `RAND_MAX`: une constante de la librairie standard, qui peut varier en fonction des systèmes.
 - Si au lieu de valeurs entre 0 et 1, vous voulez des valeurs entre 0 et N, il suffit de multiplier par N dans la formule ci-dessus.Et si vous voulez un intervalle de valeurs centré sur 0, il suffit de soustraire N/2 dans cette même formule.
 {% enddetails %}
+
 
 &nbsp;
 **1.E.** Créer le fichier d'en-tête `1A.h` contenant :
@@ -337,6 +338,8 @@ double vC[NMAX][NMAX];
 {% details Indice %}
 Traduisez directement la formule : pour chaque $(i, j)$, sommez sur $k$ les produits $A[i][k] \times B[k][j]$. 
 {% enddetails %}
+
+&nbsp;
 
 **4.B.** Écrire le `main` qui mesure le temps de `multNaive` pour `vN` $\in \{128, 256, 512, 1024\}$. (Vous pouvez par exemple faire une boucle sur `vN`).  Pour chaque valeur de `vN`, **répétez l'opération 10 fois et moyennez** les temps obtenus afin d'obtenir une mesure stable, indépendante des comportements aléatoires du CPU (interruptions système, variations de fréquence, etc.). Compilez **sans optimisation**.
 
