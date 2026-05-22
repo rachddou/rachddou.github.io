@@ -63,3 +63,20 @@ Lien vers les slides : **[CLIQUER ICI](https://drive.proton.me/urls/4MNFR6EKWW#E
     </div>
   </div>
 </div>
+
+<div class="projects">
+  <div class="container">
+    <div class="row row-cols-1 row-cols-md-2">
+      <div class="col mb-4">
+        <a href="/enseignement/practical_sessions/TP_E3/">
+          <div class="card h-100 hoverable">
+            <div class="card-body">
+              <h3 class="card-title">TP E3 &mdash; Structures de données et efficacité mémoire</h3>
+              <p class="card-text">TP sur la comparaison des tableaux et listes chaînées en termes de performance mémoire et d'efficacité énergétique.</p>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
