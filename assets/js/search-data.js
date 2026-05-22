@@ -72,6 +72,11 @@ ninja.data = [{
           description: "Représenter, transposer et multiplier des matrices en C, en optimisant les accès mémoire étape par étape.",
           section: "Courses",handler: () => {
               window.location.href = "/enseignement/practical_sessions/TP_E2/";
+            },},{id: "courses-tp-e3-structures-de-données-et-efficacité-mémoire",
+          title: 'TP E3 — Structures de données et efficacité mémoire',
+          description: "Comparer tableaux et listes chaînées sur des critères de performance, puis optimiser un algorithme classique sur listes chaînées.",
+          section: "Courses",handler: () => {
+              window.location.href = "/enseignement/practical_sessions/TP_E3/";
             },},{id: "news-i-successfully-defended-my-phd-at-télécom-paris-here-is-link-to-phd-dissertation-synthetic-learning-for-neural-image-restoration-methods",
           title: 'I successfully defended my PhD at Télécom Paris! Here is link to PhD...',
           description: "",
