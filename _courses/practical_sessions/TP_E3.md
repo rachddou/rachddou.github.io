@@ -61,7 +61,9 @@ wget https://rachddou.github.io/assets/files/TP_E3_formulaire.docx
 
 ---
 
-## Partie 1 — Prise en main des fichiers utilitaires *(10 min)*
+## Séance 1
+
+### Partie 1 — Prise en main des fichiers utilitaires
 
 Ouvrez et lisez les fichiers `E3_util.h` et `E3_util.c`. Repérez les types suivants qui seront utilisés dans tout le TP :
 
@@ -106,9 +108,9 @@ Vérifiez que l'affichage est conforme : liste vide, insertions en tête et en q
 
 ---
 
-## Partie 2 — Tableau vs Liste : comportements asymptotiques *(65 min)*
+### Partie 2 — Tableau vs Liste : comportements asymptotiques
 
-### II. Rappel théorique
+#### II. Rappel théorique
 
 | Opération              | Tableau (`TabDyn`) | Liste chaînée  |
 |------------------------|--------------------|----------------|
@@ -117,7 +119,7 @@ Vérifiez que l'affichage est conforme : liste vide, insertions en tête et en q
 
 L'objectif de cette partie est de **vérifier expérimentalement** ce tableau, et de comprendre pourquoi le tableau se comporte souvent encore *mieux* que sa complexité ne le prédit.
 
-### Exercice 2 — Insertion en tête
+#### Exercice 2 — Insertion en tête
 
 Créez un fichier `E3_insertion.c` incluant `"E3_util.h"`.
 
@@ -153,7 +155,7 @@ Quelle classe de complexité cela représente-t-il ? Vérifiez : si $n$ double, 
 
 **2.E.** Le temps du tableau doit être multiplié par $\approx 4$ chaque fois que $n$ double. Vérifiez ce facteur dans vos mesures. Correspond-il à la complexité calculée en **2.D** ?
 
-### Exercice 3 — Accès aléatoire
+#### Exercice 3 — Accès aléatoire
 
 Créez un fichier `E3_acces.c` incluant `"E3_util.h"`.
 
@@ -161,13 +163,13 @@ Créez un fichier `E3_acces.c` incluant `"E3_util.h"`.
 
 **3.B.** Implémentez `int accesListe(Liste pL, int pI)` qui retourne l'élément à la position `pI` en parcourant la liste avec un `PtrMaillon`.
 
-**3.C.** Pour montrer que l'accès tableau est $O(1)$, mesurez le temps de $10^7$ accès aléatoires sur un tableau de taille $n$, pour $n \in \{10^4,\ 10^5,\ 10^6\}$. Utilisez `volatile int vSomme` pour accumuler les résultats et empêcher le compilateur de supprimer la boucle.
+**3.C.** Pour montrer que l'accès tableau est $O(1)$, mesurez le temps de $10^7$ accès aléatoires sur un tableau de taille $n$, pour $n \in \{10^4,\ 10^5,\ 10^6\}$.
 
-| $n$       | Temps $10^7$ accès tableau (s) |
-|-----------|-------------------------------|
-| $10^4$    |                               |
-| $10^5$    |                               |
-| $10^6$    |                               |
+| $n$       | Temps $10^7$ accès tableau (s) | Temps / accès (µs) |
+|-----------|--------------------------------|--------------------|
+| $10^4$    |                                |                    |
+| $10^5$    |                                |                    |
+| $10^6$    |                                |                    |
 
 Le temps doit rester **quasi-constant** : c'est la signature d'une complexité $O(1)$.
 
@@ -192,9 +194,9 @@ Une liste chaînée disperse ses maillons à des adresses arbitraires dans le ta
 
 ---
 
-## Partie 3 — Impact du layout mémoire : AoS vs SoA *(55 min)*
+### Partie 3 — Impact du layout mémoire : AoS vs SoA
 
-### III. Array of Structs vs Struct of Arrays
+#### III. Array of Structs vs Struct of Arrays
 
 Vous avez créé en TP C3 des structures comme `Etudiant { char nom[30]; char prenom[30]; int promo; }`. Une collection de $n$ étudiants peut être organisée de deux façons fondamentalement différentes :
 
@@ -212,7 +214,7 @@ EtudiantsSoA data;   /* data.ids[N], data.notes[N], data.noms[N] */
 
 Ces deux représentations stockent exactement les mêmes données, mais leur organisation mémoire a un impact majeur sur les performances selon l'opération effectuée.
 
-### Exercice 4 — Calcul de moyenne : AoS vs SoA
+#### Exercice 4 — Calcul de moyenne : AoS vs SoA
 
 Créez un fichier `E3_AoSSoA.c`. Les types à utiliser sont :
 
@@ -293,7 +295,7 @@ Pour un intervalle $[a, b]$ quelconque : `a + (double)rand() / RAND_MAX * (b - a
 
 **4.G.** Vérifiez `moyenneAoS` et `moyenneSoA` sur $n = 5$ : créez les deux collections avec la même graine (`srand(42)`), appelez chaque fonction et vérifiez que les deux moyennes sont identiques. Libérez ensuite les deux collections.
 
-**4.H.** Mesurez le temps de chaque fonction pour $n \in \{50\,000,\ 200\,000,\ 500\,000,\ 1\,000\,000\}$. **Répétez 10 fois et moyennez.** Utilisez `volatile double vRes` pour empêcher le compilateur de supprimer le calcul. Calculez aussi la taille en RAM de AoS et de `SoA.notes` pour chaque $n$.
+**4.H.** Mesurez le temps de chaque fonction pour $n \in \{50\,000,\ 200\,000,\ 500\,000,\ 1\,000\,000\}$. **Répétez 10 fois et moyennez.** Calculez aussi la taille en RAM de AoS et de `SoA.notes` pour chaque $n$.
 
 | $n$       | Temps AoS (s) | Temps SoA (s) | Rapport | AoS RAM | SoA.notes |
 |-----------|---------------|---------------|---------|---------|-----------|
@@ -304,27 +306,19 @@ Pour un intervalle $[a, b]$ quelconque : `a + (double)rand() / RAND_MAX * (b - a
 
 **4.I.** Observez-vous une évolution du rapport en fonction de $n$ ? Pourquoi le rapport augmente-t-il quand $n$ est grand ? À quel moment (entre $n = 50\,000$ et $n = 200\,000$) le rapport fait-il un saut, et pourquoi ?
 
-{% details Explication : débordement du cache %}
-Quand AoS tient en cache L3 ($n$ petit), le préfetcheur matériel charge les données à l'avance et les deux versions semblent similaires. Quand AoS déborde du cache L3 (typiquement 6 à 32 Mo selon la machine), chaque accès à `pTab[i].note` nécessite un vrai aller-retour vers la RAM. Le tableau `SoA.notes` (8 Mo pour $n = 10^6$), lui, reste souvent en cache L3, d'où un rapport croissant avec $n$.
+{% details Explication %}
+Pour `moyenneAoS`, le processeur charge un `EtudiantAoS` complet (240 octets) pour lire 8 octets de `note` : 96% de la bande passante est gaspillée. Pour `moyenneSoA`, le tableau `notes` est contigu : chaque ligne de cache transporte 8 notes utiles. Le ratio théorique est $240/8 = 30\times$.
 
-Le rapport théorique (30×) n'est pas atteint car la RAM moderne est une ressource en **débit** (GB/s) : le préfetcheur peut saturer ce débit même pour AoS, atténuant l'effet. Sur les machines du cours, le rapport typiquement mesuré est de **3× à 6×** — plus modeste que la théorie, mais réel et reproductible.
+Quand AoS déborde du cache L3 (typiquement 6–32 Mo), chaque accès déclenche un aller-retour vers la RAM, tandis que `SoA.notes` (8 Mo pour $n = 10^6$) reste souvent en cache. En pratique, le rapport mesuré est de **3× à 8×** — atténué par le préfetcheur matériel, mais réel et reproductible.
 {% enddetails %}
-
-{% details Explication : bande passante mémoire %}
-Pour `moyenneAoS`, le processeur doit charger un `EtudiantAoS` complet (240 octets) pour accéder à 8 octets de `note` : plus de 96% de la bande passante mémoire est gaspillée sur des données inutiles (`id`, `nom`, `historique`, `adresse`). Pour `moyenneSoA`, le tableau `notes` est contigu : chaque ligne de cache de 64 octets transporte 8 notes utiles, soit une efficacité de 100%.
-
-Le ratio théorique est $240/8 = 30\times$. En pratique, les caches L2/L3 et le préfetcheur matériel atténuent légèrement ce ratio (typiquement $3\times$ à $8\times$ mesuré), mais l'avantage reste très significatif.
-
-**Conséquence énergétique :** la version AoS génère ~30× plus de trafic mémoire que SoA pour le même résultat. Puisque la DRAM consomme de l'énergie pour chaque octet transféré, l'empreinte énergétique de AoS est proportionnellement plus élevée.
-{% enddetails %}
-
-**4.J. (Optionnel)** Recompilez avec **`-O2`** et mesurez à nouveau le temps de `moyenneAoS` et `moyenneSoA`. Comment évolue le rapport par rapport à **4.H** ? Pourquoi le compilateur n'est-il pas capable de compenser le mauvais layout mémoire par ses optimisations ?
 
 ---
 
-## Partie 4 — Optimisation algorithmique : détection de cycle *(50 min)*
+## Séance 2
 
-### IV. Algorithme $O(n)$ vs $O(n^2)$, et $O(n)$ vs $O(1)$ en espace
+### Partie 4 — Optimisation algorithmique : détection de cycle
+
+#### IV. Algorithme $O(n)$ vs $O(n^2)$, et $O(n)$ vs $O(1)$ en espace
 
 **Problème :** une liste est dite **cyclique** si l'un de ses maillons pointe vers un maillon précédent au lieu de pointer vers `NULL`. Étant donnée une liste, déterminer si elle contient un cycle.
 
@@ -339,7 +333,7 @@ Nous allons comparer deux algorithmes de détection. Leur différence illustre p
 
 Créez un fichier `E3_cycle.c` incluant `"E3_util.h"`.
 
-### Exercice 5 — Création et libération d'une liste cyclique
+#### Exercice 5 — Création et libération d'une liste cyclique
 
 **5.A.** Écrivez `Liste creerListeCyclique(int pN, int pPos)` qui crée une liste de `pN` maillons (valeurs $0$ à $pN-1$), puis fait pointer le champ `suivant` du dernier maillon vers le maillon à la position `pPos` (0-indexé).
 
@@ -349,7 +343,7 @@ Lors de la boucle de création, utilisez `creeMaillon(i, NULL)` pour chaque mail
 
 **5.B.** Écrivez `void libereListeCyclique(Liste pL, int pN)` qui libère exactement `pN` maillons en avançant `pN` fois depuis la tête avec un `PtrMaillon`. **Attention :** `libereListe` appelle `supprimePremier` en boucle et bouclerait indéfiniment sur une liste cyclique — ne l'utilisez pas ici.
 
-### Exercice 6 — Version naïve : mémorisation des adresses visitées
+#### Exercice 6 — Version naïve : mémorisation des adresses visitées
 
 **6.A.** Écrivez `int contientCycleNaif(Liste pL, int pNMax)` qui :
 1. Alloue un tableau de `pNMax` pointeurs (`Maillon **`),
@@ -361,7 +355,7 @@ Lors de la boucle de création, utilisez `creeMaillon(i, NULL)` pour chaque mail
 À chaque étape $k$, on compare le maillon courant aux $k$ précédents : coût $O(k)$. Sur une liste de $n$ maillons avant détection, le coût total est $\sum_{k=0}^{n} k \approx n^2/2$ : c'est un algorithme **$O(n^2)$ en temps, $O(n)$ en mémoire**.
 {% enddetails %}
 
-### Exercice 7 — Version optimisée : algorithme de Floyd
+#### Exercice 7 — Version optimisée : algorithme de Floyd
 
 **7.A.** Écrivez `int contientCycleFloyd(Liste pL)` qui utilise deux pointeurs :
 - `vLent` avance d'un maillon à chaque étape,
@@ -418,3 +412,7 @@ Complétez le tableau synthétique suivant avec vos mesures les plus représenta
 | Détection de cycle               | Floyd          | $O(n)$           | $O(1)$             |                               |
 
 **Message clé :** deux programmes produisant le même résultat peuvent différer d'un facteur $10$ à $10^6$ en temps d'exécution — et donc en consommation énergétique — selon le choix de structure de données, de layout mémoire et d'algorithme. La complexité $O$ donne la tendance asymptotique, mais le comportement du cache et la pression mémoire déterminent les performances réelles.
+
+---
+
+*Si vous n'avez pas terminé le TP C4, terminez-le. Si vous n'avez pas terminé le TP E2, terminez-le maintenant.*
