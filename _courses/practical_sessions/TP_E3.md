@@ -59,6 +59,8 @@ wget https://rachddou.github.io/assets/files/TP_E3_formulaire.docx
 
 *N'oubliez pas de cliquer sur ▸ pour obtenir des explications supplémentaires.*
 
+**Vous devez terminer le tp E3.1 avant le début du [TP E3.2](#p2)**
+
 ---
 
 ## Séance 1 (TP E3.1)
@@ -314,12 +316,14 @@ Quand AoS déborde du cache L3 (typiquement 6–32 Mo), chaque accès déclenche
 
 ---
 
-##### Vous devez terminer le tp E3.1 avant le début du tp E3.2
+**Vous devez terminer le tp E3.1 avant le début du [TP E3.2](#p2)**
 
 
-<a name="p2"></a>
+
 
 ## Séance 2 (TP E3.2)
+
+<a name="p2"></a>
 
 ### Partie 4 — Optimisation algorithmique : détection de cycle
 
