@@ -86,7 +86,7 @@ Les fonctions utilitaires fournies suivent également les conventions de C4 :
 | Fonction | Signature | Description |
 |---|---|---|
 | `listeVide` | `int listeVide(Liste pL)` | 1 si `pL == NULL` |
-| `creeMaillon` | `PtrMaillon creeMaillon(double pContenu, PtrMaillon pSuivant)` | Alloue et initialise un maillon |
+| `creeMaillon` | `PtrMaillon creeMaillon(int pContenu)` | Alloue un maillon (`suivant` mis à `NULL`) |
 | `ajouteDebut` | `Liste ajouteDebut(Liste pL, PtrMaillon pPM)` | Chaîne `pPM` en tête |
 | `ajouteFin` | `Liste ajouteFin(Liste pL, PtrMaillon pPM)` | Chaîne `pPM` en queue (récursif) |
 | `supprimePremier` | `Liste supprimePremier(Liste pL)` | Supprime et libère la tête |
@@ -314,7 +314,7 @@ Quand AoS déborde du cache L3 (typiquement 6–32 Mo), chaque accès déclenche
 
 ---
 
-*Vous devez terminer le tp E3.1 avant le début du tp E3.2.*
+##### Vous devez terminer le tp E3.1 avant le début du tp E3.2
 
 
 <a name="p2"></a>
@@ -343,7 +343,7 @@ Créez un fichier `E3_cycle.c` incluant `"E3_util.h"`.
 **5.A.** Écrivez `Liste creerListeCyclique(int pN, int pPos)` qui crée une liste de `pN` maillons (valeurs $0$ à $pN-1$), puis fait pointer le champ `suivant` du dernier maillon vers le maillon à la position `pPos` (0-indexé).
 
 {% details Indice : mémoriser le maillon cible %}
-Lors de la boucle de création, utilisez `creeMaillon(i, NULL)` pour chaque maillon et conservez un `PtrMaillon vCible` sur le maillon dont l'index vaut `pPos`. Maintenez également un `PtrMaillon vQueue` pour chaîner les maillons sans appeler `ajouteFin` (qui est récursif en O(n) et deviendrait O(n²) en boucle). À la fin, affectez `vQueue->suivant = vCible`.
+Lors de la boucle de création, utilisez `creeMaillon(i)` pour chaque maillon et conservez un `PtrMaillon vCible` sur le maillon dont l'index vaut `pPos`. Maintenez également un `PtrMaillon vQueue` pour chaîner les maillons sans appeler `ajouteFin` (qui est récursif en O(n) et deviendrait O(n²) en boucle). À la fin, affectez `vQueue->suivant = vCible`.
 {% enddetails %}
 
 **5.B.** Écrivez `void libereListeCyclique(Liste pL, int pN)` qui libère exactement `pN` maillons en avançant `pN` fois depuis la tête avec un `PtrMaillon`. **Attention :** `libereListe` appelle `supprimePremier` en boucle et bouclerait indéfiniment sur une liste cyclique — ne l'utilisez pas ici.
