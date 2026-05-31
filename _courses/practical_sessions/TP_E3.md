@@ -72,7 +72,7 @@ Ouvrez et lisez les fichiers `E3_util.h` et `E3_util.c`. Repérez les types suiv
 ```c
 /* --- Liste chaînée — cohérente avec le TP C4 --- */
 typedef struct tmp_maillon {
-    double               contenu;
+    int                  contenu;
     struct tmp_maillon * suivant;
 } Maillon;
 typedef Maillon *  PtrMaillon;   /* pointeur vers un maillon */
@@ -93,7 +93,7 @@ Les fonctions utilitaires fournies suivent également les conventions de C4 :
 | `ajouteFin` | `Liste ajouteFin(Liste pL, PtrMaillon pPM)` | Chaîne `pPM` en queue (récursif) |
 | `supprimePremier` | `Liste supprimePremier(Liste pL)` | Supprime et libère la tête |
 | `supprimeDernier` | `Liste supprimeDernier(Liste pL)` | Supprime et libère la queue |
-| `afficheListe` | `void afficheListe(Liste pL)` | Affiche `\|3.00\|->\|7.00\|->NULL` (récursif) |
+| `afficheListe` | `void afficheListe(Liste pL)` | Affiche `\|3\|->\|7\|->NULL` (récursif) |
 | `libereListe` | `void libereListe(Liste * pL)` | Libère tous les maillons |
 | `creerListeAleatoire` | `Liste creerListeAleatoire(int pN)` | Liste de `pN` entiers aléatoires |
 
@@ -136,7 +136,7 @@ Pour insérer en position 0 sans écraser de valeurs, décalez les éléments **
 **2.C.** Écrivez dans le `main` les instructions nécessaires pour mesurer, pour $n \in \{2000,\ 5000,\ 10000,\ 20000\}$, le temps nécessaire pour effectuer $n$ insertions en tête successives dans un tableau vide (pré-alloué à capacité $n$). De quelles fonctions disposez vous dans `E3_util.h` pour créer un tableau et libérer l'espace alloué?
 
 
-**2.C.** Répetez le même procédé pour des insertions en tête pour une liste chaînée vide.
+**2.D.** Répétez le même procédé pour des insertions en tête pour une liste chaînée vide.
 
 Remplissez le tableau dans le formulaire :
 
@@ -147,7 +147,7 @@ Remplissez le tableau dans le formulaire :
 | 10 000  |                   |                 |         |
 | 20 000  |                   |                 |         |
 
-**2.D.** Calculez sur papier le nombre total de décalages effectués pour $n$ insertions en tête dans un tableau initialement vide. En déduire la complexité totale.
+**2.E.** Calculez sur papier le nombre total de décalages effectués pour $n$ insertions en tête dans un tableau initialement vide. En déduire la complexité totale.
 
 {% details Indice : somme arithmétique %}
 Lors de la $k$-ième insertion ($k$ de $0$ à $n-1$), le tableau contient déjà $k$ éléments à décaler. Le coût total est :
@@ -155,13 +155,13 @@ $$\sum_{k=0}^{n-1} k = \frac{n(n-1)}{2}$$
 Quelle classe de complexité cela représente-t-il ? Vérifiez : si $n$ double, le temps est multiplié par combien ?
 {% enddetails %}
 
-**2.E.** Le temps du tableau doit être multiplié par $\approx 4$ chaque fois que $n$ double. Vérifiez ce facteur dans vos mesures. Correspond-il à la complexité calculée en **2.D** ?
+**2.F.** Le temps du tableau doit être multiplié par $\approx 4$ chaque fois que $n$ double. Vérifiez ce facteur dans vos mesures. Correspond-il à la complexité calculée en **2.E** ?
 
 #### Exercice 3 — Accès aléatoire
 
 Créez un fichier `E3_acces.c` incluant `"E3_util.h"`.
 
-**3.A.** Implémentez `int accesTab(TabDyn pT, int pI)` retournant l'élément à l'index `pI` en $O(1)$.
+**3.A.** Implémentez `int accesTab(TabDyn pT, int pI)` retournant l'élément à l'index `pI` en $O(1)$. Si `pI` est hors bornes (inférieur à 0 ou supérieur ou égal à `taille`), la fonction retourne `-1`.
 
 **3.B.** Implémentez `int accesListe(Liste pL, int pI)` qui retourne l'élément à la position `pI` en parcourant la liste avec un `PtrMaillon`.
 
@@ -314,16 +314,14 @@ Pour `moyenneAoS`, le processeur charge un `EtudiantAoS` complet (240 octets) po
 Quand AoS déborde du cache L3 (typiquement 6–32 Mo), chaque accès déclenche un aller-retour vers la RAM, tandis que `SoA.notes` (8 Mo pour $n = 10^6$) reste souvent en cache. En pratique, le rapport mesuré est de **3× à 8×** — atténué par le préfetcheur matériel, mais réel et reproductible.
 {% enddetails %}
 
----
 
 **Vous devez terminer le tp E3.1 avant le début du [TP E3.2](#p2)**
-
-
-
+<a name="p2"></a>
+---
 
 ## Séance 2 (TP E3.2)
 
-<a name="p2"></a>
+
 
 ### Partie 4 — Optimisation algorithmique : détection de cycle
 
