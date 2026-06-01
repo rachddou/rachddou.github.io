@@ -10,9 +10,9 @@ description: Comparer tableaux et listes chaînées sur des critères de perform
 
 ### Contexte
 
-Dans les TPs C3 et C4, vous avez appris à manipuler des tableaux dynamiques et des listes chaînées. Ces deux structures permettent de stocker des séquences d'entiers, mais leurs performances diffèrent radicalement selon l'opération effectuée. Ce TP vous amène à **mesurer ces différences quantitativement** et à comprendre pourquoi elles existent — non seulement sur le plan algorithmique, mais aussi sur le plan physique (cache, mémoire, fragmentation).
+Dans le TP C4, vous avez appris à manipuler des tableaux dynamiques et des listes chaînées. Ces deux structures permettent de stocker des séquences, par exemple, d'entiers, mais leurs performances diffèrent radicalement selon l'opération effectuée. Ce TP vous amène à **mesurer ces différences quantitativement** et à comprendre pourquoi elles existent — non seulement sur le plan algorithmique, mais aussi sur le plan physique (cache, mémoire, fragmentation).
 
-Le lien avec l'efficacité énergétique est direct : comme établi en TP E1, un programme deux fois plus rapide consomme approximativement deux fois moins d'énergie. Un mauvais choix de structure de données peut engendrer des différences de plusieurs ordres de grandeur pour un résultat identique.
+Le lien avec l'efficacité énergétique est direct : comme établi en TP E1, un programme deux fois plus rapide consomme approximativement deux fois moins d'énergie. Un mauvais choix de structure de données peut engendrer des différences de plusieurs ordres de grandeur pour un résultat fonctionnel identique.
 
 ### Objectifs
 
@@ -93,7 +93,7 @@ Les fonctions utilitaires fournies suivent également les conventions de C4 :
 | `ajouteFin` | `Liste ajouteFin(Liste pL, PtrMaillon pPM)` | Chaîne `pPM` en queue (récursif) |
 | `supprimePremier` | `Liste supprimePremier(Liste pL)` | Supprime et libère la tête |
 | `supprimeDernier` | `Liste supprimeDernier(Liste pL)` | Supprime et libère la queue |
-| `afficheListe` | `void afficheListe(Liste pL)` | Affiche `\|3\|->\|7\|->NULL` (récursif) |
+| `afficheListe` | `void afficheListe(Liste pL)` | Affiche `|3|->|7|->NULL` (récursif) |
 | `libereListe` | `void libereListe(Liste * pL)` | Libère tous les maillons |
 | `creerListeAleatoire` | `Liste creerListeAleatoire(int pN)` | Liste de `pN` entiers aléatoires |
 
@@ -137,6 +137,14 @@ Pour insérer en position 0 sans écraser de valeurs, décalez les éléments **
 
 
 **2.D.** Répétez le même procédé pour des insertions en tête pour une liste chaînée vide.
+
+Pour mesurer le temps d'exécution d'un traitement, appelez `tempsSecondes()` avant et après le traitement, puis calculez la différence :
+
+```c
+double vDeb = tempsSecondes();
+/* ... traitement ... */
+double vDuree = tempsSecondes() - vDeb;
+```
 
 Remplissez le tableau dans le formulaire :
 
@@ -225,9 +233,7 @@ Créez un fichier `E3_AoSSoA.c`. Les types à utiliser sont :
 #define HIST_MAX 16   /* 16 dernières notes */
 #define ADR_MAX  60
 
-/* AoS : 1 struct complète par étudiant
- * sizeof = 4+4(padding)+8 + 32 + 128 + 60 + 4 = 240 octets
- * Pour n = 1 000 000 étudiants : AoS occupe 240 Mo en RAM */
+/* AoS : 1 struct complète par étudiant */
 typedef struct {
     int    id;                    /*   4 octets */
     double note;                  /*   8 octets */
@@ -235,10 +241,9 @@ typedef struct {
     double historique[HIST_MAX];  /* 128 octets — historique des notes */
     char   adresse[ADR_MAX];      /*  60 octets */
     int    promo;                 /*   4 octets */
-} EtudiantAoS;                   /* Total : 240 octets */
+} EtudiantAoS;
 
-/* SoA : 1 tableau par champ
- * Pour n = 1 000 000 étudiants : SoA.notes n'occupe que 8 Mo en RAM */
+/* SoA : 1 tableau par champ */
 typedef struct {
     int    * ids;
     double * notes;
@@ -283,7 +288,7 @@ Pour un intervalle $[a, b]$ quelconque : `a + (double)rand() / RAND_MAX * (b - a
 
 Écrivez aussi `void libereAoS(EtudiantAoS * pTab)` qui libère le bloc alloué.
 
-**4.C.** Écrivez `EtudiantsSoA creerSoA(int pN)` qui alloue un tableau séparé par champ avec `malloc`, et initialise chaque étudiant $i$ avec les mêmes valeurs qu'en **4.B**. Pour les champs texte, utilisez un **bloc plat** et accédez à l'entrée $i$ par arithmétique de pointeur :
+**4.C.** Écrivez `EtudiantsSoA creerSoA(int pN)` qui alloue un tableau séparé par champ avec `malloc`, et initialise chaque étudiant $i$ avec les mêmes valeurs qu'en **4.B**. Pour les champs texte, utilisez un **seul bloc plat** et accédez à l'entrée $i$ par arithmétique de pointeur :
 - `noms = malloc(pN * NOM_MAX)` — le nom $i$ se trouve à `&vS.noms[i * NOM_MAX]`
 - `adresses = malloc(pN * ADR_MAX)` — l'adresse $i$ se trouve à `&vS.adresses[i * ADR_MAX]`
 
@@ -301,10 +306,10 @@ Pour un intervalle $[a, b]$ quelconque : `a + (double)rand() / RAND_MAX * (b - a
 
 | $n$       | Temps AoS (s) | Temps SoA (s) | Rapport | AoS RAM | SoA.notes |
 |-----------|---------------|---------------|---------|---------|-----------|
-| 50 000    |               |               |         | 12 Mo   | 400 Ko    |
-| 200 000   |               |               |         | 48 Mo   | 1.6 Mo    |
-| 500 000   |               |               |         | 120 Mo  | 4 Mo      |
-| 1 000 000 |               |               |         | 240 Mo  | 8 Mo      |
+| 50 000    |               |               |         |         |           |
+| 200 000   |               |               |         |         |           |
+| 500 000   |               |               |         |         |           |
+| 1 000 000 |               |               |         |         |           |
 
 **4.I.** Observez-vous une évolution du rapport en fonction de $n$ ? Pourquoi le rapport augmente-t-il quand $n$ est grand ? À quel moment (entre $n = 50\,000$ et $n = 200\,000$) le rapport fait-il un saut, et pourquoi ?
 
@@ -353,7 +358,7 @@ Lors de la boucle de création, utilisez `creeMaillon(i)` pour chaque maillon et
 #### Exercice 6 — Version naïve : mémorisation des adresses visitées
 
 **6.A.** Écrivez `int contientCycleNaif(Liste pL, int pNMax)` qui :
-1. Alloue un tableau de `pNMax` pointeurs (`Maillon **`),
+1. Alloue un tableau de `pNMax` pointeurs (`PtrMaillon *`),
 2. À chaque nouveau maillon visité, compare son adresse à toutes les adresses déjà mémorisées,
 3. Retourne 1 si une adresse est vue deux fois (cycle détecté), 0 si `NULL` est atteint,
 4. Libère le tableau avant de retourner.
@@ -368,7 +373,7 @@ Lors de la boucle de création, utilisez `creeMaillon(i)` pour chaque maillon et
 - `vLent` avance d'un maillon à chaque étape,
 - `vRapide` avance de deux maillons à chaque étape.
 
-Si la liste est cyclique, les deux pointeurs se rencontreront nécessairement.
+Si la liste est cyclique, les deux pointeurs se rencontreront nécessairement. Intuition : une fois tous deux dans le cycle, le rapide gagne un maillon d'avance sur le lent à chaque étape ; la distance entre eux diminue donc de 1 à chaque pas, jusqu'à atteindre zéro.
 
 {% details Indice : conditions de terminaison %}
 La boucle s'arrête dans deux cas :
