@@ -1,0 +1,232 @@
+---
+layout: page
+permalink: /vibrant-leaves/
+title: vibrant leaves
+description: Synthetic images for training image restoration networks, generated in your browser.
+nav: true
+nav_order: 3
+---
+
+<style>
+  #vl-app {
+    --vl-accent: var(--global-theme-color, #b509ac);
+    --vl-text: var(--global-text-color, #000);
+    --vl-muted: var(--global-text-color-light, #828282);
+    --vl-line: var(--global-divider-color, rgba(0, 0, 0, 0.1));
+    --vl-card: var(--global-card-bg-color, #fff);
+    --vl-bg: var(--global-bg-color, #fff);
+    --vl-accent-soft: color-mix(in srgb, var(--vl-accent) 12%, transparent);
+    --vl-track: color-mix(in srgb, var(--vl-text) 10%, transparent);
+    --vl-danger: #c0392b;
+    --vl-shadow: 0 1px 2px rgba(0, 0, 0, 0.06), 0 2px 8px rgba(0, 0, 0, 0.04);
+    color: var(--vl-text);
+    font-size: 14px;
+    line-height: 1.45;
+  }
+  #vl-app * { box-sizing: border-box; }
+  #vl-app [hidden] { display: none !important; }
+  .vl-intro { margin-bottom: 18px; }
+  .vl-main { display: grid; grid-template-columns: minmax(280px, 330px) 1fr; gap: 18px; align-items: start; }
+  /* the images stay in view while the menu scrolls (below the fixed navbar) */
+  .vl-results { position: sticky; top: 72px; }
+  @media (max-width: 860px) { .vl-main { grid-template-columns: 1fr; } .vl-results { position: static; order: -1; } }
+  .vl-menu { display: flex; flex-direction: column; gap: 12px; }
+  .vl-card { background: var(--vl-card); border: 1px solid var(--vl-line); border-radius: 10px; padding: 14px; box-shadow: var(--vl-shadow); }
+  .vl-card-title { font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--vl-muted); margin: 0 0 10px; font-weight: 600; }
+  .vl-field { margin-top: 12px; }
+  .vl-field:first-of-type { margin-top: 0; }
+  .vl-label { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; font-weight: 500; }
+  .vl-label .vl-value { color: var(--vl-muted); font-weight: 400; font-variant-numeric: tabular-nums; }
+  .vl-hint { color: var(--vl-muted); font-size: 12px; margin-top: 6px; }
+  .vl-bad { color: var(--vl-danger); }
+  .vl-disabled { opacity: 0.4; pointer-events: none; }
+
+  /* icon pickers */
+  .vl-picker { display: grid; gap: 8px; }
+  .vl-picker.vl-shapes { grid-template-columns: repeat(4, 1fr); }
+  .vl-picker.vl-textures { grid-template-columns: repeat(3, 1fr); }
+  .vl-option { appearance: none; border: 1.5px solid var(--vl-line); background: var(--vl-card); color: var(--vl-text);
+               border-radius: 8px; padding: 6px 4px 5px; cursor: pointer; display: flex; flex-direction: column;
+               align-items: center; gap: 4px; font: inherit; font-size: 11.5px; line-height: 1.2; text-align: center; position: relative; }
+  .vl-option:hover { border-color: var(--vl-muted); }
+  .vl-option[aria-pressed="true"], .vl-option[aria-checked="true"] { border-color: var(--vl-accent); background: var(--vl-accent-soft); }
+  .vl-option:focus-visible { outline: 2px solid var(--vl-accent); outline-offset: 2px; }
+  .vl-shape-icon { width: 40px; height: 40px; background: currentColor;
+                   -webkit-mask: var(--icon) center / contain no-repeat; mask: var(--icon) center / contain no-repeat; }
+  .vl-option[aria-checked="true"] .vl-shape-icon { color: var(--vl-accent); }
+  .vl-texture-icon { width: 100%; aspect-ratio: 1; border-radius: 5px; background: var(--vl-track) center / cover no-repeat; }
+  .vl-option .vl-swatch { position: absolute; top: 4px; right: 4px; width: 10px; height: 10px; border-radius: 50%;
+                          background: var(--c); box-shadow: 0 0 0 2px var(--vl-card); display: none; }
+  .vl-option[aria-pressed="true"] .vl-swatch { display: block; }
+  .vl-option[aria-pressed="false"] .vl-texture-icon { opacity: 0.45; filter: grayscale(0.6); }
+
+  /* multi-handle sliders */
+  .vl-mslider { position: relative; height: 34px; touch-action: none; user-select: none; }
+  .vl-mslider .vl-track { position: absolute; left: 0; right: 0; top: 13px; height: 8px; border-radius: 4px; background: var(--vl-track); overflow: hidden; cursor: pointer; }
+  .vl-mslider.vl-partition { height: 46px; }
+  .vl-mslider.vl-partition .vl-track { top: 4px; height: 30px; border-radius: 6px; }
+  .vl-mslider .vl-seg { position: absolute; top: 0; bottom: 0; display: flex; align-items: center; justify-content: center;
+                        color: #fff; font-size: 11px; font-weight: 600; white-space: nowrap; overflow: hidden;
+                        text-shadow: 0 1px 1px rgba(0, 0, 0, 0.35); padding: 0 9px; }
+  .vl-mslider .vl-handle { position: absolute; top: 7px; width: 20px; height: 20px; margin-left: -10px; border-radius: 50%;
+                           background: var(--vl-card); border: 2px solid var(--vl-accent); box-shadow: var(--vl-shadow); cursor: grab; padding: 0; }
+  .vl-mslider.vl-partition .vl-handle { top: 0; height: 38px; width: 14px; margin-left: -7px; border-radius: 4px; border-color: var(--vl-text); }
+  .vl-mslider .vl-handle:active { cursor: grabbing; }
+  .vl-mslider .vl-handle:focus-visible { outline: 2px solid var(--vl-accent); outline-offset: 2px; }
+  .vl-ticks { display: flex; justify-content: space-between; color: var(--vl-muted); font-size: 11px; margin-top: -2px; }
+  .vl-legend { display: flex; flex-wrap: wrap; gap: 4px 12px; margin-top: 2px; font-size: 12px; }
+  .vl-legend span { display: inline-flex; align-items: center; gap: 5px; font-variant-numeric: tabular-nums; }
+  .vl-legend i { width: 9px; height: 9px; border-radius: 2px; background: var(--c); display: inline-block; }
+
+  /* simple controls */
+  #vl-app input[type="range"] { width: 100%; accent-color: var(--vl-accent); }
+  .vl-toggle { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin: 10px 0 0; cursor: pointer; font-weight: 400; }
+  .vl-toggle input { width: 34px; height: 20px; appearance: none; -webkit-appearance: none; background: var(--vl-track); border-radius: 10px;
+                     position: relative; cursor: pointer; flex: none; transition: background 0.15s; margin: 0; }
+  .vl-toggle input::after { content: ""; position: absolute; top: 2px; left: 2px; width: 16px; height: 16px; border-radius: 50%;
+                            background: #fff; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3); transition: left 0.15s; }
+  .vl-toggle input:checked { background: var(--vl-accent); }
+  .vl-toggle input:checked::after { left: 16px; }
+  .vl-toggle input:focus-visible { outline: 2px solid var(--vl-accent); outline-offset: 2px; }
+  .vl-segmented { display: flex; border: 1px solid var(--vl-line); border-radius: 8px; overflow: hidden; }
+  .vl-segmented button { flex: 1; border: 0; background: transparent; color: var(--vl-text); font: inherit; font-size: 12.5px;
+                         padding: 6px 0; cursor: pointer; border-left: 1px solid var(--vl-line); }
+  .vl-segmented button:first-child { border-left: 0; }
+  .vl-segmented button[aria-pressed="true"] { background: var(--vl-accent); color: #fff; }
+
+  /* colour source images */
+  .vl-drop { border: 1.5px dashed var(--vl-line); border-radius: 8px; padding: 12px; text-align: center; cursor: pointer; transition: border-color 0.15s, background 0.15s; }
+  .vl-drop:hover, .vl-drop.vl-over { border-color: var(--vl-accent); background: var(--vl-accent-soft); }
+  .vl-drop:focus-visible { outline: 2px solid var(--vl-accent); outline-offset: 2px; }
+  .vl-sources { margin-top: 8px; font-size: 12.5px; }
+  .vl-thumbs { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 4px; align-items: center; }
+  .vl-thumbs img { width: 30px; height: 30px; border-radius: 4px; object-fit: cover; }
+  .vl-link { appearance: none; border: 0; background: none; padding: 0; color: var(--vl-accent); font: inherit; cursor: pointer; text-decoration: underline; }
+
+  /* actions and results */
+  .vl-actions { display: flex; gap: 8px; margin-bottom: 10px; }
+  .vl-btn { appearance: none; border: 1.5px solid var(--vl-accent); background: transparent; color: var(--vl-accent); font: inherit; font-weight: 600;
+            border-radius: 9px; padding: 10px; cursor: pointer; flex: 1; }
+  .vl-btn.vl-primary { background: var(--vl-accent); color: #fff; flex: 2; }
+  .vl-btn:hover { filter: brightness(1.07); }
+  .vl-btn:focus-visible { outline: 2px solid var(--vl-accent); outline-offset: 2px; }
+  .vl-results-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; margin: 2px 2px 10px; min-height: 22px; }
+  #vl-status { color: var(--vl-muted); font-variant-numeric: tabular-nums; }
+  #vl-error { color: var(--vl-danger); font-weight: 500; }
+  .vl-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .vl-slot { aspect-ratio: 1; border-radius: 8px; background: var(--vl-track); overflow: hidden; position: relative; border: 1px solid var(--vl-line); }
+  .vl-slot canvas { width: 100%; height: 100%; display: block; cursor: zoom-in; }
+  .vl-slot.vl-loading::after { content: ""; position: absolute; inset: 0;
+    background: linear-gradient(100deg, transparent 20%, rgba(255, 255, 255, 0.18) 50%, transparent 80%); background-size: 200% 100%;
+    animation: vl-shimmer 1.3s infinite linear; }
+  .vl-slot .vl-err { position: absolute; inset: 8px; color: var(--vl-danger); font-size: 11px; overflow: auto; }
+  @keyframes vl-shimmer { from { background-position: 150% 0; } to { background-position: -50% 0; } }
+  #vl-lightbox { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.82); display: none; align-items: center; justify-content: center;
+                 flex-direction: column; gap: 12px; z-index: 2000; padding: 20px; }
+  #vl-lightbox.vl-open { display: flex; }
+  #vl-lightbox img { max-width: 100%; max-height: calc(100vh - 90px); border-radius: 6px; image-rendering: pixelated; }
+  #vl-lightbox .vl-bar { display: flex; gap: 10px; }
+  #vl-lightbox a, #vl-lightbox button { color: #fff; background: rgba(255, 255, 255, 0.14); border: 0; border-radius: 7px; padding: 7px 14px;
+                                        font: inherit; cursor: pointer; text-decoration: none; }
+</style>
+
+<div id="vl-app">
+  <p class="vl-intro">
+    VibrantLeaves generates synthetic images on which image restoration networks (denoising, super-resolution, …) can be trained instead of natural images.
+    Random shapes occlude each other (the dead leaves model), filled with pseudo-periodic and 1/f textures, in three depth-of-field layers.
+    Choose the parameters, and drop a few photos to sample the colours from.
+    See the <a href="https://arxiv.org/abs/2504.10201">paper</a> and the <a href="https://github.com/rachddou/DeadLeavesPlus">code</a>, which also generates full datasets.
+    Images are generated in your browser; your photos are not uploaded.
+  </p>
+
+  <div class="vl-main">
+    <div class="vl-menu">
+      <div class="vl-card">
+        <div class="vl-card-title">Shapes</div>
+        <div class="vl-field">
+          <div class="vl-label">Shape type</div>
+          <div class="vl-picker vl-shapes" id="vl-shape-picker" role="radiogroup" aria-label="Shape type"></div>
+        </div>
+        <div class="vl-field">
+          <div class="vl-label">Radius <span class="vl-value" id="vl-radius-value"></span></div>
+          <div class="vl-mslider" id="vl-radius-slider"></div>
+          <div class="vl-ticks"><span>1 px</span><span>10</span><span>100</span><span>1000 px</span></div>
+        </div>
+        <div class="vl-field">
+          <div class="vl-label">Power-law exponent <span class="vl-value" id="vl-exponent-value"></span></div>
+          <input type="range" id="vl-exponent" min="1.5" max="5" step="0.1" aria-label="Power-law exponent">
+          <div class="vl-hint">Higher values give more small shapes.</div>
+        </div>
+      </div>
+
+      <div class="vl-card">
+        <div class="vl-card-title">Textures</div>
+        <label class="vl-toggle">Fill large shapes with textures <input type="checkbox" id="vl-texture-enabled"></label>
+        <div class="vl-hint" id="vl-texture-off-hint">Off: large shapes get colour gradients.</div>
+        <div id="vl-texture-controls">
+          <div class="vl-field">
+            <div class="vl-label">Texture types <span class="vl-value">click to add / remove</span></div>
+            <div class="vl-picker vl-textures" id="vl-texture-picker"></div>
+          </div>
+          <div class="vl-field">
+            <div class="vl-label">Share of each type</div>
+            <div class="vl-mslider" id="vl-share-slider"></div>
+            <div class="vl-legend" id="vl-share-legend"></div>
+          </div>
+          <div class="vl-field">
+            <div class="vl-label">1/f slope of the noise <span class="vl-value" id="vl-slope-value"></span></div>
+            <div class="vl-mslider" id="vl-slope-slider"></div>
+            <div class="vl-ticks"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span></div>
+          </div>
+          <label class="vl-toggle">Warp patterns <input type="checkbox" id="vl-apply-warp"></label>
+          <label class="vl-toggle">Perspective <input type="checkbox" id="vl-apply-perspective"></label>
+        </div>
+      </div>
+
+      <div class="vl-card">
+        <div class="vl-card-title">Colours <span class="vl-value" id="vl-colour-mode" style="text-transform: none; letter-spacing: 0; font-weight: 400">random</span></div>
+        <div class="vl-drop" id="vl-drop" tabindex="0" role="button" aria-label="Add colour source images">
+          <input type="file" id="vl-files" accept="image/*" multiple hidden>
+          <div id="vl-drop-text">Drop images here or <u>browse</u></div>
+          <div class="vl-hint">Colours are sampled from these images; without images, colours are random.</div>
+        </div>
+        <div class="vl-sources" id="vl-sources" hidden>
+          <div class="vl-thumbs" id="vl-thumbs"></div>
+          <span id="vl-sources-text"></span> · <button type="button" class="vl-link" id="vl-clear">use random colours</button>
+        </div>
+        <label class="vl-toggle">Greyscale <input type="checkbox" id="vl-grey"></label>
+      </div>
+
+      <div class="vl-card">
+        <div class="vl-card-title">Depth of field &amp; output</div>
+        <label class="vl-toggle">Depth of field (Gaussian blur) <input type="checkbox" id="vl-dof"></label>
+        <label class="vl-toggle">Extra Gaussian blur <input type="checkbox" id="vl-extra-blur"></label>
+        <label class="vl-toggle">Downscale ×2 <input type="checkbox" id="vl-downscale"></label>
+        <div class="vl-field">
+          <div class="vl-label">Image size <span class="vl-value" id="vl-output-size"></span></div>
+          <div class="vl-segmented" id="vl-image-size"></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="vl-results">
+      <div class="vl-actions">
+        <button type="button" class="vl-btn vl-primary" id="vl-generate">Generate</button>
+        <button type="button" class="vl-btn" id="vl-new" title="Same parameters, other random images">New images</button>
+      </div>
+      <div class="vl-results-head"><span id="vl-status"></span><span id="vl-error" role="alert"></span></div>
+      <div class="vl-grid" id="vl-grid"></div>
+      <div class="vl-hint">The images are fixed for given parameters, so you can compare them when you change a parameter. Click an image to enlarge and download it.</div>
+    </div>
+  </div>
+
+  <div id="vl-lightbox" role="dialog" aria-modal="true" aria-label="Image preview">
+    <img alt="">
+    <div class="vl-bar"><a id="vl-download" download>Download PNG</a><button type="button" id="vl-close">Close</button></div>
+  </div>
+</div>
+
+<script src="{{ '/assets/js/vibrant-leaves/delaunator.min.js' | relative_url }}"></script>
+<script src="{{ '/assets/js/vibrant-leaves/generator.js' | relative_url }}"></script>
+<script src="{{ '/assets/js/vibrant-leaves/app.js' | relative_url }}"></script>
