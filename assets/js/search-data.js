@@ -16,6 +16,13 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/publications/";
           },
+        },{id: "nav-vibrant-leaves",
+          title: "vibrant leaves",
+          description: "Synthetic images for training image restoration networks, generated in your browser.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/vibrant-leaves/";
+          },
         },{id: "nav-talks",
           title: "talks",
           description: "",
