@@ -25,10 +25,11 @@
     texture_mixes: "Two 1/f noises mixed by sinusoids (or a grid)",
   };
   const TEXTURE_COLORS = ["#d9822b", "#3b7dd8", "#8a5cc2"];
-  // settings of config/default.yaml in the Python code
+  // settings of config/default.yaml in the Python code, except textures: off at
+  // first, as they are the slowest part of the generation
   const DEFAULTS = {
     shape_type: "poly", radius_min: 10, radius_max: 500, power_law_exponent: 3,
-    texture_enabled: true, texture_shares: { sin: 0.16, freq_noise: 0.67, texture_mixes: 0.17 },
+    texture_enabled: false, texture_shares: { sin: 0.16, freq_noise: 0.67, texture_mixes: 0.17 },
     slope_min: 0.5, slope_max: 2.5, apply_warp: true, apply_perspective: true,
     grey: false, depth_of_field: true, extra_blur: false, downscale: true, image_size: 512,
   };
