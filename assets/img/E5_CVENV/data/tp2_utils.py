@@ -14,17 +14,18 @@ import numpy as np
 import torch
 from sklearn.metrics import ConfusionMatrixDisplay
 
-__version__ = "2026.4"
+__version__ = "2026.5"
 
-DATA_URL = None                                                     # course website, set by setup()
+_data_url = None          # course website, set by setup(); "_" so that `from tp2_utils import *` does not overwrite
+                          # the DATA_URL of the notebook
 
 
 # ---------- Setup and files ----------
 
 def setup(data_url):
     """Prepare the plots, fix the random seeds and return the device: 'cuda' (GPU) if there is one, else 'cpu'."""
-    global DATA_URL
-    DATA_URL = data_url
+    global _data_url
+    _data_url = data_url
     plt.rcParams["figure.dpi"] = 100
     plt.rcParams["image.interpolation"] = "nearest"
     torch.manual_seed(0)
@@ -45,7 +46,7 @@ def get_file(name):
     """Path of the file `name`: already here, or downloaded from the course website."""
     if os.path.exists(name):
         return name
-    source = DATA_URL + name
+    source = _data_url + name
     try:
         with urllib.request.urlopen(source, timeout=120) as response, open(name + ".part", "wb") as f:
             shutil.copyfileobj(response, f)
